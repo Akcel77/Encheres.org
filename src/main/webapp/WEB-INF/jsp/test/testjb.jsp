@@ -12,7 +12,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
-<body>
+<body class="container">
     <h1>Liste de tout les articles</h1>
 
     <table class="table table-primary">
@@ -31,7 +31,7 @@
         </thead>
 
         <tbody>
-<!-- -->
+
     <% List<Articles> articles = (List<Articles>) request.getAttribute("articles");
         for (Articles article : articles) { %>
         <tr>
@@ -48,6 +48,28 @@
         <% } %>
         </tbody>
     </table>
-<!-- -->
+
+    <h2>Insert</h2>
+    <form action="TestJb" method="post">
+        <label for="insert_name">Nom</label>
+        <input type="text" name="insert_name" id="insert_name">
+        <label for="insert_description">Description</label>
+        <input type="text" name="insert_description" id="insert_description">
+        <input type="submit" value="Inserer" id="insert_submit" name="insert_submit">
+    </form>
+
+    <h2>Select par id</h2>
+    <form action="TestJb" method="post">
+        <label for="select_id">ID</label>
+        <input type="number" name="select_id" id="select_id">
+        <input type="submit" value="Chercher" id="select_id_submit" name="select_id_submit">
+    </form>
+
+    <h2>Delete par id</h2>
+    <form action="TestJb" method="post">
+        <label for="delete_id">ID</label>
+        <input type="number" name="select_id" id="delete_id">
+        <input type="submit" value="Suprimmer" id="delete_id_submit" name="delete_id_submit">
+    </form>
 </body>
 </html>

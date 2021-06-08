@@ -14,17 +14,12 @@ import java.util.List;
 
 @WebServlet(name = "ServletTestJb", value = "/TestJb")
 public class ServletTestJb extends HttpServlet {
+    private ArticleManager articleManager = new ArticleManager();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // simule une bdd
-//        Articles a1 = new Articles("machin","un super truc !","08/06/2021","18/06/2021",100,"nonvendu",new Categorie());
-//        Articles a2 = new Articles("clavier","azerty et propres","18/06/2021","28/06/2021",75,"nonvendu",new Categorie());
-//        List<Articles> articlesList = new ArrayList<>();
-//        articlesList.add(a1);
-//        articlesList.add(a2);
 
-        //true bdd
-        ArticleManager articleManager = new ArticleManager();
+        // Recupere la liste de tout les articles
+        articleManager = new ArticleManager();
         List<Articles> articlesList = null;
         try {
             articlesList = articleManager.findAll();
@@ -42,6 +37,35 @@ public class ServletTestJb extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // insert
+        if (request.getParameter("insert_submit") != null){
+            System.out.println("On insere dans la bdd");
+            // créer un article
+            Articles article = new Articles(
+                    (String) request.getAttribute("insert_name"),
+                    (String) request.getAttribute("insert_description"),
+                    (String) request.getAttribute("insert_date_debut"),
+                    (String) request.getAttribute("insert_date_fin"),
+                    (Integer) request.getAttribute("insert_prix")
+            );
+            articleManager.insert(article);
+
+        //select id
+        }else if(request.getParameter("select_id_submit") != null){
+            System.out.println("on select par id");
+            try {
+                articleManager.find((int) request.getAttribute("select_id"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            // delete id
+        }else if(request.getParameter("delete_id_submit") != null){
+            System.out.println("on delete par id");
+            articleManager.delete((Integer) request.getAttribute("delete_id"));
+        }
+
         doGet(request, response);
     }
 }

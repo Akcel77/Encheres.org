@@ -31,12 +31,13 @@ public class ArticleManager{
         articleDAO.update(article);
     }
 
+
     /**
      * Suprimme un article
-     * @param articles
+     * @param id
      */
-    public void delete(Articles articles) {
-        articleDAO.delete(articles);
+    public void delete(int id) {
+        articleDAO.delete(id);
     }
 
     /**

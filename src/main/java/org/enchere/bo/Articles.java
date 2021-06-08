@@ -14,6 +14,7 @@ public class Articles {
     private int miseAprix;
     private String etatDeVente;
     private Categorie caterogie;
+    private Utili
     private List<Enchere> encheres;
 
     public Articles(int id, String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, String etatDeVente, Categorie caterogie, List<Enchere> encheres) {
@@ -37,6 +38,14 @@ public class Articles {
         this.miseAprix = miseAprix;
         this.etatDeVente = etatDeVente;
         this.caterogie = caterogie;
+    }
+
+    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix) {
+        this.nomArticles = nomArticles;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAprix = miseAprix;
     }
 
     // Méthodes
