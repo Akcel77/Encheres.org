@@ -1,5 +1,6 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bo.Articles;
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.UtilisateurDAO;
 import org.enchere.outils.BusinessException;
@@ -37,6 +38,9 @@ public class UtilisateurImpl implements UtilisateurDAO {
             "SET credit=? " +
             "WHERE no_utilisateur =?";
     // REQUETE SQL SELECT
+    private static final String ALL_ARTICLE = "SELECT * " +
+            "FROM articles_vendus " +
+            "WHERE no_utilisateur=?";
     private static final String ALL_USER = "SELECT * " +
             "FROM utilisateurs";
     private static final String SEARCH_PSEUDO = "SELECT * " +
@@ -240,6 +244,32 @@ public class UtilisateurImpl implements UtilisateurDAO {
 //            throw businessException;
         }
         return utilisateurList;
+    }
+
+    @Override
+    public List<Articles> getAllArticle(Utilisateur utilisateur) throws BusinessException {
+        List<Articles> articlesList = new ArrayList<>();
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(ALL_USER);
+            stmt.setInt(1, utilisateur.getNoUtilisateur());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                Articles articles = new Articles();
+                articles.setId(rs.getInt("no_article"));
+                articles.setNomArticles(rs.getString("description"));
+                articles.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
+                articles.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                articles.setMiseAprix(rs.getInt("prix_initial"));
+                articles.setEtatDeVente(rs.getInt("prix_vente"));
+                //TODO : JB > Article.bo > Attribut
+                    // Private Utilisateur utilisateur
+                    // Private Retrait lieuRetrait
+
+            }
+        }
+
     }
 
     /**

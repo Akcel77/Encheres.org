@@ -1,5 +1,6 @@
 package org.enchere.dal;
 
+import org.enchere.bo.Articles;
 import org.enchere.bo.Utilisateur;
 import org.enchere.outils.BusinessException;
 
@@ -13,4 +14,5 @@ public interface UtilisateurDAO {
     public Utilisateur getByPseudo(String pseudo) throws BusinessException;
     public Utilisateur getByMail(String email) throws BusinessException;
     public List<Utilisateur> getAllUser()throws BusinessException;
+    public List<Articles> getAllArticle(Utilisateur utilisateur) throws BusinessException;
 }

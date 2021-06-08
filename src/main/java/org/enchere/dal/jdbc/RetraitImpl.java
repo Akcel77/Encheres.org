@@ -1,6 +1,8 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bo.Articles;
 import org.enchere.bo.Retrait;
+import org.enchere.dal.ArticleDAO;
 import org.enchere.dal.RetraitDAO;
 import org.enchere.outils.BusinessException;
 
@@ -171,7 +173,7 @@ public class RetraitImpl implements RetraitDAO {
             stmt.setInt(1, id);
 
             Retrait retrait = getById(id);
-            //TODO : A FINIR QUAND article.DAO est ope
+            Liste<Articles> articlesListe = ArticleDAO.
 
             //LISTE <Article> for each loop
 
