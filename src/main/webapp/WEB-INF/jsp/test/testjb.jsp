@@ -49,5 +49,15 @@
         </tbody>
     </table>
 <!-- -->
+    <form action="TestJb" method="POST">
+        <label for="id">ID</label>
+        <input type="text" name="id" id ="id">
+        <input type="submit" value="Envoyer" name="sub_1">
+        <input type="submit" value="Envoyer2" name="sub_2">
+    </form>
+
+    <a href="<%= request.getContextPath()%>/TestJb?choice=delete">Delete</a>
+    <a href="<%= request.getContextPath()%>/TestJb?choice=select">Select</a>
+    <a href="<%= request.getContextPath()%>/TestJb?choice=update">Update</a>
 </body>
 </html>

@@ -16,14 +16,11 @@ import java.util.List;
 public class ServletTestJb extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // simule une bdd
-//        Articles a1 = new Articles("machin","un super truc !","08/06/2021","18/06/2021",100,"nonvendu",new Categorie());
-//        Articles a2 = new Articles("clavier","azerty et propres","18/06/2021","28/06/2021",75,"nonvendu",new Categorie());
-//        List<Articles> articlesList = new ArrayList<>();
-//        articlesList.add(a1);
-//        articlesList.add(a2);
 
-        //true bdd
+        //controleur
+        String choice = request.getParameter("choice");
+
+        // recupere tout les article dans la bases de données
         ArticleManager articleManager = new ArticleManager();
         List<Articles> articlesList = null;
         try {
@@ -42,6 +39,10 @@ public class ServletTestJb extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String test = request.getParameter("sub_1");
+        String test2 = request.getParameter("sub_2");
+        System.out.println(test);
+        System.out.println(test2);
         doGet(request, response);
     }
 }
