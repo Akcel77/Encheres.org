@@ -12,6 +12,7 @@
         <li><a href="<%= request.getContextPath()%>/Inscription">Inscription</a></li>
         <li><a href="<%= request.getContextPath()%>/TestJb">TestJb : articles</a></li>
         <!-- COUCOU -->
+        <!-- COUCOU2 -->
     </ul>
 </body>
 </html>
