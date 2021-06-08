@@ -10,10 +10,7 @@ public class Enchere {
     private int no_utilisateur;
 
     //Constructor
-
-
     public Enchere(int no_enchere, String date_enchere, int montant_enchere, int no_article, int no_utilisateur) {
-
         this.no_enchere = no_enchere;
         this.date_enchere = date_enchere;
         this.montant_enchere = montant_enchere;

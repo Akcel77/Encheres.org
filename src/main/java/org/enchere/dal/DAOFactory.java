@@ -17,7 +17,7 @@ public class DAOFactory {
         return new ArticleImpl();
     }
 
-    public static EnchereDAO createEnchereDAO () {
+    public static EnchereDAO getEnchereDAO () {
         return new EnchereImpl();
     }
 
