@@ -15,6 +15,7 @@ public class UtilisateurManager {
     //Attributs
     private static UtilisateurDAO utilisateurDAO = new UtilisateurImpl();
     private static Utilisateur utilisateur = new Utilisateur();
+    private static BusinessException businessException = new BusinessException();
 
 
     /**
@@ -43,17 +44,17 @@ public class UtilisateurManager {
      * @param utilisateur
      */
     private static void validInscription(Utilisateur utilisateur){
-        if( utilisateur.getPseudo().trim().equals("") ||
-            utilisateur.getNom().trim().equals("") ||
-            utilisateur.getPrenom().trim().equals("") ||
-            utilisateur.getEmail().trim().equals("") ||
-            utilisateur.getRue().trim().equals("") ||
-            utilisateur.getCodePostal().trim().equals("") ||
-            utilisateur.getVille().trim().equals("") ||
-            utilisateur.getMotDePasse().trim().equals("")
-        ){
-            //TODO : BusinessException
-            System.out.println("Erreur Validation Inscription");
+        if (utilisateur.getPseudo().trim().equals("") ||
+                utilisateur.getNom().trim().equals("") ||
+                utilisateur.getPrenom().trim().equals("") ||
+                utilisateur.getEmail().trim().equals("") ||
+                utilisateur.getRue().trim().equals("") ||
+                utilisateur.getCodePostal().trim().equals("") ||
+                utilisateur.getVille().trim().equals("") ||
+                utilisateur.getMotDePasse().trim().equals("")
+        ) {
+            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONEES);
+            System.out.println("Erreur Valider coordonees Inscription");
         }
     }
 
@@ -64,7 +65,11 @@ public class UtilisateurManager {
      */
     public static void updateUser(Utilisateur utilisateur) throws BusinessException{
         updateInfo(utilisateur);
-        //TODO : BusinessException if erreur
+        if(!businessException.hasErreurs()){
+            utilisateurDAO.update(utilisateur);
+        }else{
+            System.out.println("Erreur update User");
+        }
     }
 
     /**
@@ -81,8 +86,8 @@ public class UtilisateurManager {
                 utilisateur.getVille().trim().equals("") ||
                 utilisateur.getMotDePasse().trim().equals("")
         ){
-            //TODO : BusinessException
-            System.out.println("Erreur Changement Information");
+            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONEES);
+            System.out.println("Erreur Modifier coordonees");
         }
     }
 
@@ -123,6 +128,7 @@ public class UtilisateurManager {
      */
     public static void deleteUser(int id) throws BusinessException{
         utilisateurDAO.delete(id);
+        System.out.println("Utilisateur numero : "+ id + " Delete");
     }
 
 
