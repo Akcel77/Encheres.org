@@ -5,5 +5,5 @@ import org.enchere.outils.BusinessException;
 
 public interface EnchereDAO {
     public void create(Enchere enchere)throws BusinessException;
-
+//test
 }
