@@ -13,7 +13,7 @@ public class EnchereImpl implements EnchereDAO {
         private static final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?, \" +\n" +
                 "                \"no_article=?, no_utilisateur=? WHERE no_enchere=?";
 
-        // private static final String DELETE = Select
+        private static final String DELETE = "SELECT * FROM enchere WHERE no_enchere=?";
 
         /**
          * Insérer une nouvelle enchère
@@ -41,14 +41,36 @@ public class EnchereImpl implements EnchereDAO {
                         }
 
                 }
-/*
+        }
+
         @Override
         public void update (Enchere enchere) throws BusinessException{
-                int identifiant = enchere.getId();
+                try {
+                        Connection cnx = ConectionProvider.getConnection();
+                        PreparedStatement stmt = cnx.prepareStatement(UPDATE);
 
+                        stmt.setString(1, enchere.getDate_enchere());
+                        stmt.setInt(2, enchere.getMontant_enchere());
+                        stmt.setInt(3, enchere.getNo_article());
+                        stmt.setInt(4, enchere.getNo_utilisateur());
+                        stmt.executeUpdate();
+                } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                }
         }
-        */
 
+        @Override
+        public void delete (Enchere enchere) throws BusinessException{
+                try {
+                        Connection cnx = ConectionProvider.getConnection();
+                        PreparedStatement stmt = cnx.prepareStatement(DELETE);
 
+                        stmt.executeUpdate();
+                } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                }
         }
+
+
 }
+

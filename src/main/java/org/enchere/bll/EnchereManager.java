@@ -11,20 +11,22 @@ import java.util.ArrayList;
 public class EnchereManager {
 
     public void createEnchere(Enchere enchere) throws BusinessException {
-        EnchereDAO enchereDAO = DAOFactory.createEnchereDAO();
+        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
         enchereDAO.create(enchere);
     }
 
-/*
+
     public void updateEnchere(Enchere enchere) throws BusinessException{
-        //TODO
+        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+        enchereDAO.update(enchere);
     }
 
     public void deleteEnchere(Enchere enchere) throws BusinessException{
-        //TODO
+        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+        enchereDAO.delete(enchere);
     }
 
-
+/*
     public Enchere findEnchere (Enchere enchere) throws BusinessException{
         //TODO
     }
