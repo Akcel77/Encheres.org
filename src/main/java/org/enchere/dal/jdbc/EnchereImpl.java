@@ -25,7 +25,7 @@ public class EnchereImpl implements EnchereDAO {
 
         @Override
         public void create(Enchere enchere)throws BusinessException {
-                if (enchere == null) {
+                if (enchere != null) {
                         try {
                                 Connection cnx = ConectionProvider.getConnection();
                                 PreparedStatement stmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
