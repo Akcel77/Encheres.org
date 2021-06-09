@@ -15,5 +15,6 @@
 <body>
 <%@include file="fragment/navbar.jsp"%>
     <h1>TEST LOG</h1>
+<%@include file="fragment/footer.jsp"%>
 </body>
 </html>
