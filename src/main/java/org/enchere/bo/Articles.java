@@ -14,7 +14,11 @@ public class Articles {
     private int miseAprix;
     private String etatDeVente;
     private Categorie caterogie;
+    private Utilisateur utilisateur;
     private List<Enchere> encheres;
+
+    public Articles(){
+    }
 
     public Articles(int id, String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, String etatDeVente, Categorie caterogie, List<Enchere> encheres) {
         this.id = id;
@@ -37,6 +41,14 @@ public class Articles {
         this.miseAprix = miseAprix;
         this.etatDeVente = etatDeVente;
         this.caterogie = caterogie;
+    }
+
+    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix) {
+        this.nomArticles = nomArticles;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAprix = miseAprix;
     }
 
     // Méthodes
@@ -134,5 +146,13 @@ public class Articles {
 
     public void setEtatDeVente(String etatDeVente) {
         this.etatDeVente = etatDeVente;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }
