@@ -1,5 +1,6 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bo.Articles;
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.UtilisateurDAO;
 import org.enchere.outils.BusinessException;

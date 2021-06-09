@@ -77,4 +77,45 @@ public class ArticleImpl implements ArticleDAO {
         return article;
     }
 
+    /**
+     * Retourne tout les articles pour un utlisateur données
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public List<Articles> findAllByUser(int id) throws SQLException {
+        List<Articles> articlesList = new ArrayList<>();
+        Connection cnx = ConectionProvider.getConnection();
+        PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_USER);
+        stmt.setInt(1,id);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()){
+            articlesList.add(new Articles(
+                    rs.getInt("no_article"),
+                    rs.getString("nom_article"),
+                    rs.getString("description"),
+                    rs.getString("date_debut_encheres"),
+                    rs.getString("date_fin_encheres"),
+                    rs.getInt("prix_initial"),
+                    "en cours",
+                    new Categorie()
+            ));
+        }
+        return articlesList;
+    }
+
+    /**
+     * Supprime
+     * @param id
+     * @throws SQLException
+     */
+    @Override
+    public void deleteAllByID(int id) throws SQLException {
+        Connection cnx = ConectionProvider.getConnection();
+        PreparedStatement stmt = cnx.prepareStatement(DELETE_BY_USER);
+        stmt.setInt(1,id);
+        stmt.executeUpdate();
+    }
+
 }

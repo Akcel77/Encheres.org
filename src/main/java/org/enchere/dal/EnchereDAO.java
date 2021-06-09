@@ -1,6 +1,5 @@
 package org.enchere.dal;
 
-import org.enchere.bo.Articles;
 import org.enchere.bo.Enchere;
 import org.enchere.outils.BusinessException;
 

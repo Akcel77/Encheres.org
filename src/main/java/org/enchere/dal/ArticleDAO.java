@@ -1,4 +1,5 @@
 package org.enchere.dal;
+
 import org.enchere.bo.Articles;
 
 import java.sql.SQLException;

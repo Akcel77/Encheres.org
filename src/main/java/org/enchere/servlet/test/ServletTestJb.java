@@ -2,14 +2,12 @@ package org.enchere.servlet.test;
 
 import org.enchere.bll.ArticleManager;
 import org.enchere.bo.Articles;
-import org.enchere.bo.Categorie;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ServletTestJb", value = "/TestJb")
