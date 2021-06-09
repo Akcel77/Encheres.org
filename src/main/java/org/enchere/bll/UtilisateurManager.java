@@ -53,7 +53,7 @@ public class UtilisateurManager {
                 utilisateur.getVille().trim().equals("") ||
                 utilisateur.getMotDePasse().trim().equals("")
         ) {
-            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONEES);
+            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES);
             System.out.println("Erreur Valider coordonees Inscription");
         }
     }
@@ -86,7 +86,7 @@ public class UtilisateurManager {
                 utilisateur.getVille().trim().equals("") ||
                 utilisateur.getMotDePasse().trim().equals("")
         ){
-            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONEES);
+            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES_RETRAIT);
             System.out.println("Erreur Modifier coordonees");
         }
     }
