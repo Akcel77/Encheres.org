@@ -20,6 +20,16 @@ public class Articles {
     public Articles(){
     }
 
+    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, Categorie caterogie, Utilisateur utilisateur) {
+        this.nomArticles = nomArticles;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAprix = miseAprix;
+        this.caterogie = caterogie;
+        this.utilisateur = utilisateur;
+    }
+
     public Articles(int id, String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, String etatDeVente, Categorie caterogie, List<Enchere> encheres) {
         this.id = id;
         this.nomArticles = nomArticles;
@@ -155,4 +165,21 @@ public class Articles {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+
+    @Override
+    public String toString() {
+        return "Articles{" +
+                "id=" + id +
+                ", nomArticles='" + nomArticles + '\'' +
+                ", description='" + description + '\'' +
+                ", dateDebutEncheres='" + dateDebutEncheres + '\'' +
+                ", dateFinEncheres='" + dateFinEncheres + '\'' +
+                ", miseAprix=" + miseAprix +
+                ", etatDeVente='" + etatDeVente + '\'' +
+                ", caterogie=" + caterogie +
+                ", utilisateur=" + utilisateur +
+                ", encheres=" + encheres +
+                '}';
+    }
+
 }

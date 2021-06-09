@@ -19,7 +19,8 @@ public class ArticleManager{
      * Insere un articles
      * @param articles
      */
-    public void insert(Articles articles) throws SQLException{
+    public void insert(Articles articles) throws SQLException {
+
         articleDAO.insert(articles);
     }
 
@@ -30,6 +31,7 @@ public class ArticleManager{
     public void update(Articles article) throws SQLException {
         articleDAO.update(article);
     }
+
 
     /**
      * Suprimme un article
