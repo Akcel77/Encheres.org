@@ -20,6 +20,7 @@ public class ArticleManager{
      * @param articles
      */
     public void insert(Articles articles) throws SQLException {
+
         articleDAO.insert(articles);
     }
 
