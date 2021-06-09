@@ -13,6 +13,7 @@
         <li><a href="<%= request.getContextPath()%>/Connexion">Connexion</a></li>
         <li><a href="<%= request.getContextPath()%>/Inscription">Inscription</a></li>
         <li><a href="<%= request.getContextPath()%>/TestJb">TestJb : articles</a></li>
+        <li><a href="<%= request.getContextPath()%>/ServletTestFlo">TestFlo : encheres</a></li>
     </ul>
 </body>
 </html>
