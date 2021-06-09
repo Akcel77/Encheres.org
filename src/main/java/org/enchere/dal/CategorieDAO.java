@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface CategorieDAO {
 
-    Categorie getById(int noCategorie) throws BusinessException;
+    public Categorie selectById(int noCategorie) throws BusinessException;
 
-   List<Categorie> getAll() throws BusinessException;
+    public List<Categorie> selectAll() throws BusinessException;
 
-    void insert(Categorie categorie) throws BusinessException;
+    public void insert(Categorie c) throws BusinessException;
 
-    void update(Categorie categorie) throws BusinessException;
+    public void update(Categorie c) throws BusinessException;
 
-    void delete(int noCategorie) throws BusinessException;
+    public void delete(int id) throws BusinessException;
 
 
 }

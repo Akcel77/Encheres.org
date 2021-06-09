@@ -1,6 +1,7 @@
 package org.enchere.dal;
 
 import org.enchere.dal.jdbc.ArticleImpl;
+import org.enchere.dal.jdbc.CategorieImpl;
 import org.enchere.dal.jdbc.EnchereImpl;
 import org.enchere.dal.jdbc.UtilisateurImpl;
 
@@ -21,5 +22,8 @@ public class DAOFactory {
         return new EnchereImpl();
     }
 
-}
+    public static CategorieDAO getCategorieDAO() {
+        return new CategorieImpl(); }
+
+    }
 
