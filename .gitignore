@@ -4,4 +4,7 @@
 .settings/
 target/
 Enchere.iml
-.idea
+.idea/*
+
+
+

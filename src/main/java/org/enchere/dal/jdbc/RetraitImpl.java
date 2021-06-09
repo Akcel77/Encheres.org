@@ -171,8 +171,10 @@ public class RetraitImpl implements RetraitDAO {
             stmt.setInt(1, id);
 
             Retrait retrait = getById(id);
-            //TODO : A FINIR QUAND article.DAO est ope
-
+            //TODO : A FINIR QUAND article.DAO est ope et Article.bo aussi
+                // Attribut bo Articles
+            //              Utilisateur utilisateur
+                //          Retrait lieuRetrait
             //LISTE <Article> for each loop
 
         }catch (SQLException e) {

@@ -5,7 +5,9 @@ import org.enchere.dal.DAOFactory;
 import org.enchere.dal.EnchereDAO;
 import org.enchere.outils.BusinessException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class EnchereManager {
@@ -26,14 +28,14 @@ public class EnchereManager {
         enchereDAO.delete(enchere);
     }
 
-/*
-    public Enchere findEnchere (Enchere enchere) throws BusinessException{
-        //TODO
+    public Enchere findEnchere (int no_enchere) throws BusinessException, SQLException {
+        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+        return  enchereDAO.find(no_enchere);
     }
 
-
-    public ArrayList<Enchere> findAll() throws BusinessException{
-        //TODO
+    public List<Enchere> findAll() throws BusinessException, SQLException {
+        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+        return enchereDAO.findAll();
     }
- */
 }
+
