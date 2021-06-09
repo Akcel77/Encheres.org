@@ -2,6 +2,7 @@ package org.enchere.dal.jdbc;
 
 import org.enchere.bo.Articles;
 import org.enchere.bo.Utilisateur;
+import org.enchere.dal.CodeErreurDAL;
 import org.enchere.dal.UtilisateurDAO;
 import org.enchere.outils.BusinessException;
 
@@ -13,7 +14,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
 //test
 
     // REQUETE SQL INSERT
-    private static final String INSERT = "INSERT INTO utilisateur (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit, administrateur) " +
+    private static final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit, administrateur) " +
             "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
     // REQUETE SQL UPDATE
@@ -38,6 +39,9 @@ public class UtilisateurImpl implements UtilisateurDAO {
             "SET credit=? " +
             "WHERE no_utilisateur =?";
     // REQUETE SQL SELECT
+    private static final String ALL_PSEUDO = "SELECT pseudo " +
+            "FROM utilisateurs ";
+
     private static final String ALL_ARTICLE = "SELECT * " +
             "FROM articles_vendus " +
             "WHERE no_utilisateur=?";
@@ -92,17 +96,20 @@ public class UtilisateurImpl implements UtilisateurDAO {
             if (resultSet.next()){
                 utilisateur.setNoUtilisateur(resultSet.getInt(1));
             }
+            System.out.println("DAL " + utilisateur);
             stmt.close();
-            connection.commit();
+
 
         }catch (SQLException e){
             e.printStackTrace();
-//            BusinessException businessException = new BusinessException(e.getMessage(), e);
-//            //TODO : ERREUR LOG
-//
-//            throw businessException;
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodeErreurDAL.ERREUR_UTILISATEUR_INSERT);
+
+           throw businessException;
         }
+
         return utilisateur;
+
     }
 
     /**
@@ -246,6 +253,31 @@ public class UtilisateurImpl implements UtilisateurDAO {
         return utilisateurList;
     }
 
+    /**
+     * Recuperation de tout les pseudo (pour lors de la creation verification si un pseudo est deja present ou non)
+     * @return
+     * @throws BusinessException
+     */
+    @Override
+    public List<String> getAllPseudo() throws BusinessException {
+        List<String> listPseudo = new ArrayList<>();
+
+        try (Connection connection = ConectionProvider.getConnection()){
+            PreparedStatement stmt = connection.prepareStatement(ALL_PSEUDO);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                listPseudo.add(rs.getString("pseudo"));
+
+            }
+
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return listPseudo;
+    }
+
 
     public List<Articles> getAllArticle(Utilisateur utilisateur) throws BusinessException {
         List<Articles> articlesList = new ArrayList<>();
@@ -265,7 +297,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 articles.setMiseAprix(rs.getInt("prix_initial"));
                 articles.setEtatDeVente(rs.getString("prix_vente"));
                 // Private Utilisateur utilisateur
-                // Il a raison
+                //
                 // Private Retrait lieuRetrait
 
             }

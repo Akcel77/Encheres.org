@@ -33,9 +33,11 @@ public class UtilisateurManager {
      */
     public static Utilisateur signInUser(Utilisateur utilisateur)throws BusinessException{
         validInscription(utilisateur);
-
-        //TODO : BusinessException if erreur
-
+        if(!businessException.hasErreurs()){
+            utilisateurDAO.insert(utilisateur);
+        }else{
+            System.out.println("Erreur update User");
+        }
         return utilisateur;
     }
 
@@ -132,7 +134,14 @@ public class UtilisateurManager {
     }
 
 
-
+    /**
+     * Liste de tout les pseudos ( Utile pour verifier si un pseudo est deja utilise)
+     * @return
+     * @throws BusinessException
+     */
+    public static List<String> AllPseudoList()throws BusinessException{
+        return utilisateurDAO.getAllPseudo();
+    }
 
 
 }

@@ -12,8 +12,16 @@
 <jsp:include page="fragment/head.jsp">
     <jsp:param name="title" value="Encheres.org"/>
 </jsp:include>
-<body>
-<%@include file="fragment/navbar.jsp"%>
-    <h1>TEST NoLOG</h1>
-</body>
+    <body>
+    <%@include file="fragment/navbar.jsp"%>
+    <h1>Enchere.org</h1>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="<%= request.getContextPath()%>/Connexion">Connexion</a></li>
+        <li><a href="<%= request.getContextPath()%>/Inscription">Inscription</a></li>
+        <li><a href="<%= request.getContextPath()%>/TestJb">TestJb : articles</a></li>
+        <li><a href="<%= request.getContextPath()%>/ServletTestFlo">TestFlo : encheres</a></li>
+    </ul>
+    </body>
+    <%@include file="fragment/footer.jsp"%>
 </html>
