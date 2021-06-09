@@ -38,6 +38,9 @@ public class UtilisateurImpl implements UtilisateurDAO {
             "SET credit=? " +
             "WHERE no_utilisateur =?";
     // REQUETE SQL SELECT
+    private static final String ALL_ARTICLE = "SELECT * " +
+            "FROM articles_vendus " +
+            "WHERE no_utilisateur=?";
     private static final String ALL_USER = "SELECT * " +
             "FROM utilisateurs";
     private static final String SEARCH_PSEUDO = "SELECT * " +
@@ -241,6 +244,36 @@ public class UtilisateurImpl implements UtilisateurDAO {
 //            throw businessException;
         }
         return utilisateurList;
+    }
+
+
+    public List<Articles> getAllArticle(Utilisateur utilisateur) throws BusinessException {
+        List<Articles> articlesList = new ArrayList<>();
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(ALL_USER);
+            //TODO
+//            stmt.setInt(1, utilisateur.getNoUtilisateur());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                Articles articles = new Articles();
+                articles.setId(rs.getInt("no_article"));
+                articles.setNomArticles(rs.getString("description"));
+                articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
+                articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+                articles.setMiseAprix(rs.getInt("prix_initial"));
+                articles.setEtatDeVente(rs.getString("prix_vente"));
+                // Private Utilisateur utilisateur
+                // Il a raison
+                // Private Retrait lieuRetrait
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return articlesList;
+
     }
 
     /**
