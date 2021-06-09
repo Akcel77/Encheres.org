@@ -1,7 +1,10 @@
 
 
 /* CONNECTION */
-
+.login-form{
+    width: 60%;
+    margin: 5rem auto;
+}
 
 /* INSCRIPTION */
 .section-inscription-form{
