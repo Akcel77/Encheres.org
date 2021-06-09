@@ -15,20 +15,22 @@
 <body class="container">
     <h1>Liste de tout les articles</h1>
 
-    <table class="table table-primary">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Description</th>
-            <th scope="col">Date debut</th>
-            <th scope="col">Date fin</th>
-            <th scope="col">Prix initial</th>
-            <th scope="col">Prix actuel</th>
-            <th scope="col">Vendeur</th>
-            <th scope="col">Categorie</th>
-        </tr>
-        </thead>
+<table class="table table-primary">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date debut</th>
+        <th scope="col">Date fin</th>
+        <th scope="col">Prix initial</th>
+        <th scope="col">Prix actuel</th>
+        <th scope="col">Vendeur</th>
+        <th scope="col">Categorie</th>
+    </tr>
+    </thead>
+
+    <tbody>
 
         <tbody>
 

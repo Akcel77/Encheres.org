@@ -18,7 +18,6 @@ public class Articles {
     private List<Enchere> encheres;
 
     public Articles(){
-
     }
 
     public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, Categorie caterogie, Utilisateur utilisateur) {
@@ -182,4 +181,5 @@ public class Articles {
                 ", encheres=" + encheres +
                 '}';
     }
+
 }
