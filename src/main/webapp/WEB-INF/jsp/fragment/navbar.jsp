@@ -18,16 +18,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Enchere</a>
+                            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/ServletHome">Enchere</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Vendre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mon Profil</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/Profil">Mon Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Deconnexion</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/ServletDeconnexion">Deconnexion</a>
                         </li>
                     </ul>
                 </div>
@@ -45,12 +45,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Creer un compte</a>
+                            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/Inscription">Creer un compte</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Se connecter</a>
-                        </li>
-
+                            <a class="nav-link" href="<%=request.getContextPath()%>/Connexion">Se connecter</a>
                         </li>
                     </ul>
                 </div>
