@@ -15,7 +15,7 @@
 <body>
 <%@include file="fragment/navbar.jsp"%>
     <h1>Page de connexion</h1>
-    <section>
+    <section class="login-form">
         <form class="form-connection" action="<%=request.getContextPath()%>/Connexion" method="post" >
             <div class="mb-3">
                 <label for="id" class="form-label">Identifiant</label>
