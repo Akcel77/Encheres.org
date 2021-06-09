@@ -14,7 +14,7 @@ public class ArticleImpl implements ArticleDAO {
     private final String SELECT = "SELECT * FROM articles_vendus WHERE no_article = ?";
     private final String UPDATE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres =?, date_fin_encheres=?, prix_initial=?,prix_vente=?,no_utilisateur=?,no_categorie=? WHERE no_article=?";
     private final String DELETE = "DELETE FROM articles_vendus WHERE no_article =?";
-    private final String INSERT = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?,?) ";
+    private final String INSERT = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?) ";
     private final String SELECT_BY_USER = "SELECT * FROM articles_vendus WHERE no_utilisateur=?";
     private final String DELETE_BY_USER = "DELETE FROM articles_vendus WHERE no_utilisateur=?";
 
@@ -104,14 +104,23 @@ public class ArticleImpl implements ArticleDAO {
      */
     @Override
     public Articles find(int id) throws SQLException {
-        Articles article = null;
+        Articles article = new Articles();
         Connection cnx = ConectionProvider.getConnection();
 
         PreparedStatement stmt = cnx.prepareStatement(SELECT);
         stmt.setInt(1,id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-
+            //TODO finir la recup avec utilisateur/ enchere / categorie
+            article.setId(rs.getInt("no_article"));
+            article.setNomArticles(rs.getString("nom_article"));
+            article.setDescription(rs.getString("description"));
+            article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
+            article.setDateFinEncheres(rs.getString("date_fin_encheres"));
+            article.setMiseAprix(rs.getInt("prix_initial"));
+            // recuperer l'utilisateur
+            // recuperer la derneire enchere
+            // recuperer la categrie
         }
 
         return article;
