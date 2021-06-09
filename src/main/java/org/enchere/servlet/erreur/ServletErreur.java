@@ -1,12 +1,12 @@
-package org.enchere.servlet.profil;
+package org.enchere.servlet.erreur;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ServletMotDePasseOublie", value = "/ServletMotDePasseOublie")
-public class ServletMotDePasseOublie extends HttpServlet {
+@WebServlet(name = "ServletErreur", value = "/ServletErreur")
+public class ServletErreur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

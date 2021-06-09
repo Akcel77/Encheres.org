@@ -44,7 +44,7 @@ public class RetraitManager {
                 retrait.getCode_postal().trim().equals("")||
                 retrait.getVille().trim().equals("")
         ){
-            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONEES_RETRAIT);
+            businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES_RETRAIT);
             System.out.println("Erreur ajout adresse");
         }
     }
