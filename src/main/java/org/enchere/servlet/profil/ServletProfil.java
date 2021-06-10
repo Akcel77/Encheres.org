@@ -33,6 +33,9 @@ public class ServletProfil extends HttpServlet {
         }
         if (utilisateurEnCours != null && utilisateur != null){
             request.setAttribute("utilisateurEnCours", utilisateurEnCours);
+            if(utilisateurEnCours.getPseudo().equals(utilisateur.getPseudo())){
+                request.setAttribute("sameUSer", "sameUser");
+            }
             request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp").forward(request,response);
         }
 

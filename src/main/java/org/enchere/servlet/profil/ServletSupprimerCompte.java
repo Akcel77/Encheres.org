@@ -5,8 +5,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ServletProfilModification", value = "/ProfilModification")
-public class ServletProfilModification extends HttpServlet {
+@WebServlet(name = "ServletSupprimerCompte", value = "/SupprimerCompte")
+public class ServletSupprimerCompte extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
