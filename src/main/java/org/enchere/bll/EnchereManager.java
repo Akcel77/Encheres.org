@@ -23,9 +23,9 @@ public class EnchereManager {
         enchereDAO.update(enchere);
     }
 
-    public void deleteEnchere(Enchere enchere) throws BusinessException{
+    public void deleteEnchere(int no_enchere) throws BusinessException{
         EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
-        enchereDAO.delete(enchere);
+        enchereDAO.delete(no_enchere);
     }
 
     public Enchere findEnchere (int no_enchere) throws BusinessException, SQLException {
