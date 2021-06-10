@@ -187,6 +187,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
 
             if (rs.next()){
                 utilisateur = userBuilder(rs);
+
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -281,6 +282,12 @@ public class UtilisateurImpl implements UtilisateurDAO {
         return listPseudo;
     }
 
+    /**
+     * Cherche un id utilisateur
+     * @param id
+     * @return
+     * @throws BusinessException
+     */
     @Override
     public Utilisateur searchByID(int id) throws BusinessException {
         Utilisateur utilisateur = new Utilisateur();
@@ -289,27 +296,14 @@ public class UtilisateurImpl implements UtilisateurDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-                utilisateur.setNoUtilisateur( rs.getInt("no_utilisateur"));
-                utilisateur.setPseudo(rs.getString("pseudo"));
-                utilisateur.setNom(rs.getString("nom"));
-                utilisateur.setPrenom(rs.getString("prenom"));
-                utilisateur.setEmail(rs.getString("email"));
-                utilisateur.setTelephone(rs.getString("telephone"));
-                utilisateur.setRue(rs.getString("rue"));
-                utilisateur.setCodePostal(rs.getString("code_postal"));
-                utilisateur.setVille(rs.getString("ville"));
-                utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
-                utilisateur.setCredit(rs.getInt("credit"));
-                utilisateur.setAdminsistrateur(rs.getBoolean("administrateur"));
+                userBuilder(rs);
             }
         }catch (SQLException e){
             e.printStackTrace();
-//            BusinessException businessException = new BusinessException(e.getMessage(), e);
-//            //TODO : ERREUR LOG
-//
-//            throw businessException;
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodeErreurDAL.ERREUR_SEARCH_BY_ID);
+            throw businessException;
         }
-
         return utilisateur;
     }
 

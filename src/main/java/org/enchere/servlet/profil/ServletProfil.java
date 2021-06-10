@@ -15,33 +15,30 @@ public class ServletProfil extends HttpServlet {
     private static UtilisateurManager utilisateurManager = UtilisateurManager.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Recuperation de la session
-        // Check if isConnected
-        //
-
+        //Recuperation session
         HttpSession httpSession = request.getSession();
-        if (httpSession.getAttribute("isConnected") != null){
-            //TODO :no_utlisateur null a fixer
-            System.out.println(request.getParameter("no_utilisateur"));
-            if(!checkIfUserExist(request.getParameter("no_utilisateur"))){
-                //TODO : Erreur user inconnu page
-                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request, response);
-            }else{
-                try {
-                    System.out.println(utilisateurManager.searchById(Integer.parseInt("no_utilisateur")));
-                    request.setAttribute("User", utilisateurManager.searchById(Integer.parseInt(request.getParameter("no_utilisateur"))));
-                    if(request.getParameter("no_utilisateur").equals(httpSession.getAttribute("idUser"))){
-                        request.setAttribute("canModify", "yes");
-                    }
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/profil.jsp");
-                }catch (NumberFormatException | BusinessException e ){
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request, response);
-                    e.printStackTrace();
-                }
-            }
-        }else{
-            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request, response);
+        Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
+
+        request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
+
+        String pseudo = (String) request.getSession().getAttribute("pseudo");
+
+        Utilisateur utilisateurEnCours = null;
+
+        try {
+            utilisateurEnCours = UtilisateurManager.selectUserByPseudo(pseudo);
+            System.out.println(utilisateurEnCours + " utilisateurEnCours");
+            System.out.println(pseudo);
+            System.out.println(utilisateur + " utilisateur");
+        }catch (BusinessException e){
+            request.getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request,response);
+            e.printStackTrace();
         }
+        if (utilisateurEnCours != null && utilisateur != null){
+            request.setAttribute("utilisateurEnCours", utilisateurEnCours);
+            request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp").forward(request,response);
+        }
+
     }
 
     @Override
@@ -49,17 +46,5 @@ public class ServletProfil extends HttpServlet {
         doGet(request, response);
     }
 
-    private boolean checkIfUserExist(String id){
-        boolean flag = true;
-        try {
-            utilisateur = utilisateurManager.searchById(Integer.parseInt(id));
-            if(utilisateur.getPseudo() != null){
-                flag = false;
-            }
-        }catch (NumberFormatException | BusinessException e ){
-            e.printStackTrace();
-            flag = false;
-        }
-        return flag;
-    }
+
 }

@@ -52,6 +52,10 @@ public class Utilisateur<Article> {
         this.adminsistrateur = adminsistrateur;
     }
 
+    public Utilisateur(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
     //Getter And Setter
     public int getNoUtilisateur() {
         return noUtilisateur;
