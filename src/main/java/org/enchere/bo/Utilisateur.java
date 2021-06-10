@@ -15,7 +15,7 @@ public class Utilisateur<Article> {
     private String ville;
     private String motDePasse;
     private int credit;
-    private boolean adminsistrateur;
+    private boolean administrateur;
     private List<Enchere> enchereList;
     private List<Article> articleList;
     
@@ -37,7 +37,7 @@ public class Utilisateur<Article> {
     }
 
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean adminsistrateur) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
         super();
         this.pseudo = pseudo;
         this.nom = nom;
@@ -49,7 +49,7 @@ public class Utilisateur<Article> {
         this.ville = ville;
         this.motDePasse = motDePasse;
         this.credit = credit;
-        this.adminsistrateur = adminsistrateur;
+        this.administrateur = administrateur;
     }
 
     public Utilisateur(String pseudo) {
@@ -145,12 +145,12 @@ public class Utilisateur<Article> {
         this.credit = credit;
     }
 
-    public boolean isAdminsistrateur() {
-        return adminsistrateur;
+    public boolean isAdministrateur() {
+        return administrateur;
     }
 
-    public void setAdminsistrateur(boolean adminsistrateur) {
-        this.adminsistrateur = adminsistrateur;
+    public void setAdministrateur(boolean administrateur) {
+        this.administrateur = administrateur;
     }
 
     public List<Enchere> getEnchereList() {
@@ -183,7 +183,7 @@ public class Utilisateur<Article> {
                 ", ville='" + ville + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", credit=" + credit +
-                ", adminsistrateur=" + adminsistrateur +
+                ", adminsistrateur=" + administrateur +
                 ", enchereList=" + enchereList +
                 ", articleList=" + articleList +
                 '}';

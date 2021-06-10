@@ -28,7 +28,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
             "ville=?, " +
             "mot_de_passe=?, " +
             "credit=?, " +
-            "adminstrateur=? " +
+            "administrateur=? " +
             "WHERE no_utilisateur=?";
     //TODO : UPDATE PASSWORD
     private static final String UPDATE_PSW = "UPDATE utilisateurs " +
@@ -91,7 +91,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
             stmt.setString(8, utilisateur.getVille());
             stmt.setString(9, utilisateur.getMotDePasse());
             stmt.setInt(10, utilisateur.getCredit());
-            stmt.setBoolean(11, utilisateur.isAdminsistrateur());
+            stmt.setBoolean(11, utilisateur.isAdministrateur());
 
             stmt.executeUpdate();
             ResultSet resultSet = stmt.getGeneratedKeys();
@@ -134,7 +134,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
             stmt.setString(7, utilisateur.getVille());
             stmt.setString(8, utilisateur.getMotDePasse());
             stmt.setInt(9, utilisateur.getCredit());
-            stmt.setBoolean(10, utilisateur.isAdminsistrateur());
+            stmt.setBoolean(10, utilisateur.isAdministrateur());
             stmt.setInt(11, utilisateur.getNoUtilisateur());
 
             stmt.executeUpdate();
@@ -356,7 +356,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
         utilisateur.setVille(rs.getString("ville"));
         utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
         utilisateur.setCredit(rs.getInt("credit"));
-        utilisateur.setAdminsistrateur(rs.getBoolean("administrateur"));
+        utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
 
         return utilisateur;
     }
