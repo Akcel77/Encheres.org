@@ -21,7 +21,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Enchere</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Vendre</a>
+                            <a class="nav-link" href="<%=request.getContextPath() %>>/Vendre">Vendre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Mon Profil</a>
