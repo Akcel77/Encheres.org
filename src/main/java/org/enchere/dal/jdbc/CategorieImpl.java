@@ -12,8 +12,8 @@ public class CategorieImpl implements CategorieDAO {
 
     private final String INSERT_CATEGORIE = "INSERT INTO categories(libelle) VALUES(?)";
     private final String SELECT_ALL = "SELECT * FROM categories";
-    private final String SELECT_CATEGORIE = "SELECT * FROM categories WHERE id=?";
-    private final String UPDATE_LIBELLE = "UPDATE categories SET libelle=? WHERE id=?";
+    private final String SELECT_CATEGORIE = "SELECT * FROM categories WHERE no_categorie=?";
+    private final String UPDATE_LIBELLE = "UPDATE categories SET libelle=? WHERE no_categorie=?";
     private final String DELETE = "DELETE FROM categories WHERE no_categorie=?";
 
 
