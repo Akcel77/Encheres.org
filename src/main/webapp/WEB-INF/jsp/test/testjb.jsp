@@ -55,7 +55,7 @@
     <form action="TestJb" method="post">
         <div class="form-group">
         <label for="insert_name">Nom</label>
-        <input type="text" name="insert_name" id="insert_name" class="form-control"> 
+        <input type="text" name="insert_name" id="insert_name" class="form-control">
         </div>
 
             <div class="form-group">

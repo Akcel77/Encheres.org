@@ -6,46 +6,69 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="org.enchere.bo.Utilisateur"%>
+<%@ page import="org.enchere.bo.Utilisateur" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
     <html>
     <jsp:include page="fragment/head.jsp">
-        <jsp:param name="title" value="Profil - ${utilisateur.pseudo}"/>
+        <jsp:param name="title" value="Profil - ${utilisateurEnCours.pseudo}"/>
     </jsp:include>
     <body>
         <%@include file="fragment/navbar.jsp"%>
 
-        <h1>${utilisateur.pseudo} profil</h1>
+        <h1>Profil ${utilisateurEnCours.pseudo}</h1>
 
-        <div class="container d-flex justify-content-center pt-5 mt-5">
-            <div class="pr-5">
-                <p>Pseudo : </p>
-                <p>Nom : </p>
-                <p>Prénom : </p>
-                <p>Email : </p>
-                <p>Téléphone : </p>
-                <p>Rue : </p>
-                <p>Code Postal : </p>
-                <p>Ville : </p>
-            </div>
-            <div class="text-center pl-5">
-                <p>${utilisateur.pseudo }</p>
-                <p>${utilisateur.nom }</p>
-                <p>${utilisateur.prenom }</p>
-                <p>${utilisateur.email }</p>
-                <p>${utilisateur.telephone }</p>
-                <p>${utilisateur.rue }</p>
-                <p>${utilisateur.codePostal }</p>
-                <p>${utilisateur.ville }</p>
-            </div>
-        </div>
-        <div class="text-center mt-5">
 
-        <c:if test="${modifier==oui }">
-            <a class="btn btn-outline-secondary" href="#">Modifier</a>
-        </c:if>
+        <%if (session.getAttribute("isConnected") != null){
+            Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");
+            Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurEnCours");
+        %>
+
+        <section class="profil-section d-flex justify-content-center" >
+            <div class="mr-5">
+                <p>Pseudo :</p>
+                <p>Nom :</p>
+                <p>Prenom :</p>
+                <p>Email :</p>
+                <p>Telephone :</p>
+                <p>Rue :</p>
+                <p>Code Postal :</p>
+                <p>Ville :</p>
+            </div>
+            <div class="text-center ml-5" >
+                <p>${utilisateurEnCours.pseudo}</p>
+                <p>${utilisateurEnCours.nom}</p>
+                <p>${utilisateurEnCours.prenom}</p>
+                <p>${utilisateurEnCours.email}</p>
+                <p>${utilisateurEnCours.telephone}</p>
+                <p>${utilisateurEnCours.rue}</p>
+                <p>${utilisateurEnCours.codePostal}</p>
+                <p>${utilisateurEnCours.ville}</p>
+
+            </div>
+
+
+
+        </section>
+        <core:if test="${utilisateurEnCours.pseudo == isConnected.pseudo}" >
+            <div class="d-flex justify-content-center">
+                <div class="mr-5">
+                    <p>Credit :</p>
+                </div>
+                <div class="text-center ml-5">
+                    <p>${utilisateurEnCours.credit}</p>
+                </div>
+            </div>
+            <a href="<%= request.getContextPath()%>/ProfilModification">
+                <button type="button" class="btn btn-primary">Modifier Compte</button>
+            </a>
+            <a href="<%= request.getContextPath()%>/SupprimerCompte">
+                <button type="button" class="btn btn-danger">Supprimer Compte</button>
+            </a>
+        </core:if>
+        <%}%>
+
         <%@include file="fragment/footer.jsp"%>
         </body>
     </html>

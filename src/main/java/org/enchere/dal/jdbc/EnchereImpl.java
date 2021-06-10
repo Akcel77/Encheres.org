@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnchereImpl implements EnchereDAO {
-        private static final String INSERT = "INSERT INTO ENCHERES(date_enchere, montant_enchere, " +
-                "no_article, no_utilisateur) VALUES(?,?,?,?);";
-        private static final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=?, no_article=?, " +
-                "no_utilisateur=? WHERE no_enchere=?;";
-        private static final String DELETE = "SELECT * FROM enchere WHERE no_enchere=?;";
-        private static final String FIND_ALL= "SELECT * FROM enchere;";
-        private static final String FIND_BY_ID = "SELECT * FROM enchere WHERE no_enchere=?;";
-        private static final String FIND_BY_DATE = "SELECT * FROM enchere WHERE date_enchere=?";
+        private static final String INSERT = "INSERT INTO encheres(date_enchere, montant_enchere, " +
+                "no_article, no_utilisateur) VALUES(?,?,?,?)";
+        private static final String UPDATE = "UPDATE encheres SET date_enchere=?, montant_enchere=?, no_article=?, " +
+                "no_utilisateur=? WHERE no_enchere=?";
+        private static final String DELETE = "DELETE FROM encheres WHERE no_enchere=?";
+        private static final String FIND_ALL= "SELECT * FROM encheres";
+        private static final String FIND_BY_ID = "SELECT * FROM encheres WHERE no_enchere=?";
 
         /**
          * Insérer une nouvelle enchère
@@ -64,7 +63,7 @@ public class EnchereImpl implements EnchereDAO {
         }
 
         @Override
-        public void delete (Enchere enchere) throws BusinessException{
+        public void delete(int no_enchere) throws BusinessException {
                 try {
                         Connection cnx = ConectionProvider.getConnection();
                         PreparedStatement stmt = cnx.prepareStatement(DELETE);
@@ -74,6 +73,9 @@ public class EnchereImpl implements EnchereDAO {
                         throwables.printStackTrace();
                 }
         }
+
+
+
 
         @Override
         public List<Enchere> findAll() throws SQLException{
@@ -121,4 +123,5 @@ public class EnchereImpl implements EnchereDAO {
                 }
                 return enchere;
         }
+
 }

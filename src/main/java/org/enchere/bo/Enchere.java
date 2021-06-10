@@ -28,6 +28,10 @@ public class Enchere {
     public Enchere() {
     }
 
+    public Enchere(int no_enchere) {
+        this.no_enchere = no_enchere;
+    }
+
     public void setNo_enchere(int no_enchere) {
         this.no_enchere = no_enchere;
     }

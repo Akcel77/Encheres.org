@@ -66,8 +66,10 @@ public class ServletConnexion extends HttpServlet {
                 if(utilisateur != null && password.equals(utilisateur.getMotDePasse())){
                     //Cookies ok
                     request.getSession().setAttribute("isConnected", utilisateur);
+                    request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
+
                     //Renvoie sur la ServletHome avec "isConnected" ok
-                    System.out.println("Tout est ok Servlet connexion");
+
                     this.getServletContext().getRequestDispatcher("/ServletHome").forward(request, response);
                 }else{
                     //Si l'utilisateur n'est pas dans la BDD ou ni le mdp
