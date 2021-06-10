@@ -17,8 +17,6 @@
     <h1>Enchere.org</h1>
     <h2>Menu</h2>
     <ul>
-        <li><a href="<%= request.getContextPath()%>/Connexion">Connexion</a></li>
-        <li><a href="<%= request.getContextPath()%>/Inscription">Inscription</a></li>
         <li><a href="<%= request.getContextPath()%>/TestJb">TestJb : articles</a></li>
         <li><a href="<%= request.getContextPath()%>/ServletTestFlo">TestFlo : encheres</a></li>
     </ul>

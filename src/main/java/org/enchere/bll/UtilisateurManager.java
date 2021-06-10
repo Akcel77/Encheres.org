@@ -16,7 +16,7 @@ public class UtilisateurManager {
     private static UtilisateurDAO utilisateurDAO = new UtilisateurImpl();
     private static Utilisateur utilisateur = new Utilisateur();
     private static BusinessException businessException = new BusinessException();
-
+    private static UtilisateurManager instance = null;
 
     /**
      * Lien DAO
@@ -25,6 +25,11 @@ public class UtilisateurManager {
         UtilisateurManager.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
 
+    public static UtilisateurManager getInstance() {
+        if (instance == null)
+            instance = new UtilisateurManager();
+        return instance;
+    }
     /**
      * Permet a un utilisateur de s'enregistrer si les conditions de validInscription sont bonnes
      * @param utilisateur
@@ -99,7 +104,7 @@ public class UtilisateurManager {
      * @return
      * @throws BusinessException
      */
-    public static Utilisateur selectUserById(String pseudo) throws BusinessException{
+    public static Utilisateur selectUserByPseudo(String pseudo) throws BusinessException{
         return utilisateurDAO.getByPseudo(pseudo);
     }
 
@@ -141,6 +146,11 @@ public class UtilisateurManager {
      */
     public static List<String> AllPseudoList()throws BusinessException{
         return utilisateurDAO.getAllPseudo();
+    }
+
+    public Utilisateur searchById(int id) throws BusinessException{
+        System.out.println(id + "Manager");
+        return utilisateurDAO.searchByID(id);
     }
 
 

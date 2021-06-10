@@ -50,6 +50,9 @@ public class UtilisateurImpl implements UtilisateurDAO {
     private static final String SEARCH_PSEUDO = "SELECT * " +
             "FROM utilisateurs " +
             "WHERE pseudo=?";
+    private static final String SEARCH_ID = "SELECT * " +
+            "FROM utilisateurs " +
+            "WHERE no_utilisateur=?";
     private static final String SEARCH_MAIL = "SELECT * " +
             "FROM utilisateurs " +
             "WHERE email=?";
@@ -276,6 +279,38 @@ public class UtilisateurImpl implements UtilisateurDAO {
         }
 
         return listPseudo;
+    }
+
+    @Override
+    public Utilisateur searchByID(int id) throws BusinessException {
+        Utilisateur utilisateur = new Utilisateur();
+        try (Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(SEARCH_ID);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                utilisateur.setNoUtilisateur( rs.getInt("no_utilisateur"));
+                utilisateur.setPseudo(rs.getString("pseudo"));
+                utilisateur.setNom(rs.getString("nom"));
+                utilisateur.setPrenom(rs.getString("prenom"));
+                utilisateur.setEmail(rs.getString("email"));
+                utilisateur.setTelephone(rs.getString("telephone"));
+                utilisateur.setRue(rs.getString("rue"));
+                utilisateur.setCodePostal(rs.getString("code_postal"));
+                utilisateur.setVille(rs.getString("ville"));
+                utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
+                utilisateur.setCredit(rs.getInt("credit"));
+                utilisateur.setAdminsistrateur(rs.getBoolean("administrateur"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+//            BusinessException businessException = new BusinessException(e.getMessage(), e);
+//            //TODO : ERREUR LOG
+//
+//            throw businessException;
+        }
+
+        return utilisateur;
     }
 
 
