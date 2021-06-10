@@ -17,6 +17,7 @@ public class EnchereImpl implements EnchereDAO {
         private static final String DELETE = "SELECT * FROM enchere WHERE no_enchere=?;";
         private static final String FIND_ALL= "SELECT * FROM enchere;";
         private static final String FIND_BY_ID = "SELECT * FROM enchere WHERE no_enchere=?;";
+        private static final String FIND_BY_DATE = "SELECT * FROM enchere WHERE date_enchere=?";
 
         /**
          * Insérer une nouvelle enchère
@@ -120,5 +121,4 @@ public class EnchereImpl implements EnchereDAO {
                 }
                 return enchere;
         }
-
 }

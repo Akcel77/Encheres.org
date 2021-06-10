@@ -12,6 +12,7 @@
         <ul>
             <li><a href="<%= request.getContextPath()%>/TestJb">TestJb : articles</a></li>
             <li><a href="<%= request.getContextPath()%>/ServletTestFlo">TestFlo : encheres</a></li>
+            <li><a href="<%= request.getContextPath()%>/ServletTestLoane">TestLoane : recherche</a></li>
         </ul>
     </body>
 
