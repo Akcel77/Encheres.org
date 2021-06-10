@@ -3,32 +3,32 @@ package org.enchere.bll;
 import org.enchere.bo.Articles;
 import org.enchere.dal.ArticleDAO;
 import org.enchere.dal.DAOFactory;
+import org.enchere.dal.jdbc.ArticleImpl;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ArticleManager{
 
-    private ArticleDAO articleDAO;
+    private static ArticleDAO articleDAO;
 
     public ArticleManager() {
-        this.articleDAO = DAOFactory.getArticleDAO();
+        ArticleManager.articleDAO = DAOFactory.getArticleDAO();
     }
 
     /**
      * Insere un articles
-     * @param articles
+     * @param article
      */
-    public void insert(Articles articles) throws SQLException {
-
-        articleDAO.insert(articles);
+    public static void insert(Articles article) throws SQLException {
+        articleDAO.insert(article);
     }
 
     /**
      * Met à jour un article
      * @param article
      */
-    public void update(Articles article) throws SQLException {
+    public static void update(Articles article) throws SQLException {
         articleDAO.update(article);
     }
 
@@ -37,7 +37,7 @@ public class ArticleManager{
      * Suprimme un article
      * @param id
      */
-    public void delete(int id) throws SQLException {
+    public static void delete(int id) throws SQLException {
         articleDAO.delete(id);
     }
 
@@ -45,7 +45,7 @@ public class ArticleManager{
      * Retourne la liste de tout les articles
      * @return
      */
-    public List<Articles> findAll() throws SQLException {
+    public static List<Articles> findAll() throws SQLException {
         return articleDAO.findAll();
     }
 
@@ -54,7 +54,7 @@ public class ArticleManager{
      * @param id
      * @return
      */
-    public Articles find(int id) throws SQLException {
+    public static Articles find(int id) throws SQLException {
         return articleDAO.find(id);
     }
 
