@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="row-form-btn">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
 
                     <a href="<%= request.getContextPath()%>/ServletHome">
                         <button type="button" class="btn btn-danger">Annuler</button>
