@@ -37,5 +37,6 @@ public class EnchereManager {
         EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
         return enchereDAO.findAll();
     }
+
 }
 

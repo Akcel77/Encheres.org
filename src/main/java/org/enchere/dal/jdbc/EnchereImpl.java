@@ -63,16 +63,19 @@ public class EnchereImpl implements EnchereDAO {
         }
 
         @Override
-        public void delete (int no_enchere) throws BusinessException{
+        public void delete(int no_enchere) throws BusinessException {
                 try {
                         Connection cnx = ConectionProvider.getConnection();
                         PreparedStatement stmt = cnx.prepareStatement(DELETE);
-                        stmt.setInt(1, no_enchere);
+
                         stmt.executeUpdate();
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();
                 }
         }
+
+
+
 
         @Override
         public List<Enchere> findAll() throws SQLException{
@@ -102,7 +105,7 @@ public class EnchereImpl implements EnchereDAO {
         }
 
         public Enchere find(int no_enchere) throws SQLException{
-                Enchere enchere = new Enchere();
+                Enchere enchere = null;
                 try {
                         Connection cnx = ConectionProvider.getConnection();
                         PreparedStatement stmt = cnx.prepareStatement(FIND_BY_ID);
