@@ -14,12 +14,13 @@
     </jsp:include>
     <body>
     <%@include file="fragment/navbar.jsp"%>
+    <h1 class="text-center mt-5">Inscription</h1>
         <section class="section-inscription-form">
             <form class="inscription-form" action="<%=request.getContextPath()%>/Inscription" method="post" >
                 <div class="row-form">
                     <label class="form-label" for="pseudo"> Pseudo :</label>
                     <input class="form-control" name="pseudo" id="pseudo" required placeholder="Votre pseudo">
-                    <label class="form-label" for="nom">Nom</label>
+                    <label class="form-label" for="nom">Nom :</label>
                     <input class="form-control" name="nom" id="nom" required placeholder="Votre nom" >
                 </div>
                 <div class="row-form">
@@ -37,12 +38,16 @@
                 <div class="row-form">
                     <label class="form-label" for="ville"> Ville :</label>
                     <input class="form-control" name="ville" id="ville" required placeholder="Votre ville">
-                    <label class="form-label" for="codePostal">Code Postal</label>
+                    <label class="form-label" for="codePostal">Code Postal : </label>
                     <input class="form-control" name="codePostal" id="codePostal" required placeholder="Votre code Postal" >
                 </div>
                 <div class="row-form">
                     <label class="form-label" for="psw"> Mot de passe : </label>
                     <input class="form-control" type="password" name="psw" id="psw" required placeholder="Votre Mot de passe">
+
+                </div>
+                <div class="row-form">
+
                     <label class="form-label" for="pswConf">Confirmation : </label>
                     <input class="form-control" type="password" name="pswConf" id="pswConf" required placeholder="Votre Confirmation mot de passe" >
                 </div>
@@ -50,11 +55,11 @@
                 <div class="row-form-btn">
                     <button type="submit" class="btn btn-primary">Valider</button>
 
+                </div>
+                <div class="row-form-btn">
                     <a href="<%= request.getContextPath()%>/ServletHome">
                         <button type="button" class="btn btn-danger">Annuler</button>
                     </a>
-
-
                 </div>
 
             </form>
