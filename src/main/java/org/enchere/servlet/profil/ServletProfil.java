@@ -27,9 +27,6 @@ public class ServletProfil extends HttpServlet {
 
         try {
             utilisateurEnCours = UtilisateurManager.selectUserByPseudo(pseudo);
-            System.out.println(utilisateurEnCours + " utilisateurEnCours");
-            System.out.println(pseudo);
-            System.out.println(utilisateur + " utilisateur");
         }catch (BusinessException e){
             request.getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request,response);
             e.printStackTrace();
