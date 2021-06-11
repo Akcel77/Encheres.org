@@ -12,7 +12,7 @@ public class ArticleManager{
 
     private static ArticleDAO articleDAO;
 
-    public ArticleManager() {
+    static{
         ArticleManager.articleDAO = DAOFactory.getArticleDAO();
     }
 
