@@ -48,13 +48,14 @@
         <div class="row-form">
 
             <label class="form-label" for="newPassword">Nouveau Mot de passe : </label>
-            <input class="form-control" type="password" name="newPassword" id="newPassword"   placeholder="Votre Nouveau Mot de passe">
+            <input class="form-control" type="password" name="newPassword" id="newPassword"  onchange="check_pass_profil()"  placeholder="Votre Nouveau Mot de passe">
             <label class="form-label" for="newPassConf">Confirmation Nouveau Mot de passe: </label>
-            <input class="form-control" type="password" name="newPassConf" id="newPassConf"   placeholder="Votre Confirmation de nouveau mot de passe" >
+            <span class="span-conf" id='message' ></span>
+            <input class="form-control" type="password" name="newPassConf" id="newPassConf"  onchange="check_pass_profil()"  placeholder="Votre Confirmation de nouveau mot de passe" >
         </div>
 
         <div class="row-form-btn">
-            <button type="submit" class="btn btn-primary">Valider</button>
+            <button type="submit" id="submit"  class="btn btn-primary">Valider</button>
         </div>
         <div class="row-form-btn">
 
@@ -70,6 +71,6 @@
 </section>
 
 
-
+<%@include file="fragment/footer.jsp"%>
 </body>
 </html>

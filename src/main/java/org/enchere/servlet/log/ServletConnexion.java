@@ -67,6 +67,7 @@ public class ServletConnexion extends HttpServlet {
                     //Cookies ok
                     request.getSession().setAttribute("isConnected", utilisateur);
                     request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
+                    request.getSession().setMaxInactiveInterval(5 * 60);
 
                     //Renvoie sur la ServletHome avec "isConnected" ok
 
@@ -75,9 +76,7 @@ public class ServletConnexion extends HttpServlet {
                     //Si l'utilisateur n'est pas dans la BDD ou ni le mdp
                     request.setAttribute("erreur", "Erreur dans le pseudo ou dans le mdp");
                     System.out.println("erreur BDD");
-                    erreur = (String) httpSession.getAttribute("erreur");
-                    out.println(erreur);
-                    //Redirection
+
                     this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
                 }
             }catch (BusinessException e){
