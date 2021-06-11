@@ -35,16 +35,15 @@ public class ServletTestLoane extends HttpServlet {
         request.setAttribute("categories", categoriesList);
 
         // Recupere la liste de toutes les encheres/ventes en cours
-        /*ArticleManager articleManager = new ArticleManager();
-        List<Enchere> listeEncheresEnCours = null;
+        ArticleManager articleManager = new ArticleManager();
+        List<Articles> listeEncheresEnCours = null;
         try {
             listeEncheresEnCours = articleManager.findAll();
-        } catch (BusinessException e) {
-            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        request.setAttribute("listeEncheresEnCours", listeEncheresEnCours);*/
+
+        request.setAttribute("listeEncheresEnCours", listeEncheresEnCours);
 
         // Forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/test/testLoane.jsp");
