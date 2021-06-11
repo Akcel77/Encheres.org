@@ -20,7 +20,7 @@
 
     <% Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");%>
 
-<section class="section-inscription-form">
+<section class="section-inscription-form mx-auto">
     <form class="inscription-form" action="<%=request.getContextPath()%>/ProfilModification?<%isConnected.getPseudo();%>" method="post" >
          <div class="row-form">
              <label class="form-label" for="nom"> Nom : </label>

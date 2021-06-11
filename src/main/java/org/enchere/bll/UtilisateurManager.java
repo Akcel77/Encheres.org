@@ -13,7 +13,7 @@ public class UtilisateurManager {
 
 
     //Attributs
-    private static UtilisateurDAO utilisateurDAO = new UtilisateurImpl();
+    private static UtilisateurDAO utilisateurDAO ;
     private static Utilisateur utilisateur = new Utilisateur();
     private static BusinessException businessException = new BusinessException();
     private static UtilisateurManager instance = null;
@@ -21,7 +21,7 @@ public class UtilisateurManager {
     /**
      * Lien DAO
      */
-    public UtilisateurManager() {
+    static {
         UtilisateurManager.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
 

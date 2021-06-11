@@ -15,7 +15,7 @@
     <body>
     <%@include file="fragment/navbar.jsp"%>
     <h1 class="text-center mt-5">Inscription</h1>
-        <section class="section-inscription-form">
+        <section class="section-inscription-form mx-auto">
             <form class="inscription-form" action="<%=request.getContextPath()%>/Inscription" method="post" >
                 <div class="row-form">
                     <label class="form-label" for="pseudo"> Pseudo :</label>
