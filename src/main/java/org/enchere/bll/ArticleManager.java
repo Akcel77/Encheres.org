@@ -4,6 +4,7 @@ import org.enchere.bo.Articles;
 import org.enchere.dal.ArticleDAO;
 import org.enchere.dal.DAOFactory;
 import org.enchere.dal.jdbc.ArticleImpl;
+import org.enchere.outils.BusinessException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -54,7 +55,7 @@ public class ArticleManager{
      * @param id
      * @return
      */
-    public static Articles find(int id) throws SQLException {
+    public static Articles find(int id) throws SQLException, BusinessException {
         return articleDAO.find(id);
     }
 

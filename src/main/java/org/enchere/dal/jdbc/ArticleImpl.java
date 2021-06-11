@@ -1,8 +1,13 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bll.CategorieManager;
+import org.enchere.bll.EnchereManager;
+import org.enchere.bll.RetraitManager;
+import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Categorie;
 import org.enchere.dal.ArticleDAO;
+import org.enchere.outils.BusinessException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -111,7 +116,10 @@ public class ArticleImpl implements ArticleDAO {
      * @throws SQLException
      */
     @Override
-    public Articles find(int id) throws SQLException {
+    public Articles find(int id) throws SQLException, BusinessException {
+        int idUser = 0;
+        int idCategorie = 0;
+        int idArticle = 0;
         Articles article = new Articles();
         Connection cnx = ConectionProvider.getConnection();
 
@@ -119,17 +127,20 @@ public class ArticleImpl implements ArticleDAO {
         stmt.setInt(1,id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-            //TODO finir la recup avec utilisateur/ enchere / categorie
             article.setId(rs.getInt("no_article"));
             article.setNomArticles(rs.getString("nom_article"));
             article.setDescription(rs.getString("description"));
             article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
             article.setDateFinEncheres(rs.getString("date_fin_encheres"));
             article.setMiseAprix(rs.getInt("prix_initial"));
-            // recuperer l'utilisateur
-            // recuperer la derneire enchere
-            // recuperer la categrie
+            idUser = rs.getInt("no_utilisateur");
+            idCategorie = rs.getInt("no_categorie");
+            idArticle = rs.getInt("no_article");
         }
+        article.setUtilisateur(UtilisateurManager.selectUserByID(idUser));
+        article.setCaterogie(CategorieManager.selectById(idCategorie));
+        article.setEncheres(EnchereManager.findAllByArticleId(idArticle));
+        article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
 
         return article;
     }
@@ -163,7 +174,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     /**
-     * Supprime
+     * Supprime tout les articles d'un utilisateur
      * @param id
      * @throws SQLException
      */

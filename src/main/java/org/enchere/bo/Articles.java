@@ -178,6 +178,14 @@ public class Articles {
         this.utilisateur = utilisateur;
     }
 
+    public Retrait getRetrait() {
+        return retrait;
+    }
+
+    public void setRetrait(Retrait retrait) {
+        this.retrait = retrait;
+    }
+
     @Override
     public String toString() {
         return "Articles{" +
@@ -194,4 +202,11 @@ public class Articles {
                 '}';
     }
 
+    public Enchere getLastEncheres() {
+        if (encheres != null){
+            return encheres.get(encheres.size()-1);
+        }else{
+            return null;
+        }
+    }
 }

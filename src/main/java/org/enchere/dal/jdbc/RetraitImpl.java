@@ -19,6 +19,9 @@ public class RetraitImpl implements RetraitDAO {
     private static final String GET_BY_ID = "SELECT * " +
             "FROM retraits " +
             "WHERE no_retrait=?";
+    private static final String GET_BY_ARTICLE_ID = "SELECT * " +
+            "FROM retraits " +
+            "WHERE no_article=?";
     private static final String ALL_RETRAIT = "SELECT * " +
             "FROM retraits";
     //REQUETE SQL UPDATE
@@ -26,10 +29,9 @@ public class RetraitImpl implements RetraitDAO {
             "SET rue=?," +
             "code_postal=?," +
             "ville=? " +
-            "WHERE no_retrait=?";
+            "WHERE no_article=?";
     //REQUETE SQL DELETE
-    private static final String DELETE = "DELETE retraits " +
-            "WHERE no_retrait=?";
+    private static final String DELETE = "DELETE FROM retraits WHERE no_article=?";
 
 
     /**
@@ -183,5 +185,31 @@ public class RetraitImpl implements RetraitDAO {
             //TODO : BusinessException CODE ERROR
             throw businessException;
         }
+    }
+
+    @Override
+    public Retrait selectRetraitByArticleId(int idArticle) throws BusinessException {
+        Retrait retrait = null;
+
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(GET_BY_ARTICLE_ID);
+            stmt.setInt(1, idArticle);
+
+            ResultSet rs = stmt.executeQuery();
+            retrait = new Retrait();
+            if(rs.next()){
+                retrait.setRue(rs.getString("rue"));
+                retrait.setCode_postal(rs.getString("code_postal"));
+                retrait.setVille(rs.getString("ville"));
+            }
+            retrait.setNoArticle(idArticle);
+        }catch (SQLException e){
+            e.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            //TODO : BusinessException CODE ERROR
+
+            throw businessException;
+        }
+        return retrait;
     }
 }

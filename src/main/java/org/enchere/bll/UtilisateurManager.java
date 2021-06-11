@@ -148,6 +148,10 @@ public class UtilisateurManager {
         return utilisateurDAO.getAllPseudo();
     }
 
+    public static Utilisateur selectUserByID(int idUser) throws BusinessException {
+        return utilisateurDAO.selectUserByID(idUser);
+    }
+
     public Utilisateur searchById(int id) throws BusinessException{
         System.out.println(id + "Manager");
         return utilisateurDAO.searchByID(id);

@@ -67,6 +67,29 @@ public class UtilisateurImpl implements UtilisateurDAO {
     private static ConectionProvider connection = new ConectionProvider();
     private static Utilisateur utilisateur = new Utilisateur();
 
+    @Override
+    public Utilisateur selectUserByID(int id) throws BusinessException{
+        Utilisateur utilisateur = null;
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(SEARCH_ID);
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()){
+                utilisateur = userBuilder(rs);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+//            BusinessException businessException = new BusinessException(e.getMessage(), e);
+//            //TODO : ERREUR LOG
+//
+//            throw businessException;
+        }
+        return utilisateur;
+    }
+
     /**
      * Creation d'un nouvel utilisateur
      * @param utilisateur

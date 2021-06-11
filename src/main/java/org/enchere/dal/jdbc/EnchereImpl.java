@@ -17,6 +17,7 @@ public class EnchereImpl implements EnchereDAO {
         private static final String DELETE = "DELETE FROM encheres WHERE no_enchere=?";
         private static final String FIND_ALL= "SELECT * FROM encheres";
         private static final String FIND_BY_ID = "SELECT * FROM encheres WHERE no_enchere=?";
+        private static final String FIND_BY_USER_ID = "SELECT * FROM encheres WHERE no_article=?";
 
         /**
          * Insérer une nouvelle enchère
@@ -122,6 +123,33 @@ public class EnchereImpl implements EnchereDAO {
                         throwables.printStackTrace();
                 }
                 return enchere;
+        }
+
+        @Override
+        public List<Enchere> findAllByArticleId(int id) {
+                List<Enchere> listEnchere = new ArrayList<>();
+                try {
+                        Connection cnx = ConectionProvider.getConnection();
+                        PreparedStatement stmt = cnx.prepareStatement(FIND_BY_USER_ID);
+                        stmt.setInt(1,id);
+                        ResultSet rs = stmt.executeQuery();
+                        while (rs.next()){
+                                listEnchere.add(new Enchere(
+                                        rs.getInt("no_enchere"),
+                                        rs.getString("date_enchere"),
+                                        rs.getInt("montant_enchere"),
+                                        rs.getInt("no_article"),
+                                        rs.getInt("no_utilisateur")
+
+                                ));
+                        }
+
+
+                } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                }
+
+                return listEnchere;
         }
 
 }
