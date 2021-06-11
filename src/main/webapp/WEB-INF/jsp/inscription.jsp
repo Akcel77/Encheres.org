@@ -59,7 +59,7 @@
 
                 </div>
                 <div class="row-form-btn">
-                    <a href="<%= request.getContextPath()%>/ServletHome">
+                    <a href="<%= request.getContextPath()%>/Encheres">
                         <button type="button" class="btn btn-danger">Annuler</button>
                     </a>
                 </div>

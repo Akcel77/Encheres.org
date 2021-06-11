@@ -78,7 +78,7 @@
         </fieldset>
 
         <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/ServletHome';" class="btn btn-danger" value="Annuler">
+        <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">
     </form>
 </main>
 </body>
