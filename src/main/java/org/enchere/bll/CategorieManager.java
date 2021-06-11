@@ -68,5 +68,8 @@ public class CategorieManager {
         categorieDAO.delete(id);
     }
 
+    public static List<Categorie> searchByLibelle() throws BusinessException{
+        return categorieDAO.selectByLibelle();
+    }
 
 }

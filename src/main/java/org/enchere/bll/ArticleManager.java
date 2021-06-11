@@ -6,6 +6,7 @@ import org.enchere.dal.DAOFactory;
 import org.enchere.dal.jdbc.ArticleImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleManager{
@@ -42,7 +43,7 @@ public class ArticleManager{
     }
 
     /**
-     * Retourne la liste de tout les articles
+     * Retourne la liste de tous les articles
      * @return
      */
     public static List<Articles> findAll() throws SQLException {
@@ -58,4 +59,7 @@ public class ArticleManager{
         return articleDAO.find(id);
     }
 
+    public static List<Articles> search() throws SQLException{
+        return articleDAO.search();
+    }
 }

@@ -14,4 +14,6 @@ public interface ArticleDAO {
     Articles find(int id) throws SQLException;
     List<Articles> findAllByUser(int id) throws SQLException;
     void deleteAllByID(int id) throws SQLException;
+    List<Articles> search() throws SQLException;
+
 }

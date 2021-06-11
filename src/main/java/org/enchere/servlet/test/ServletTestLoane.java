@@ -53,6 +53,12 @@ public class ServletTestLoane extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        try{
+            request.setAttribute("categories", CategorieManager.selectById(Integer.parseInt(request.getParameter("categories"))));
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/test/testLoane.jsp").forward(request, response);
+        } catch (BusinessException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }
