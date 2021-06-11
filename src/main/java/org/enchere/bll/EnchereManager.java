@@ -12,29 +12,30 @@ import java.util.List;
 
 public class EnchereManager {
 
-    public void createEnchere(Enchere enchere) throws BusinessException {
-        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+    private static EnchereDAO enchereDAO;
+
+    static{
+        EnchereManager.enchereDAO = DAOFactory.getEnchereDAO();
+    }
+
+    public static void createEnchere(Enchere enchere) throws BusinessException {
         enchereDAO.create(enchere);
     }
 
 
-    public void updateEnchere(Enchere enchere) throws BusinessException{
-        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+    public static void updateEnchere(Enchere enchere) throws BusinessException{
         enchereDAO.update(enchere);
     }
 
-    public void deleteEnchere(int no_enchere) throws BusinessException{
-        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+    public static void deleteEnchere(int no_enchere) throws BusinessException{
         enchereDAO.delete(no_enchere);
     }
 
-    public Enchere findEnchere (int no_enchere) throws BusinessException, SQLException {
-        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+    public static Enchere findEnchere (int no_enchere) throws BusinessException, SQLException {
         return  enchereDAO.find(no_enchere);
     }
 
-    public List<Enchere> findAll() throws BusinessException, SQLException {
-        EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+    public static List<Enchere> findAll() throws BusinessException, SQLException {
         return enchereDAO.findAll();
     }
 
