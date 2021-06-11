@@ -11,7 +11,7 @@ import java.io.IOException;
  * Si il est connecte attribute("isConnected") renvoit sur enchereLog
  * Sinon renvoit sur enchereNoLog
  */
-@WebServlet(name = "ServletHome", value = "/ServletHome")
+@WebServlet(name = "ServletHome", value = "/Encheres")
 public class ServletHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
