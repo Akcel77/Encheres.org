@@ -70,7 +70,49 @@ public class ServletListeEncheres extends HttpServlet {
         }
 
     }
+    private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{
+        ArrayList<Articles> articles  = null;
+        String cond;
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        String dateformatee = "" + simpleDateFormat.format(date);
 
+
+        switch (checkbox) {
+            case "enchereOuverte":
+                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "mesEncheres":
+                cond = "AND a.date_debut_encheres<" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "enchereRemportee":
+                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "vente":
+                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "nonDebute":
+                cond = "AND a.date_debut_encheres>" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "terminees":
+                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+
+        }return articles;
+
+
+    }
 
 }
+
+
+
+
 
