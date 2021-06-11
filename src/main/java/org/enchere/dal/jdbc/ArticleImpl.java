@@ -19,14 +19,14 @@ public class ArticleImpl implements ArticleDAO {
     private final String DELETE_BY_USER = "DELETE FROM articles_vendus WHERE no_utilisateur=?";
 
     /**
-     * Insere un article
+     *
      * @param article
      * @throws SQLException
      */
     @Override
-    public void insert(Articles article) throws SQLException {
+    public int insert(Articles article) throws SQLException {
         Connection cnx = ConectionProvider.getConnection();
-        PreparedStatement stmt = cnx.prepareStatement(INSERT);
+        PreparedStatement stmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
         stmt.setString(1,article.getNomArticles());
         stmt.setString(2,article.getDescription());
         stmt.setString(3,article.getDateDebutEncheres());
@@ -36,6 +36,14 @@ public class ArticleImpl implements ArticleDAO {
         stmt.setInt(7,article.getCaterogie().getNoCategorie());
 
         stmt.executeUpdate();
+
+        // retourne le numéro géréré par l'auto-incrémentation
+        int noArticle = 0;
+        ResultSet rs = stmt.getGeneratedKeys();
+        if (rs.next()){
+             noArticle =  rs.getInt(1);
+        }
+        return noArticle;
     }
 
     /**

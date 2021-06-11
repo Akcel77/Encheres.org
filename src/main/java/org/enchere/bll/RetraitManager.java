@@ -1,17 +1,18 @@
 package org.enchere.bll;
 
 import org.enchere.bo.Retrait;
+import org.enchere.dal.DAOFactory;
 import org.enchere.dal.RetraitDAO;
 import org.enchere.dal.jdbc.RetraitImpl;
 import org.enchere.outils.BusinessException;
 
 public class RetraitManager {
 
-    private static RetraitDAO retraitDAO = new RetraitImpl();
+    private static RetraitDAO retraitDAO;
     private static BusinessException businessException = new BusinessException();
 
-    public RetraitManager(){
-
+    static{
+        RetraitManager.retraitDAO = DAOFactory.getRetraitDAO();
     }
 
     public static Retrait addLieu(Retrait retrait) throws BusinessException{
@@ -47,5 +48,9 @@ public class RetraitManager {
             businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES_RETRAIT);
             System.out.println("Erreur ajout adresse");
         }
+    }
+
+    public static void insert(Retrait retrait) throws BusinessException {
+        retraitDAO.insert(retrait);
     }
 }

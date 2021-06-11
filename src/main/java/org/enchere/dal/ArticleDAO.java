@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ArticleDAO {
 
-    void insert(Articles articles) throws SQLException;
+    int insert(Articles articles) throws SQLException;
     void update(Articles article) throws SQLException;
     void delete(int id) throws SQLException;
     List<Articles> findAll() throws SQLException;

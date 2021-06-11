@@ -1,11 +1,9 @@
 package org.enchere.servlet.enchere;
 
-import org.enchere.bll.ArticleManager;
-import org.enchere.bll.CategorieManager;
-import org.enchere.bll.GlobalManager;
-import org.enchere.bll.UtilisateurManager;
+import org.enchere.bll.*;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Categorie;
+import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
 import org.enchere.outils.BusinessException;
 
@@ -71,8 +69,9 @@ public class ServletNouvelleVente extends HttpServlet {
                     CategorieManager.selectById(Integer.parseInt(request.getParameter("categorie"))),
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
             );
-            ArticleManager.insert(article);
-
+            int noArticle = ArticleManager.insert(article);
+            Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),noArticle);
+            RetraitManager.insert(retrait);
         } catch (BusinessException | SQLException e) {
             e.printStackTrace();
         }
