@@ -10,6 +10,13 @@
     justify-content: space-between;
     align-items: baseline;
 }
+.forgot_pass{
+    font-size: 0.7rem;
+}
+.groot{
+    display: block;
+    margin: 0 auto;
+}
 
 /* INSCRIPTION */
 .row-form-btn{
@@ -24,6 +31,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 5rem;
+}
+.span-conf{
+    float: right;
 }
 
 /* PROFIL */
