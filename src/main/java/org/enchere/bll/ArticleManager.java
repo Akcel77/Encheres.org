@@ -4,6 +4,7 @@ import org.enchere.bo.Articles;
 import org.enchere.dal.ArticleDAO;
 import org.enchere.dal.DAOFactory;
 import org.enchere.dal.jdbc.ArticleImpl;
+import org.enchere.outils.BusinessException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -61,5 +62,15 @@ public class ArticleManager{
 
     public static List<Articles> search() throws SQLException{
         return articleDAO.search();
+    }
+
+    public static ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
+        return articleDAO.findByCategorie(noCat);
+    }
+    public static ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException{
+        return articleDAO.findByNomArticle(nomArticle);
+    }
+    public static ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
+        return articleDAO.findWithCond(nom, noCategorie, condition);
     }
 }

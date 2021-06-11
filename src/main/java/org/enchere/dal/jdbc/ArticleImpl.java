@@ -5,6 +5,7 @@ import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.ArticleDAO;
+import org.enchere.outils.BusinessException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,15 +20,18 @@ public class ArticleImpl implements ArticleDAO {
     private final String INSERT = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?) ";
     private final String SELECT_BY_USER = "SELECT * FROM articles_vendus WHERE no_utilisateur=?";
     private final String DELETE_BY_USER = "DELETE FROM articles_vendus WHERE no_utilisateur=?";
+
     private final String SELECT_BY_CATEGORIE = "SELECT * FROM articles_vendus WHERE no_categorie=?";
+    private final String SELECT_BY_NOM = "SELECT * FROM articles_vendus WHERE nom_article LIKE ? ";
+
+
     private final String SEARCH = "SELECT u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, " +
             "cat.no_categorie, cat.libelle, " +
             "a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente," +
             "FROM articles a " +
             "JOIN categories cat ON a.no_article = cat.no_categorie " +
             "JOIN utilisateurs u ON a.no_utilisateur = u.no_utilisateur " +
-            "WHERE a.nom_article LIKE %?%";
-
+            "WHERE a.nom_article LIKE ? ";
 
     /**
      *
@@ -139,11 +143,85 @@ public class ArticleImpl implements ArticleDAO {
             article.setMiseAprix(rs.getInt("prix_initial"));
             // recuperer l'utilisateur
             // recuperer la derneire enchere
-            // recuperer la categrie
+            // recuperer la categries
         }
 
         return article;
     }
+
+    @Override
+    public ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
+        ArrayList<Articles> articlesArrayList = new ArrayList<>();
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(SELECT_BY_CATEGORIE);
+            stmt.setInt(1, noCat);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                Articles articles = new Articles();
+                articles.setId(rs.getInt("no_article"));
+                articles.setNomArticles(rs.getString("nom_article"));
+                articles.setDescription(rs.getString("description"));
+                articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
+                articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+                articles.setMiseAprix(rs.getInt("prix_initial"));
+                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
+                articlesArrayList.add(articles);
+            }
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return articlesArrayList;
+    }
+
+    @Override
+    public ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException{
+        ArrayList<Articles> articlesArrayList = new ArrayList<>();
+        try(Connection connection = ConectionProvider.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(SELECT_BY_NOM);
+            stmt.setString(1, "%"+nomArticle+"%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                Articles articles = new Articles();
+                articles.setId(rs.getInt("no_article"));
+                articles.setNomArticles(rs.getString("nom_article"));
+                articles.setDescription(rs.getString("description"));
+                articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
+                articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+                articles.setMiseAprix(rs.getInt("prix_initial"));
+                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
+                articlesArrayList.add(articles);
+            }
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return articlesArrayList;
+    }
+
+    @Override
+    public ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
+        ArrayList<Articles> articles = new ArrayList<>();
+        String sqlRequete = "";
+
+        try (Connection connection = ConectionProvider.getConnection()){
+            if (noCategorie!= -1){
+                sqlRequete = SEARCH + "AND c.no_categorie=" + noCategorie + " " + condition;
+            }else {
+                sqlRequete = SEARCH + condition;
+            }
+            PreparedStatement stmt = connection.prepareStatement(sqlRequete);
+            stmt.setString(1, "%" + nom + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                articles.add(createArticleEnchere(rs));
+            }
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }return articles;
+    }
+
 
     /**
      * Retourne tous les articles pour un utilisateur donné
