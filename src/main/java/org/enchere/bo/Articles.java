@@ -15,9 +15,21 @@ public class Articles {
     private String etatDeVente;
     private Categorie caterogie;
     private Utilisateur utilisateur;
+    private Retrait retrait;
     private List<Enchere> encheres;
 
     public Articles(){
+    }
+
+    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, Categorie caterogie, Utilisateur utilisateur, Retrait retrait) {
+        this.nomArticles = nomArticles;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAprix = miseAprix;
+        this.caterogie = caterogie;
+        this.utilisateur = utilisateur;
+        this.retrait = retrait;
     }
 
     public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, Categorie caterogie, Utilisateur utilisateur) {

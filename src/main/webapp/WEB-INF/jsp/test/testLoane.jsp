@@ -13,7 +13,7 @@
 
 <body>
 <h1>Liste des enchères</h1>
-    <form action="<%=request.getContextPath()%>/ServletTestLoane">
+    <form method="post" action="<%=request.getContextPath()%>/ServletTestLoane">
         <div class="saisie">
             <input type="search" id="recherche-article" name="recherche"
                    placeholder="Rechercher sur ENI Encheres"
@@ -27,23 +27,21 @@
                 </c:forEach>
             </select>
         </div>
-        <input type="button" value="OK">
+        <input type="submit" value="OK">
     </form>
 
 <!-- Liste de toutes les encheres en cours-->
-<c:if test="">
 
-
-
-</c:if>
 <article>
     <c:forEach var="a" items="${listeEncheresEnCours}">
-        <a href=""><img src="" alt="Photo de l'article en vente"></a> <!--a href ou fenetre pop up-->
+        <a href=""><img src="" alt="Photo de l'article en vente"></a>
         <p>${a.getNomArticles()}</p>
         <p>Fin de l'enchère : ${a.getDateFinEncheres()}</p>
-        <p>Vendeur : <a href="">${a.getUtilisateur()}</a></p> <!--a href ou fenetre pop up-->
+        <p>Vendeur : ${a.getUtilisateur()}</p>
     </c:forEach>
 </article>
+
+
 
 </body>
 </html>

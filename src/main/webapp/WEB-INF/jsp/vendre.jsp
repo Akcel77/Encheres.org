@@ -20,17 +20,17 @@
     <form action="NouvelleVente" method="post">
         <div class="form-group row">
             <label for="nom" class="col-sm-2 col-form-label">Nom de l'articles</label>
-            <input class="col-sm-10" type="text" name="nom" id="nom" class="form-control">
+            <input class="col-sm-10" type="text" name="nom" id="nom" class="form-control" required>
         </div>
 
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
-            <input class="col-sm-10" type="text" name="description" id="description" class="form-control">
+            <input class="col-sm-10" type="text" name="description" id="description" class="form-control" required>
         </div>
 
         <div class="form-group row">
             <label for="categorie" class="col-sm-2 col-form-label">Catégorie</label>
-            <select class="col-sm-10" name="categorie" id="categorie" class="form-control">
+            <select class="col-sm-10" name="categorie" id="categorie" class="form-control" required>
                 <% List<Categorie> categorieList = (List<Categorie>) request.getAttribute("categorieList");
                     for (Categorie ct: categorieList) { %>
                 <option value="<%= ct.getNoCategorie() %>"><%= ct.getLibelle() %></option>
@@ -47,17 +47,17 @@
 
         <div class="form-group row">
             <label for="prix" class="col-sm-2 col-form-label">Prix</label>
-            <input class="col-sm-10" type="number" name="prix" id="prix" class="form-control">
+            <input class="col-sm-10" type="number" name="prix" id="prix" class="form-control" required>
         </div>
 
         <div class="form-group row">
             <label for="date_debut" class="col-sm-2 col-form-label">Date debut</label>
-            <input class="col-sm-10" type="date" name="date_debut" id="date_debut" class="form-control">
+            <input class="col-sm-10" type="date" name="date_debut" id="date_debut" class="form-control" required>
         </div>
 
         <div class="form-group row">
             <label for="date_fin" class="col-sm-2 col-form-label">Date Fin</label>
-            <input class="col-sm-10" type="date" name="date_fin" id="date_fin" class="form-control">
+            <input class="col-sm-10" type="date" name="date_fin" id="date_fin" class="form-control" required>
         </div>
 
         <fieldset>
@@ -65,15 +65,15 @@
             <% Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur"); %>
             <div class="form-group row">
                 <label for="rue" class="col-sm-2 col-form-label">Rue</label>
-                <input class="col-sm-10" type="text" name="rue" id="rue" class="form-control" value="<%= utilisateur.getRue() %>">
+                <input class="col-sm-10" type="text" name="rue" id="rue" class="form-control" value="<%= utilisateur.getRue() %>" required>
             </div>
             <div class="form-group row">
                 <label for="codePostal" class="col-sm-2 col-form-label">Code Postal</label>
-                <input class="col-sm-10" type="text" name="codePostal" id="codePostal" class="form-control" value="<%= utilisateur.getCodePostal() %>">
+                <input class="col-sm-10" type="text" name="codePostal" id="codePostal" class="form-control" value="<%= utilisateur.getCodePostal() %>" required>
             </div>
             <div class="form-group row">
                 <label for="ville" class="col-sm-2 col-form-label">Ville</label>
-                <input class="col-sm-10" type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>">
+                <input class="col-sm-10" type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>" required>
             </div>
         </fieldset>
 

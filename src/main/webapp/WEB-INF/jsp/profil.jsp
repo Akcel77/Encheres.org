@@ -17,7 +17,7 @@
     <body>
         <%@include file="fragment/navbar.jsp"%>
 
-        <h1>Profil ${utilisateurEnCours.pseudo}</h1>
+        <h1 class="text-center my-5">Profil ${utilisateurEnCours.pseudo}</h1>
 
 
         <%if (session.getAttribute("isConnected") != null){
@@ -25,8 +25,8 @@
             Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurEnCours");
         %>
 
-        <section class="profil-section d-flex justify-content-center" >
-            <div class="mr-5">
+        <section class="profil-section" >
+            <div class="mr-5 profil-info">
                 <p>Pseudo :</p>
                 <p>Nom :</p>
                 <p>Prenom :</p>
@@ -36,7 +36,7 @@
                 <p>Code Postal :</p>
                 <p>Ville :</p>
             </div>
-            <div class="text-center ml-5" >
+            <div class="ml-5 profil-info-user" >
                 <p>${utilisateurEnCours.pseudo}</p>
                 <p>${utilisateurEnCours.nom}</p>
                 <p>${utilisateurEnCours.prenom}</p>
@@ -52,21 +52,22 @@
 
         </section>
         <core:if test="${utilisateurEnCours.pseudo == isConnected.pseudo}" >
-            <div class="d-flex justify-content-center">
-                <div class="mr-5">
+            <div class="credit-info">
+                <div class="mr-5 ">
                     <p>Credit :</p>
                 </div>
-                <div class="text-center ml-5">
+                <div class="ml-5 credit-user">
                     <p>${utilisateurEnCours.credit}</p>
                 </div>
             </div>
-            <a href="<%= request.getContextPath()%>/ProfilModification">
+            <a class="btn-modif" href="<%= request.getContextPath()%>/ProfilModification">
                 <button type="button" class="btn btn-primary">Modifier Compte</button>
             </a>
-            <a href="<%= request.getContextPath()%>/SupprimerCompte">
-                <button type="button" class="btn btn-danger">Supprimer Compte</button>
-            </a>
+
+
+
         </core:if>
+
         <%}%>
 
         <%@include file="fragment/footer.jsp"%>

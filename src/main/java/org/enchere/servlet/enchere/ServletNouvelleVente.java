@@ -29,10 +29,11 @@ public class ServletNouvelleVente extends HttpServlet {
             e.printStackTrace();
         }
 
-        // On recupere l'utilisateur
-        Utilisateur utilisateur = null;
+        // On recupere l'utilisateur depuis session
+        HttpSession httpSession = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         try {
-            utilisateur = UtilisateurManager.selectUserByPseudo("Akcel");
+            utilisateur = UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo());
         } catch (BusinessException e) {
             e.printStackTrace();
         }
@@ -49,15 +50,17 @@ public class ServletNouvelleVente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // On recupere l'utilisateur
-        Utilisateur utilisateur = null;
+        // On recupere l'utilisateur depuis session
+        HttpSession httpSession = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         try {
-            utilisateur = UtilisateurManager.selectUserByPseudo("Akcel");
+            utilisateur = UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo());
         } catch (BusinessException e) {
             e.printStackTrace();
         }
 
-        //Recupere les champs de formulaire et insert
+        //Recupere les champs de formulaire et insert en bdd
+        // TODO controle sur les input
         try {
             Articles article = new Articles(
                     request.getParameter("nom"),
@@ -68,11 +71,6 @@ public class ServletNouvelleVente extends HttpServlet {
                     CategorieManager.selectById(Integer.parseInt(request.getParameter("categorie"))),
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
             );
-            if (article == null){
-                System.out.println("null");
-            }else{
-                System.out.println(article);
-            }
             ArticleManager.insert(article);
 
         } catch (BusinessException | SQLException e) {

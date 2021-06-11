@@ -14,7 +14,7 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
-    <h1>Page de connexion</h1>
+    <h1 class="text-center my-5">Page de connexion</h1>
     <section class="login-form">
         <form class="form-connection" action="<%=request.getContextPath()%>/Connexion" method="post" >
             <div class="mb-3">
@@ -25,14 +25,18 @@
                 <label for="psw" class="form-label">Password</label>
                 <input type="password" class="form-control" name="psw" placeholder="Mot de passe" required="required" id="psw">
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div class="mb-3 block-rememberMe">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
             </div>
+
             <div class="mb-3">
                 <a href="#">Mot de passe oublie</a>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
             <a href="<%= request.getContextPath()%>/ServletHome">
                 <button type="button" class="btn btn-danger">Annuler</button>
             </a>
