@@ -17,6 +17,26 @@ public class CategorieImpl implements CategorieDAO {
     private final String UPDATE_LIBELLE = "UPDATE categories SET libelle=? WHERE no_categorie=?";
     private final String DELETE = "DELETE FROM categories WHERE no_categorie=?";
 
+    //Akcel
+    private final String NUM_CATEGORIE = "SELECT no_categorie FROM categories where libelle=?";
+
+
+    @Override
+    public  Categorie getNumCat (String libelle) throws BusinessException{
+        Categorie categorie = new Categorie();
+        try(Connection connection = ConectionProvider.getConnection()){
+            PreparedStatement  stmt = connection.prepareStatement(NUM_CATEGORIE);
+            stmt.setString(1, libelle);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                categorie.setNoCategorie(rs.getInt("no_catgorie"));
+                categorie.setLibelle(libelle);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return categorie;
+    }
 
     @Override
     public void insert(Categorie c) throws BusinessException {

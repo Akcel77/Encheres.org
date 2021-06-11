@@ -20,5 +20,6 @@ public interface CategorieDAO {
 
     public List<Categorie> selectByLibelle() throws BusinessException;
 
+    public Categorie getNumCat(String libelle) throws BusinessException;
 
 }
