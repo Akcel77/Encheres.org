@@ -37,7 +37,7 @@
                 <a href="#">Mot de passe oublie</a>
             </div>
 
-            <a href="<%= request.getContextPath()%>/ServletHome">
+            <a href="<%= request.getContextPath()%>/Encheres">
                 <button type="button" class="btn btn-danger">Annuler</button>
             </a>
         </form>
