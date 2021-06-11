@@ -71,8 +71,6 @@ public class ServletNouvelleVente extends HttpServlet {
                     CategorieManager.selectById(Integer.parseInt(request.getParameter("categorie"))),
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
             );
-            System.out.println("test1");
-            System.out.println(article);
             ArticleManager.insert(article);
 
         } catch (BusinessException | SQLException e) {
