@@ -5,6 +5,10 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Permet de faire une enchere
+ *
+ */
 @WebServlet(name = "ServletDetailVente", value = "/ServletDetailVente")
 public class ServletDetailVente extends HttpServlet {
     @Override
