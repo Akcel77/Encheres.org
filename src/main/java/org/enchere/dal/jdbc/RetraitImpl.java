@@ -14,8 +14,7 @@ import java.util.List;
 
 public class RetraitImpl implements RetraitDAO {
     //REQUETE SQL INSERT
-    private static final String INSERT = "INSERT INTO retraits (rue, code_postal, ville " +
-            "VALUES (?,?,?)";
+    private static final String INSERT = "INSERT INTO retraits (rue, code_postal, ville, no_article) VALUES (?,?,?,?)";
     //REQUETE SQL SELECT
     private static final String GET_BY_ID = "SELECT * " +
             "FROM retraits " +
@@ -34,7 +33,7 @@ public class RetraitImpl implements RetraitDAO {
 
 
     /**
-     * Insert sql pour retrait
+     * Insert un retrait en bdd
      * @param retrait
      * @return
      * @throws BusinessException
@@ -52,6 +51,7 @@ public class RetraitImpl implements RetraitDAO {
             stmt.setString(1, retrait.getRue());
             stmt.setString(2, retrait.getCode_postal());
             stmt.setString(3, retrait.getVille());
+            stmt.setInt(4, retrait.getNoArticle());
 
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();

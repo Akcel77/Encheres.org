@@ -20,8 +20,8 @@ public class ArticleManager{
      * Insere un articles
      * @param article
      */
-    public static void insert(Articles article) throws SQLException {
-        articleDAO.insert(article);
+    public static int insert(Articles article) throws SQLException {
+        return articleDAO.insert(article);
     }
 
     /**

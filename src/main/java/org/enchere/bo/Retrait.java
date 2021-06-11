@@ -2,16 +2,13 @@ package org.enchere.bo;
 
 public class Retrait {
     private int id;
+    private int noArticle;
     private String rue;
     private String code_postal;
     private String ville;
 
-    //Constructor
 
-
-    public Retrait() {
-        super();
-    }
+    public Retrait() { }
 
     public Retrait(int id, String rue, String code_postal, String ville) {
         super();
@@ -21,9 +18,14 @@ public class Retrait {
         this.ville = ville;
     }
 
+    public Retrait(String rue, String code_postal, String ville, int noArticle) {
+        this.rue = rue;
+        this.code_postal = code_postal;
+        this.ville = ville;
+        this.noArticle = noArticle;
+    }
+
     //Getters & Setters
-
-
     public int getId() {
         return id;
     }
@@ -56,6 +58,14 @@ public class Retrait {
         this.ville = ville;
     }
 
+    public int getNoArticle() {
+        return noArticle;
+    }
+
+    public void setNoArticle(int noArticle) {
+        this.noArticle = noArticle;
+    }
+
     @Override
     public String toString() {
         return "Retrait{" +
@@ -64,4 +74,5 @@ public class Retrait {
                 ", ville='" + ville + '\'' +
                 '}';
     }
+
 }
