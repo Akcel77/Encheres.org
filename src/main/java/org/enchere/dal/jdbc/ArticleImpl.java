@@ -25,6 +25,8 @@ public class ArticleImpl implements ArticleDAO {
      */
     @Override
     public void insert(Articles article) throws SQLException {
+        System.out.println("test3");
+        System.out.println(article);
         Connection cnx = ConectionProvider.getConnection();
         PreparedStatement stmt = cnx.prepareStatement(INSERT);
         stmt.setString(1,article.getNomArticles());

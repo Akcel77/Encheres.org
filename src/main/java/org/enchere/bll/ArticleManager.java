@@ -21,7 +21,10 @@ public class ArticleManager{
      * @param article
      */
     public static void insert(Articles article) throws SQLException {
+        System.out.println("test2");
+        System.out.println(article);
         articleDAO.insert(article);
+        System.out.println("test2.5");
     }
 
     /**
