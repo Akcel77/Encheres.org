@@ -70,7 +70,7 @@ public class ServletConnexion extends HttpServlet {
 
                     //Renvoie sur la ServletHome avec "isConnected" ok
 
-                    this.getServletContext().getRequestDispatcher("/ServletHome").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/Encheres").forward(request, response);
                 }else{
                     //Si l'utilisateur n'est pas dans la BDD ou ni le mdp
                     request.setAttribute("erreur", "Erreur dans le pseudo ou dans le mdp");
