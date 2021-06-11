@@ -45,17 +45,11 @@ public class ServletConnexion extends HttpServlet {
         if (id.isEmpty() || id.length() == 0 ){
             //erreur
             request.setAttribute("erreur", "Erreur pseudo, Entrez un champs");
-            erreur = (String) httpSession.getAttribute("erreur");
-            out.println(erreur);
-            System.out.println("erreur id");
             //Redirection
             this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
         }else if (password.isEmpty() || password.length() == 0 ){
             //erreur
             request.setAttribute("erreur", "Erreur password, Entrez un champs");
-            erreur = (String) httpSession.getAttribute("erreur");
-            out.println(erreur);
-            System.out.println("erreur mdp");
             //Redirection
             this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
         }else{
