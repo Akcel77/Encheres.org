@@ -20,9 +20,8 @@ public class ServletDetailVente extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Recupere l'id envoyer par le get
-        //int idArticle = Integer.parseInt(request.getParameter("id"));
+        int idArticle = Integer.parseInt(request.getParameter("id"));
         Articles article = null;
-        int idArticle = 1; // TODO a retirer c'est juste pour le test
         try {
             article = ArticleManager.find(idArticle);
         } catch (SQLException | BusinessException throwables) {
