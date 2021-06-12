@@ -80,17 +80,18 @@ public class ServletHome extends HttpServlet {
             requestDispatcher.forward(request,response);
         }else{
             try {
-                if (request.getParameter("encheres") != null && request.getParameter("ventes") != null){
+                if ((!request.getParameter("choix").equals("achat")) && (!request.getParameter("choix").equals("vente"))){
                     //TODO redirection
                     System.out.println("erreur");
-                }else if(request.getParameter("encheres") != null || request.getParameter("ventes") != null){
+                }else if(request.getParameter("choix").equals("achat")|| request.getParameter("choix").equals("vente")){
                     String checkbox;
-                    if (request.getParameter("encheres") != null){
-                        checkbox="encheres";
+                    if (request.getParameter("choix").equals("achat")){
+                        checkbox="achats";
                     }else {
                         checkbox="ventes";
                     }
-                    request.setAttribute("encheres", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categorie")),request.getParameter(checkbox), (int ) httpSession.getAttribute("isConnected")));
+                    System.out.println(httpSession.getAttribute("isConnected"));
+                    request.setAttribute("choix", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categorie")),request.getParameter(checkbox), 2));
                 }
 
 
