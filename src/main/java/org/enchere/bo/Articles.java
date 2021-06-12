@@ -204,7 +204,11 @@ public class Articles {
 
     public Enchere getLastEncheres() {
         if (encheres != null){
-            return encheres.get(encheres.size()-1);
+            if( encheres.size()-1 < 0 ){
+                return encheres.get(0);
+            }else{
+                return encheres.get(encheres.size()-1);
+            }
         }else{
             return null;
         }
