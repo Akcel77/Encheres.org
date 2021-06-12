@@ -16,8 +16,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -72,95 +74,157 @@ public class ServletHome extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
 
-        // recuperer la liste de tout les artciles
-        List<Articles> articlesList = null;
-        try {
-            articlesList = ArticleManager.findAll();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        request.setAttribute("listeArticles", articlesList );
-
-        // apres soumission du formulaire
-        String choix = request.getParameter("choix");
-        List <Articles> newList = new ArrayList<>();
-
-        // Si l'user choisie achat
-        if (choix!=null && choix.equals("achat")){
-            if(request.getParameter("enchereOuverte").equals("on")){
-                //List<Articles> articles = new ArrayList<>();
-                for (Articles item: articlesList) {
-                    LocalDate dateDebut = LocalDate.parse(item.getDateDebutEncheres());
-                    LocalDate dateFin =  LocalDate.parse(item.getDateFinEncheres());
-                    if(dateDebut.isBefore(today) && dateFin.isAfter(today)){
-                        newList.add(item);
-                    }
-                }
-                if(request.getParameter("mesEncheres").equals("on")){
-                    Utilisateur user = (Utilisateur) httpSession.getAttribute("pseudo");
-                    // TODO créer une requete sql join utilisateur + articles + encheres
-                    //newList.add();
-                }
-            }
-            if(request.getParameter("enchereRemportee").equals("on")){
-                for (Articles item : articlesList){
-                    if(enchereRemportee(item)){
-                        newList.add(item);
-                    }
-                }
-            }
-        }else if (choix!=null && choix.equals("vente")){
-            if (request.getParameter("venteEncours").equals("on")){
-                for(Articles item : articlesList){
-                    //TODO récupérer les articles associés
-                    // récupérer le no utilisateur
-                    // filtrer si date du jour entre date de début et fin de vente
-
-                    if(true){
-                    }
-                }
-            }
-            if (request.getParameter("nonDebute").equals("on")){
-                //TODO récupérer les articles associés
-                // récupérer le no utilisateur
-                // filtrer si date de début après date du jour
-                for(Articles item : articlesList){
-                    if(true){
-                    }
-                }
-            }
-            if (request.getParameter("terminees").equals("on")){
-                //TODO récupérer les articles associés
-                // récupérer le no utilisateur
-                // filtrer si date de début avant date du jour
-                for(Articles item : articlesList){
-                    if(true){
-                    }
-                }
-            }
-        }
 
         if(httpSession.getAttribute("isConnected") == null ){
             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
             requestDispatcher.forward(request,response);
         }else{
-            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-            requestDispatcher.forward(request,response);
+            try {
+                if (request.getParameter("encheres") != null && request.getParameter("ventes") != null){
+                    //TODO redirection
+                    System.out.println("erreur");
+                }else if(request.getParameter("encheres") != null || request.getParameter("ventes") != null){
+                    String checkbox;
+                    if (request.getParameter("encheres") != null){
+                        checkbox="encheres";
+                    }else {
+                        checkbox="ventes";
+                    }
+                    request.setAttribute("encheres", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categorie")),request.getParameter(checkbox), (int ) httpSession.getAttribute("isConnected")));
+                }
+
+
+                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                request.setAttribute("articles", ArticleManager.findAll());
+                this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
+
+            }catch (SQLException | BusinessException b){
+                b.printStackTrace();
+            }
         }
+
+    }
+    private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{
+        ArrayList<Articles> articles  = null;
+        String cond;
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        String dateformatee = "" + simpleDateFormat.format(date);
+
+
+        switch (checkbox) {
+            case "enchereOuverte":
+                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "mesEncheres":
+                cond = "AND a.date_debut_encheres<" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "enchereRemportee":
+                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "vente":
+                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "nonDebute":
+                cond = "AND a.date_debut_encheres>" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+            case "terminees":
+                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
+                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
+                break;
+
+        }return articles;
+
+
     }
 
-    // methode pour définir quand enchère est remportée
-    private boolean enchereRemportee( Articles item){
-        boolean estRemportee = true;
-        //TODO récupérer le no utilisateur
-        // récupérer les enchères associées
-        // filtrer si date de fin avant date du jour
-        // vérifier si enchère de l'utilisateur est la dernière sur l'article
-        if(true){
-
-        }else{
-            estRemportee =false;
-        }
-        return estRemportee;
-    }
+//    // methode pour définir quand enchère est remportée
+//    private boolean enchereRemportee( Articles item){
+//        boolean estRemportee = true;
+//        //TODO récupérer le no utilisateur
+//        // récupérer les enchères associées
+//        // filtrer si date de fin avant date du jour
+//        // vérifier si enchère de l'utilisateur est la dernière sur l'article
+//        if(true){
+//
+//        }else{
+//            estRemportee =false;
+//        }
+//        return estRemportee;
+//    }
 }
+//
+//    // recuperer la liste de tout les artciles
+//    List<Articles> articlesList = null;
+//        try {
+//                articlesList = ArticleManager.findAll();
+//                } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//                }
+//                request.setAttribute("listeArticles", articlesList );
+//
+//                // apres soumission du formulaire
+//                String choix = request.getParameter("choix");
+//                List <Articles> newList = new ArrayList<>();
+//
+//        // Si l'user choisie achat
+//        if (choix!=null && choix.equals("achat")){
+//        if(request.getParameter("enchereOuverte").equals("on")){
+//        //List<Articles> articles = new ArrayList<>();
+//        for (Articles item: articlesList) {
+//        LocalDate dateDebut = LocalDate.parse(item.getDateDebutEncheres());
+//        LocalDate dateFin =  LocalDate.parse(item.getDateFinEncheres());
+//        if(dateDebut.isBefore(today) && dateFin.isAfter(today)){
+//        newList.add(item);
+//        }
+//        }
+//        if(request.getParameter("mesEncheres").equals("on")){
+//        Utilisateur user = (Utilisateur) httpSession.getAttribute("pseudo");
+//        // TODO créer une requete sql join utilisateur + articles + encheres
+//        //newList.add();
+//        }
+//        }
+//        if(request.getParameter("enchereRemportee").equals("on")){
+//        for (Articles item : articlesList){
+//        if(enchereRemportee(item)){
+//        newList.add(item);
+//        }
+//        }
+//        }
+//        }else if (choix!=null && choix.equals("vente")){
+//        if (request.getParameter("venteEncours").equals("on")){
+//        for(Articles item : articlesList){
+//        //TODO récupérer les articles associés
+//        // récupérer le no utilisateur
+//        // filtrer si date du jour entre date de début et fin de vente
+//
+//        if(true){
+//        }
+//        }
+//        }
+//        if (request.getParameter("nonDebute").equals("on")){
+//        //TODO récupérer les articles associés
+//        // récupérer le no utilisateur
+//        // filtrer si date de début après date du jour
+//        for(Articles item : articlesList){
+//        if(true){
+//        }
+//        }
+//        }
+//        if (request.getParameter("terminees").equals("on")){
+//        //TODO récupérer les articles associés
+//        // récupérer le no utilisateur
+//        // filtrer si date de début avant date du jour
+//        for(Articles item : articlesList){
+//        if(true){
+//        }
+//        }
+//        }
+//        }
+
