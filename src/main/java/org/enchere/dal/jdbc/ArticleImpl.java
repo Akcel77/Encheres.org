@@ -1,5 +1,9 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bll.CategorieManager;
+import org.enchere.bll.EnchereManager;
+import org.enchere.bll.RetraitManager;
+import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
@@ -20,7 +24,6 @@ public class ArticleImpl implements ArticleDAO {
     private final String INSERT = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?) ";
     private final String SELECT_BY_USER = "SELECT * FROM articles_vendus WHERE no_utilisateur=?";
     private final String DELETE_BY_USER = "DELETE FROM articles_vendus WHERE no_utilisateur=?";
-
     private final String SELECT_BY_CATEGORIE = "SELECT * FROM articles_vendus WHERE no_categorie=?";
     private final String SELECT_BY_NOM = "SELECT * FROM articles_vendus WHERE nom_article LIKE ? ";
 
@@ -28,7 +31,7 @@ public class ArticleImpl implements ArticleDAO {
     private final String SEARCH = "SELECT u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, " +
             "cat.no_categorie, cat.libelle, " +
             "a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente," +
-            "FROM articles a " +
+            "FROM articles_vendus a " +
             "JOIN categories cat ON a.no_article = cat.no_categorie " +
             "JOIN utilisateurs u ON a.no_utilisateur = u.no_utilisateur " +
             "WHERE a.nom_article LIKE ? ";
@@ -56,7 +59,7 @@ public class ArticleImpl implements ArticleDAO {
         int noArticle = 0;
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs.next()){
-             noArticle =  rs.getInt(1);
+            noArticle =  rs.getInt(1);
         }
         return noArticle;
     }
@@ -126,7 +129,10 @@ public class ArticleImpl implements ArticleDAO {
      * @throws SQLException
      */
     @Override
-    public Articles find(int id) throws SQLException {
+    public Articles find(int id) throws SQLException, BusinessException {
+        int idUser = 0;
+        int idCategorie = 0;
+        int idArticle = 0;
         Articles article = new Articles();
         Connection cnx = ConectionProvider.getConnection();
 
@@ -134,17 +140,20 @@ public class ArticleImpl implements ArticleDAO {
         stmt.setInt(1,id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-            //TODO finir la recup avec utilisateur/ enchere / categorie
             article.setId(rs.getInt("no_article"));
             article.setNomArticles(rs.getString("nom_article"));
             article.setDescription(rs.getString("description"));
             article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
             article.setDateFinEncheres(rs.getString("date_fin_encheres"));
             article.setMiseAprix(rs.getInt("prix_initial"));
-            // recuperer l'utilisateur
-            // recuperer la derneire enchere
-            // recuperer la categries
+            idUser = rs.getInt("no_utilisateur");
+            idCategorie = rs.getInt("no_categorie");
+            idArticle = rs.getInt("no_article");
         }
+        article.setUtilisateur(UtilisateurManager.selectUserByID(idUser));
+        article.setCaterogie(CategorieManager.selectById(idCategorie));
+        article.setEncheres(EnchereManager.findAllByArticleId(idArticle));
+        article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
 
         return article;
     }

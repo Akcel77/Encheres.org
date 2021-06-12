@@ -56,7 +56,7 @@ public class ArticleManager{
      * @param id
      * @return
      */
-    public static Articles find(int id) throws SQLException {
+    public static Articles find(int id) throws SQLException, BusinessException {
         return articleDAO.find(id);
     }
 
