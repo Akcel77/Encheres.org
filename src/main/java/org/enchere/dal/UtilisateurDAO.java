@@ -16,4 +16,5 @@ public interface UtilisateurDAO {
     public List<Utilisateur> getAllUser()throws BusinessException;
     public List<String> getAllPseudo() throws BusinessException;
     public Utilisateur searchByID(int id) throws BusinessException;
+    public boolean checkIfEmailOrPseudo(Utilisateur utilisateur)throws BusinessException;
 }

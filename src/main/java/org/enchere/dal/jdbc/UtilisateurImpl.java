@@ -39,6 +39,13 @@ public class UtilisateurImpl implements UtilisateurDAO {
             "SET credit=? " +
             "WHERE no_utilisateur =?";
     // REQUETE SQL SELECT
+    private static final String FIND_BY_MAIL = "SELECT * " +
+            "FROM utilisateurs " +
+            "WHERE email=? AND mot_de_passe=?";
+    private static final String FIND_BY_PSEUDO = "SELECT * " +
+            "FROM utilisateurs " +
+            "WHERE pseudo=? AND mot_de_passe=?";
+
     private static final String ALL_PSEUDO = "SELECT pseudo " +
             "FROM utilisateurs ";
 
@@ -358,6 +365,52 @@ public class UtilisateurImpl implements UtilisateurDAO {
         }
         return articlesList;
 
+    }
+
+    @Override
+    public boolean checkIfEmailOrPseudo(Utilisateur utilisateur)throws BusinessException{
+        boolean isInDataBase = false;
+        if (utilisateur.getEmail() != null){
+            try(Connection connection = ConectionProvider.getConnection()) {
+                PreparedStatement stmt = connection.prepareStatement(FIND_BY_MAIL);
+
+                stmt.setString(1, utilisateur.getEmail());
+                stmt.setString(2, utilisateur.getMotDePasse());
+
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()){
+                    utilisateur = userBuilder(rs);
+                    isInDataBase = true;
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+//            BusinessException businessException = new BusinessException(e.getMessage(), e);
+//            //TODO : ERREUR LOG
+//
+//            throw businessException;
+            }
+        }else{
+            try(Connection connection = ConectionProvider.getConnection()) {
+                PreparedStatement stmt = connection.prepareStatement(FIND_BY_PSEUDO);
+
+                stmt.setString(1, utilisateur.getPseudo());
+                stmt.setString(2, utilisateur.getMotDePasse());
+
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()){
+                    utilisateur = userBuilder(rs);
+                    isInDataBase = true;
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+//            BusinessException businessException = new BusinessException(e.getMessage(), e);
+//            //TODO : ERREUR LOG
+//
+//            throw businessException;
+            }
+        }return isInDataBase;
     }
 
     /**

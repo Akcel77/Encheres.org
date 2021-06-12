@@ -46,6 +46,10 @@ public class UtilisateurManager {
         return utilisateur;
     }
 
+    public static boolean checkIfEmailOrPseudo(Utilisateur utilisateur)throws BusinessException{
+        return utilisateurDAO.checkIfEmailOrPseudo(utilisateur);
+    }
+
     /**
      * Condition pour inscription Fonctionne avec SignInUser
      * @param utilisateur
