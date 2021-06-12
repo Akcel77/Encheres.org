@@ -39,5 +39,9 @@ public class EnchereManager {
         return enchereDAO.findAll();
     }
 
+    public static List<Enchere> findAllByArticleId(int id) throws BusinessException, SQLException {
+        return enchereDAO.findAllByArticleId(id);
+    }
+
 }
 

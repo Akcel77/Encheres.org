@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UtilisateurDAO {
 
+    Utilisateur selectUserByID(int id) throws BusinessException;
     public Utilisateur insert(Utilisateur utilisateur) throws BusinessException;
     public void update (Utilisateur utilisateur) throws BusinessException;
     public void delete (int no) throws BusinessException;

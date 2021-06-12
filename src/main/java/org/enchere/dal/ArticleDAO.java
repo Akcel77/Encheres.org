@@ -13,7 +13,7 @@ public interface ArticleDAO {
     void update(Articles article) throws SQLException;
     void delete(int id) throws SQLException;
     List<Articles> findAll() throws SQLException;
-    Articles find(int id) throws SQLException;
+    Articles find(int id) throws SQLException, BusinessException;
     List<Articles> findAllByUser(int id) throws SQLException;
     void deleteAllByID(int id) throws SQLException;
     List<Articles> search() throws SQLException;

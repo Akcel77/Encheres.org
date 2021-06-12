@@ -53,4 +53,8 @@ public class RetraitManager {
     public static void insert(Retrait retrait) throws BusinessException {
         retraitDAO.insert(retrait);
     }
+
+    public static Retrait selectRetraitByArticleId(int idArticle) throws BusinessException {
+        return retraitDAO.selectRetraitByArticleId(idArticle);
+    }
 }
