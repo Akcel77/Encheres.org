@@ -18,6 +18,9 @@ public class CategorieManager {
         CategorieManager.categorieDAO = DAOFactory.getCategorieDAO();
     }
 
+    public static Categorie getNumCat(String libelle) throws BusinessException{
+       return categorieDAO.getNumCat(libelle);
+    }
     /**
      * Insert
      * @param c
@@ -68,5 +71,8 @@ public class CategorieManager {
         categorieDAO.delete(id);
     }
 
+    public static List<Categorie> searchByLibelle() throws BusinessException{
+        return categorieDAO.selectByLibelle();
+    }
 
 }

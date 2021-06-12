@@ -14,27 +14,30 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
-    <h1 class="text-center my-5">Page de connexion</h1>
+    <h1 class="text-center mt-5">Connexion</h1>
+
+    <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
+
     <section class="login-form">
         <form class="form-connection" action="<%=request.getContextPath()%>/Connexion" method="post" >
             <div class="mb-3">
-                <label for="id" class="form-label">Identifiant</label>
+                <label for="id" class="form-label">Identifiant :</label>
                 <input type="text" class="form-control" id="id" name="id" placeholder="Identifiant" required="required">
             </div>
             <div class="mb-3">
-                <label for="psw" class="form-label">Password</label>
+                <label for="psw" class="form-label">Mot de passe :</label>
                 <input type="password" class="form-control" name="psw" placeholder="Mot de passe" required="required" id="psw">
             </div>
             <div class="mb-3 block-rememberMe">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <a href="#">Mot de passe oublie</a>
+            <div class="mb-3 forgot_pass">
+                <a href="#">Mot de passe oublié ?</a>
             </div>
 
             <a href="<%= request.getContextPath()%>/Encheres">

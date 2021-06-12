@@ -3,6 +3,7 @@ package org.enchere.dal;
 import org.enchere.bo.Categorie;
 import org.enchere.outils.BusinessException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CategorieDAO {
@@ -17,5 +18,8 @@ public interface CategorieDAO {
 
     public void delete(int id) throws BusinessException;
 
+    public List<Categorie> selectByLibelle() throws BusinessException;
+
+    public Categorie getNumCat(String libelle) throws BusinessException;
 
 }

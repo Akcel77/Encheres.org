@@ -35,16 +35,15 @@ public class ServletTestLoane extends HttpServlet {
         request.setAttribute("categories", categoriesList);
 
         // Recupere la liste de toutes les encheres/ventes en cours
-        /*ArticleManager articleManager = new ArticleManager();
-        List<Enchere> listeEncheresEnCours = null;
+        ArticleManager articleManager = new ArticleManager();
+        List<Articles> listeEncheresEnCours = null;
         try {
             listeEncheresEnCours = articleManager.findAll();
-        } catch (BusinessException e) {
-            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        request.setAttribute("listeEncheresEnCours", listeEncheresEnCours);*/
+
+        request.setAttribute("listeEncheresEnCours", listeEncheresEnCours);
 
         // Forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/test/testLoane.jsp");
@@ -54,6 +53,12 @@ public class ServletTestLoane extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        try{
+            request.setAttribute("categories", CategorieManager.selectById(Integer.parseInt(request.getParameter("categories"))));
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/test/testLoane.jsp").forward(request, response);
+        } catch (BusinessException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

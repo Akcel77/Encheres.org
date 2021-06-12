@@ -7,6 +7,7 @@ import org.enchere.dal.jdbc.ArticleImpl;
 import org.enchere.outils.BusinessException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleManager{
@@ -43,7 +44,7 @@ public class ArticleManager{
     }
 
     /**
-     * Retourne la liste de tout les articles
+     * Retourne la liste de tous les articles
      * @return
      */
     public static List<Articles> findAll() throws SQLException {
@@ -59,4 +60,17 @@ public class ArticleManager{
         return articleDAO.find(id);
     }
 
+    public static List<Articles> search() throws SQLException{
+        return articleDAO.search();
+    }
+
+    public static ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
+        return articleDAO.findByCategorie(noCat);
+    }
+    public static ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException{
+        return articleDAO.findByNomArticle(nomArticle);
+    }
+    public static ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
+        return articleDAO.findWithCond(nom, noCategorie, condition);
+    }
 }
