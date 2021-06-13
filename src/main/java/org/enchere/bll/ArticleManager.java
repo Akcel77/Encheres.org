@@ -47,7 +47,7 @@ public class ArticleManager{
      * Retourne la liste de tous les articles
      * @return
      */
-    public static List<Articles> findAll() throws SQLException {
+    public static List<Articles> findAll() throws SQLException, BusinessException {
         return articleDAO.findAll();
     }
 
@@ -71,6 +71,7 @@ public class ArticleManager{
         return articleDAO.findByNomArticle(nomArticle);
     }
     public static ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
+        System.out.println(nom + " " + noCategorie + " "  + condition);
         return articleDAO.findWithCond(nom, noCategorie, condition);
     }
 }
