@@ -74,4 +74,8 @@ public class ArticleManager{
         System.out.println(nom + " " + noCategorie + " "  + condition);
         return articleDAO.findWithCond(nom, noCategorie, condition);
     }
+
+    public static List<Articles> findAllByUser(int id) throws SQLException{
+        return articleDAO.findAllByUser(id);
+    }
 }

@@ -35,7 +35,7 @@
             <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
                 <option selected value="all">Toutes les catégories</option>
                 <c:forEach var="categories" items="${categories}">
-                    <option value="${categories.noCategorie}">${categories.libelle}</option>
+                    <option name="categorie" value="${categories.noCategorie}">${categories.libelle}</option>
                 </c:forEach>
             </select>
         </div>
@@ -104,7 +104,7 @@
 
                 <p class="card-text">Fin de l'enchere: ${articles.getDateFinEncheres()}</p>
 
-                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
+<%--                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
 
                 <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
 

@@ -76,6 +76,7 @@ public class ServletHome extends HttpServlet {
 
         // Recupere la liste de toutes les catégories
         CategorieManager categorieManager = new CategorieManager();
+        Categorie categorie = new Categorie();
         List<Categorie> categoriesList = null;
         try {
             categoriesList = CategorieManager.selectAll();
@@ -84,27 +85,50 @@ public class ServletHome extends HttpServlet {
         }
         request.setAttribute("categories", categoriesList);
 
+
+
+
+
+
         // Recupere l'utilisateur connecter
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
-        System.out.println(httpSession.getAttribute("isConnected"));
+        String nomArticle;
 
         // Si un utilisateur est bien connecter le renvois vers la jsp logé sinon non-logé
         if(httpSession.getAttribute("isConnected") != null ){
             try {
+                if (request.getParameter("recherche") != null){
+                    nomArticle = request.getParameter("recherche");
+                    request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+                    rd.forward(request, response);
+                }else{
+                    request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                    request.setAttribute("articles", ArticleManager.findAll());
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+                    rd.forward(request, response);
+                }
 
-                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-                request.setAttribute("articles", ArticleManager.findAll());
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-                rd.forward(request, response);
             } catch (SQLException | BusinessException sqlException) {
                 sqlException.printStackTrace();
             }
         }else{
             try {
-                request.setAttribute("articles", ArticleManager.findAll());
-                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-                requestDispatcher.forward(request,response);
+                if (request.getParameter("recherche") != null){
+                    nomArticle = request.getParameter("recherche");
+                    request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
+                    rd.forward(request, response);
+                }else{
+                    request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                    request.setAttribute("articles", ArticleManager.findAll());
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
+                    rd.forward(request, response);
+                }
+
             } catch (SQLException | BusinessException sqlException) {
                 sqlException.printStackTrace();
             }
