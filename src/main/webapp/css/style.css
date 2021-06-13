@@ -104,8 +104,15 @@
     width: 50%;
 }
 .image-article{
-    border : 1px solid black;
+    border-bottom : 1px solid black;
 }
+.title-card{
+    height: 5rem;
+    background-color: #212529;
+    color: #FFFFFF;
+    padding: 0.3rem;
+}
+
 
 /*Nouvelle vente*/
 .main_vente{
@@ -128,4 +135,56 @@
     font-family: 'Caveat', cursive;
     font-size: 2em;
     text-align: end;
+}
+
+
+/* Small Desktop VIEW*/
+@media screen and (max-width: 1100px){
+    .enchere-section {
+        grid-template-columns: 1fr 1fr;
+        width: 90%;
+    }
+    .section-inscription-form{
+        width: 80%;
+    }
+    .inscription-form{
+        width: 100%;
+    }
+}
+
+/*Tablette VIEW*/
+@media screen and (max-width: 890px){
+    .checkbox-block{
+        grid-template-columns: 1fr 1fr;
+    }
+    .search-bar{
+        flex-direction: column;
+    }
+    .login-form{
+        width: 50%;
+        margin: 5rem auto;
+    }
+    .groot{
+        width: 50%;
+    }
+}
+/*Mobile VIEW*/
+@media screen and (max-width: 600px){
+    .checkbox-block{
+        grid-template-columns: 1fr;
+    }
+    .enchere-section {
+        grid-template-columns: 1fr;
+    }
+    .login-form{
+        width: 80%;
+        margin: 3rem auto;
+    }
+    .groot{
+        width: 80%;
+    }
+    .inscription-form{
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
 }

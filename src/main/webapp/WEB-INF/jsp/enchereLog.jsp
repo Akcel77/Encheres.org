@@ -95,14 +95,14 @@
 
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
-            <h4 class="card-title text-center mb-2" > ${articles.getNomArticles()}</h4>
+            <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
 
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
 
-                <p class="card-text">Date de fin d'enchere: ${articles.getDateFinEncheres()}</p>
+                <p class="card-text">Fin de l'enchere: ${articles.getDateFinEncheres()}</p>
 
                 <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
 
