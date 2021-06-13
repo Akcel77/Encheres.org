@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,6 +92,7 @@ public class ServletHome extends HttpServlet {
         // Si un utilisateur est bien connecter le renvois vers la jsp logé sinon non-logé
         if(httpSession.getAttribute("isConnected") != null ){
             try {
+
                 request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
                 request.setAttribute("articles", ArticleManager.findAll());
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
