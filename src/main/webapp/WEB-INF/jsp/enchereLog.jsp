@@ -5,8 +5,12 @@
 <%@ page import="org.enchere.bo.Articles" %>
 <%@ page import="org.enchere.bll.UtilisateurManager" %>
 <%@ page import="org.enchere.bll.ArticleManager" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
@@ -91,13 +95,16 @@
 
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
-            <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
+            <h4 class="card-title text-center mb-2" > ${articles.getNomArticles()}</h4>
+            <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-                <h4 class="card-title" >Article : ${articles.getNomArticles()}</h4>
+
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
 
-                    <%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
+                <p class="card-text">Date de fin d'enchere: <fmt:formatDate type = "date" value ="${DateTime.Parse(articles.getDateFinEncheres())}"/></p>
+
+                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
 
                 <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
 
