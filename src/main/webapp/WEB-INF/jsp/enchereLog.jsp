@@ -79,7 +79,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Détail article</a>
+                    <a href="<%= request.getContextPath() %>/DetailVente?id=${articles.getUtilisateur().getNoUtilisateur()}" class="btn btn-primary">Détail article</a>
                 </div>
             </div>
 
