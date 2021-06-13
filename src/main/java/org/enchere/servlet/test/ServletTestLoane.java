@@ -39,7 +39,7 @@ public class ServletTestLoane extends HttpServlet {
         List<Articles> listeEncheresEnCours = null;
         try {
             listeEncheresEnCours = articleManager.findAll();
-        } catch (SQLException throwables) {
+        } catch (SQLException | BusinessException throwables) {
             throwables.printStackTrace();
         }
 

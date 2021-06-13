@@ -56,6 +56,7 @@ public class ServletDetailVente extends HttpServlet {
         }
 
         // forward sur doGet
-        doGet(request,response);
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
+        rd.forward(request,response);
     }
 }

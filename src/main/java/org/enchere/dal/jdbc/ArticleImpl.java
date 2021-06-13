@@ -102,24 +102,34 @@ public class ArticleImpl implements ArticleDAO {
      * @throws SQLException
      */
     @Override
-    public List<Articles> findAll() throws SQLException {
-        List<Articles> articlesList = new ArrayList<>();
+    public List<Articles> findAll() throws SQLException, BusinessException {
+        int idUser = 0;
+        int idCategorie = 0;
+        int idArticle = 0;
+        List<Articles> articles = new ArrayList<>();
         Connection cnx = ConectionProvider.getConnection();
-        Statement stmt = cnx.createStatement();
-        ResultSet rs = stmt.executeQuery(SELECTALL);
+
+        PreparedStatement stmt = cnx.prepareStatement(SELECTALL);
+
+        ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-            articlesList.add(new Articles(
-                    rs.getInt("no_article"),
-                    rs.getString("nom_article"),
-                    rs.getString("description"),
-                    rs.getString("date_debut_encheres"),
-                    rs.getString("date_fin_encheres"),
-                    rs.getInt("prix_initial"),
-                    "en cours",
-                    new Categorie()
-            ));
+            Articles article = new Articles();
+            article.setId(rs.getInt("no_article"));
+            article.setNomArticles(rs.getString("nom_article"));
+            article.setDescription(rs.getString("description"));
+            article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
+            article.setDateFinEncheres(rs.getString("date_fin_encheres"));
+            article.setMiseAprix(rs.getInt("prix_initial"));
+            idUser = rs.getInt("no_utilisateur");
+            idCategorie = rs.getInt("no_categorie");
+            idArticle = rs.getInt("no_article");
+            article.setUtilisateur(UtilisateurManager.selectUserByID(idUser));
+            article.setCaterogie(CategorieManager.selectById(idCategorie));
+            article.setEncheres(EnchereManager.findAllByArticleId(idArticle));
+            article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
+            articles.add(article);
         }
-        return articlesList;
+        return articles;
     }
 
     /**

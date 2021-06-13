@@ -21,8 +21,29 @@ public class Utilisateur<Article> {
     
     //Constructors
     public Utilisateur() {
-
+        super();
     }
+    public Utilisateur(String email){
+        super();
+        this.email = email;
+    }
+
+    public Utilisateur(String id, String password, boolean isEmail){
+        if (isEmail){
+            this.email = id;
+        }else {
+            this.pseudo = id;
+        }
+        this.motDePasse = password;
+    }
+
+    public  Utilisateur(String email, String motDePasse){
+        super();
+        this.email = email;
+        this.motDePasse = motDePasse;
+    }
+
+
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
         this.pseudo = pseudo;
@@ -52,9 +73,7 @@ public class Utilisateur<Article> {
         this.administrateur = administrateur;
     }
 
-    public Utilisateur(String pseudo) {
-        this.pseudo = pseudo;
-    }
+
 
     //Getter And Setter
     public int getNoUtilisateur() {
