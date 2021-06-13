@@ -76,7 +76,7 @@ public class ServletListeEncheres extends HttpServlet {
         Date date = new Date();
         String dateFormat = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        String dateformatee = "" + simpleDateFormat.format(date);
+        String dateformatee = "'" + simpleDateFormat.format(date)+ "'";
 
 
         switch (checkbox) {

@@ -102,7 +102,7 @@
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
 
-                <p class="card-text">Date de fin d'enchere: <fmt:formatDate type = "date" value ="${DateTime.Parse(articles.getDateFinEncheres())}"/></p>
+                <p class="card-text">Date de fin d'enchere: ${articles.getDateFinEncheres()}</p>
 
                 <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
 

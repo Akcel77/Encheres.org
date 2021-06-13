@@ -101,10 +101,16 @@ public class ServletHome extends HttpServlet {
                 sqlException.printStackTrace();
             }
         }else{
-            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-            requestDispatcher.forward(request,response);
+            try {
+                request.setAttribute("articles", ArticleManager.findAll());
+                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
+                requestDispatcher.forward(request,response);
+            } catch (SQLException | BusinessException sqlException) {
+                sqlException.printStackTrace();
             }
+
         }
+    }
 
 
 
