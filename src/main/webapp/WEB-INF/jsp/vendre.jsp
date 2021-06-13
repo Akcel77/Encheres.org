@@ -21,73 +21,66 @@
             <img class="groot" src="${pageContext.request.contextPath}/images/jumpHappy.png" alt="groot" >
         </div>
         <div class="main_vente__form">
-            <p>Vendre n'a jamais été aussi simple !</p>
-            <h1>Nouvelle vente</h1>
-            <form action="NouvelleVente" method="post">
-                <div class="form-group row">
-                    <label for="nom" class="col-sm-2 col-form-label">Nom de l'articles</label>
-                    <input class="col-sm-10" type="text" name="nom" id="nom" class="form-control" required>
+            <h1 class="text-center mt-5">Créer une nouvelle vente</h1>
+            <p class="main_vente__subTitle">Vendre n'a jamais été aussi simple !</p>
+
+            <form action="NouvelleVente" method="post" class="row g-3">
+                <div class="col-12">
+                    <label for="nom">Nom de l'articles</label>
+                    <input type="text" name="nom" id="nom" class="form-control" required>
                 </div>
 
-                <div class="form-group row">
-                    <label for="description" class="col-sm-2 col-form-label">Description</label>
-                    <input class="col-sm-10" type="text" name="description" id="description" class="form-control" required>
+                <div class="col-12">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" class="form-control" required>
                 </div>
 
-                <div class="form-group row">
-                    <label for="categorie" class="col-sm-2 col-form-label">Catégorie</label>
-                    <select class="col-sm-10" name="categorie" id="categorie" class="form-control" required>
+                <div class="col-6">
+                    <label for="prix">Prix</label>
+                    <input  type="number" name="prix" id="prix" class="form-control" required>
+                </div>
+
+                <div class="col-6">
+                    <label for="categorie" >Catégorie</label>
+                    <select  name="categorie" id="categorie" class="form-control" required>
+                        <option selected>Choisir une catégorie</option>
                         <% List<Categorie> categorieList = (List<Categorie>) request.getAttribute("categorieList");
                             for (Categorie ct: categorieList) { %>
                         <option value="<%= ct.getNoCategorie() %>"><%= ct.getLibelle() %></option>
                         <% } %>
                     </select>
                 </div>
+
+                <div class="col-6">
+                    <label for="date_debut">Date debut</label>
+                    <input type="date" name="date_debut" id="date_debut" class="form-control" required>
+                </div>
+                <div class="col-6">
+                    <label for="date_fin">Date Fin</label>
+                    <input type="date" name="date_fin" id="date_fin" class="form-control" required>
+                </div>
+
+                <% Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur"); %>
+
+                <div class="col-6">
+                    <label for="rue">Rue</label>
+                    <input type="text" name="rue" id="rue" class="form-control" value="<%= utilisateur.getRue() %>" required>
+                </div>
+                <div class="col-2">
+                    <label for="codePostal">Code Postal</label>
+                    <input type="text" name="codePostal" id="codePostal" class="form-control" value="<%= utilisateur.getCodePostal() %>" required>
+                </div>
+                <div class="col-4">
+                    <label for="ville">Ville</label>
+                    <input type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">
+            </form>
         </div>
     </div>
 
-        <!-- TODO INPUT PHOTO : itération 2
-        <div class="form-group row">
-            <label for="photo" class="col-sm-2 col-form-label">Photos de l'article</label>
-            <input class="col-sm-10" type="file" name="photo" id="photo" class="form-control">
-        </div>
-        -->
-
-        <div class="form-group row">
-            <label for="prix" class="col-sm-2 col-form-label">Prix</label>
-            <input class="col-sm-10" type="number" name="prix" id="prix" class="form-control" required>
-        </div>
-
-        <div class="form-group row">
-            <label for="date_debut" class="col-sm-2 col-form-label">Date debut</label>
-            <input class="col-sm-10" type="date" name="date_debut" id="date_debut" class="form-control" required>
-        </div>
-
-        <div class="form-group row">
-            <label for="date_fin" class="col-sm-2 col-form-label">Date Fin</label>
-            <input class="col-sm-10" type="date" name="date_fin" id="date_fin" class="form-control" required>
-        </div>
-
-        <fieldset>
-            <legend>Retrait</legend>
-            <% Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur"); %>
-            <div class="form-group row">
-                <label for="rue" class="col-sm-2 col-form-label">Rue</label>
-                <input class="col-sm-10" type="text" name="rue" id="rue" class="form-control" value="<%= utilisateur.getRue() %>" required>
-            </div>
-            <div class="form-group row">
-                <label for="codePostal" class="col-sm-2 col-form-label">Code Postal</label>
-                <input class="col-sm-10" type="text" name="codePostal" id="codePostal" class="form-control" value="<%= utilisateur.getCodePostal() %>" required>
-            </div>
-            <div class="form-group row">
-                <label for="ville" class="col-sm-2 col-form-label">Ville</label>
-                <input class="col-sm-10" type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>" required>
-            </div>
-        </fieldset>
-
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">
-    </form>
 </main>
 </body>
 

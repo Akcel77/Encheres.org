@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 /* CONNECTION */
 .login-form{
@@ -110,14 +110,22 @@
 /*Nouvelle vente*/
 .main_vente{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
 }
 .main_vente img{
     width: 100%;
 }
 .main_vente__pix{
-    width: 30%;
+    width: 20%;
 }
 .main_vente__form{
     width: 70%;
+}
+.main_vente__subTitle{
+    font-family: 'Caveat', cursive;
+    font-size: 2em;
+    text-align: end;
 }
