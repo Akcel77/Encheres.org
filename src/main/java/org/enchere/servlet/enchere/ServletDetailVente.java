@@ -55,7 +55,18 @@ public class ServletDetailVente extends HttpServlet {
             e.printStackTrace();
         }
 
-        // forward sur doGet
+        // Recupere l'id envoyer par le get
+        Articles article = null;
+        try {
+            article = ArticleManager.find(idArticle);
+        } catch (SQLException | BusinessException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //bind les parametre pour la jsp
+        request.setAttribute("article", article);
+
+        // forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
         rd.forward(request,response);
     }

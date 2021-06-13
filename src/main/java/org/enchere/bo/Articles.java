@@ -1,5 +1,6 @@
 package org.enchere.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,6 +80,9 @@ public class Articles {
      * @param enchere
      */
     public void addEnchere(Enchere enchere){
+        if (encheres == null){
+            encheres = new ArrayList<>();
+        }
         this.encheres.add(enchere);
     }
 
@@ -95,6 +99,15 @@ public class Articles {
             }
         }
         return enchere;
+    }
+
+    public Enchere getLastEncheres() {
+        if (encheres.size() != 0){
+            System.out.println("enchere n'est pas null" + encheres.toString());
+            return encheres.get(encheres.size()-1);
+        }else{
+            return null;
+        }
     }
 
     // Getter & setter
@@ -178,13 +191,9 @@ public class Articles {
         this.utilisateur = utilisateur;
     }
 
-    public Retrait getRetrait() {
-        return retrait;
-    }
+    public Retrait getRetrait() { return retrait; }
 
-    public void setRetrait(Retrait retrait) {
-        this.retrait = retrait;
-    }
+    public void setRetrait(Retrait retrait) { this.retrait = retrait; }
 
     @Override
     public String toString() {
@@ -200,17 +209,5 @@ public class Articles {
                 ", utilisateur=" + utilisateur +
                 ", encheres=" + encheres +
                 '}';
-    }
-
-    public Enchere getLastEncheres() {
-        if (encheres != null){
-            if( encheres.size()-1 < 0 ){
-                return encheres.get(0);
-            }else{
-                return encheres.get(encheres.size()-1);
-            }
-        }else{
-            return null;
-        }
     }
 }

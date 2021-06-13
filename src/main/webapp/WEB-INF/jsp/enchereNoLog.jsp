@@ -1,5 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.enchere.bo.Categorie" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.enchere.servlet.test.ServletTestLoane" %>
+<%@ page import="org.enchere.bo.Utilisateur" %>
+<%@ page import="org.enchere.bo.Articles" %>
+<%@ page import="org.enchere.bll.UtilisateurManager" %>
+<%@ page import="org.enchere.bll.ArticleManager" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
     <jsp:param name="title" value="Encheres.org"/>
@@ -8,45 +16,58 @@
     <title>Liste des enchères</title>
 </head>
 <body>
+
 <%@include file="fragment/navbar.jsp"%>
-<h1>Enchere.org</h1>
-<h2>Menu</h2>
-<ul>
-    <li><a href="<%= request.getContextPath()%>/ServletTestFlo">TestFlo : encheres</a></li>
-</ul>
+<h1 class="text-center my-5">Liste des enchères</h1>
 
-<!--<header>
-    <nav role="navigation">
-        <ul>
-            <li><a href="<%= request.getContextPath()%>/Inscription">S'inscrire</a></li>
-            <li><a href="<%= request.getContextPath()%>/Connexion">Se connecter</a></li>
-        </ul>
-    </nav>
-</header>-->
 
-<h1>Liste des enchères</h1>
-<form>
-    <div>
-        <input type="search" id="recherche-article" name="recherche"
-               placeholder="Le nom de l'article contient"
-               aria-label="Filtrer avec le nom de l'article">
+
+<form action="<%=request.getContextPath()%>/Encheres" method="post">
+    <div class="saisie search-bar">
+        <input class="form-control me-2 input-search" type="search" id="recherche-article" name="recherche"
+               placeholder="Rechercher sur ENI Encheres"
+               aria-label="Rechercher l'article">
+        <div class="filtre">
+            <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
+                <option selected value="all">Toutes les catégories</option>
+                <c:forEach var="categories" items="${categories}">
+                    <option value="${categories.noCategorie}">${categories.libelle}</option>
+                </c:forEach>
+            </select>
+        </div>
     </div>
-    <div>
-        <label for="select-categorie">Catégorie:</label>
-        <select name="categorie" id="select-categorie">
-            <option value="all">Toutes</option>
-            <option value="informatique">Informatique</option>
-            <option value="ameublement">Ameublement</option>
-            <option value="vetement">Vêtement</option>
-            <option value="sportloisirs">Sport & Loisirs</option>
-        </select>
-    </div>
-    <input type="submit" value="Go">
+
+
+
 </form>
+<section class="enchere-section">
+
+    <c:forEach var="articles" items="${articles}">
+        <div class="card article-box" >
+            <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title" >Article : ${articles.getNomArticles()}</h4>
+                <p class="card-text">Description : ${articles.getDescription()}</p>
+                <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
+
+                    <%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
+
+                <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
+
+            </div>
+            <div class="card-footer">
+                <a href="<%=request.getContextPath()%>/Connexion" class="btn btn-primary">Connexion</a>
+            </div>
+        </div>
+
+    </c:forEach>
+
+</section>
+
+<%@include file="fragment/footer.jsp"%>
+
 
 
 
 </body>
-<%@include file="fragment/footer.jsp"%>
 </html>
-

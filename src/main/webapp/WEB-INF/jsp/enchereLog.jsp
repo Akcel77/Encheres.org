@@ -18,99 +18,99 @@
 <body>
 
 <%@include file="fragment/navbar.jsp"%>
-    <h1 class="text-center my-5">Liste des enchères</h1>
+<h1 class="text-center my-5">Liste des enchères</h1>
 
 
 
-    <form action="<%=request.getContextPath()%>/Encheres" method="post">
-        <div class="saisie search-bar">
-            <input class="form-control me-2 input-search" type="search" id="recherche-article" name="recherche"
-                   placeholder="Rechercher sur ENI Encheres"
-                   aria-label="Rechercher l'article">
-            <div class="filtre">
-                <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
-                    <option selected value="all">Toutes les catégories</option>
-                    <c:forEach var="categories" items="${categories}">
-                        <option value="${categories.noCategorie}">${categories.libelle}</option>
-                    </c:forEach>
-                </select>
-            </div>
+<form action="<%=request.getContextPath()%>/Encheres" method="post">
+    <div class="saisie search-bar">
+        <input class="form-control me-2 input-search" type="search" id="recherche-article" name="recherche"
+               placeholder="Rechercher sur ENI Encheres"
+               aria-label="Rechercher l'article">
+        <div class="filtre">
+            <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
+                <option selected value="all">Toutes les catégories</option>
+                <c:forEach var="categories" items="${categories}">
+                    <option value="${categories.noCategorie}">${categories.libelle}</option>
+                </c:forEach>
+            </select>
         </div>
+    </div>
 
 
 
 
-        <div class="checkbox-block">
-            <div class="mb-3">
-                <div>
-                    <input type="radio" name="choix" id="achats" checked value="achat">
-                    <label class="mr-2" for="achats">Achats</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="ouverte" name="enchereOuverte" checked>
-                    <label class="mr-2" for="ouverte">enchères ouvertes</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="encours" name="mesEncheres">
-                    <label class="mr-2" for="encours">mes enchères</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="remportees" name="enchereRemportee">
-                    <label class="mr-2" for="remportees">mes enchères remportées</label>
-                </div>
-            </div>
-
+    <div class="checkbox-block">
+        <div class="mb-3">
             <div>
-                <div>
-                    <input type="radio" name="choix" id="ventes" value="vente">
-                    <label class="mr-2" for="ventes">Mes ventes</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="venteEncours" name="venteEncours">
-                    <label class="mr-2" for="venteEncours">mes ventes en cours</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="nonDebute" name="nonDebute">
-                    <label class="mr-2" for="nonDebute">ventes non débutées</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="terminees" name="terminees">
-                    <label class="mr-2" for="terminees">ventes terminées</label>
-                </div>
+                <input type="radio" name="choix" id="achats" checked value="achat">
+                <label class="mr-2" for="achats">Achats</label>
+            </div>
+            <div>
+                <input type="checkbox" id="ouverte" name="enchereOuverte" checked>
+                <label class="mr-2" for="ouverte">enchères ouvertes</label>
+            </div>
+            <div>
+                <input type="checkbox" id="encours" name="mesEncheres">
+                <label class="mr-2" for="encours">mes enchères</label>
+            </div>
+            <div>
+                <input type="checkbox" id="remportees" name="enchereRemportee">
+                <label class="mr-2" for="remportees">mes enchères remportées</label>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <input type="radio" name="choix" id="ventes" value="vente">
+                <label class="mr-2" for="ventes">Mes ventes</label>
+            </div>
+            <div>
+                <input type="checkbox" id="venteEncours" name="venteEncours">
+                <label class="mr-2" for="venteEncours">mes ventes en cours</label>
+            </div>
+            <div>
+                <input type="checkbox" id="nonDebute" name="nonDebute">
+                <label class="mr-2" for="nonDebute">ventes non débutées</label>
+            </div>
+            <div>
+                <input type="checkbox" id="terminees" name="terminees">
+                <label class="mr-2" for="terminees">ventes terminées</label>
+            </div>
+
+        </div>
+    </div>
+    <div class="checkbox-block"  >
+        <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
+    </div>
+
+
+
+</form>
+<section class="enchere-section">
+
+    <c:forEach var="articles" items="${articles}">
+        <div class="card article-box" >
+            <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title" >Article : ${articles.getNomArticles()}</h4>
+                <p class="card-text">Description : ${articles.getDescription()}</p>
+                <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
+
+                    <%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
+
+                <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
+
+            </div>
+            <div class="card-footer">
+                <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-primary">Détail article</a>
 
             </div>
         </div>
-        <div class="checkbox-block"  >
-            <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
-        </div>
 
+    </c:forEach>
 
-
-    </form>
-    <section class="enchere-section">
-
-        <c:forEach var="articles" items="${articles}">
-            <div class="card article-box" >
-                <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title" >Article : ${articles.getNomArticles()}</h4>
-                    <p class="card-text">Description : ${articles.getDescription()}</p>
-                    <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-
-<%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
-
-                    <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
-
-                </div>
-                <div class="card-footer">
-                    <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-primary">Détail article</a>
-
-                </div>
-            </div>
-
-        </c:forEach>
-
-    </section>
+</section>
 
 <%@include file="fragment/footer.jsp"%>
 
