@@ -104,3 +104,17 @@
     width: 50%;
 }
 
+/*Nouvelle vente*/
+.main_vente{
+    display: flex;
+    flex-direction: column;
+}
+.main_vente img{
+    width: 100%;
+}
+.main_vente__pix{
+    width: 30%;
+}
+.main_vente__form{
+    width: 70%;
+}

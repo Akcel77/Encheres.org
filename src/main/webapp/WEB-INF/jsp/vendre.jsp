@@ -16,27 +16,35 @@
 <body>
 <%@include file="../../WEB-INF/jsp/fragment/navbar.jsp"%>
 <main class="container">
-    <h1>Nouvelle vente</h1>
-    <form action="NouvelleVente" method="post">
-        <div class="form-group row">
-            <label for="nom" class="col-sm-2 col-form-label">Nom de l'articles</label>
-            <input class="col-sm-10" type="text" name="nom" id="nom" class="form-control" required>
+    <div class="main_vente">
+        <div class="main_vente__pix">
+            <img class="groot" src="${pageContext.request.contextPath}/images/jumpHappy.png" alt="groot" >
         </div>
+        <div class="main_vente__form">
+            <p>Vendre n'a jamais été aussi simple !</p>
+            <h1>Nouvelle vente</h1>
+            <form action="NouvelleVente" method="post">
+                <div class="form-group row">
+                    <label for="nom" class="col-sm-2 col-form-label">Nom de l'articles</label>
+                    <input class="col-sm-10" type="text" name="nom" id="nom" class="form-control" required>
+                </div>
 
-        <div class="form-group row">
-            <label for="description" class="col-sm-2 col-form-label">Description</label>
-            <input class="col-sm-10" type="text" name="description" id="description" class="form-control" required>
-        </div>
+                <div class="form-group row">
+                    <label for="description" class="col-sm-2 col-form-label">Description</label>
+                    <input class="col-sm-10" type="text" name="description" id="description" class="form-control" required>
+                </div>
 
-        <div class="form-group row">
-            <label for="categorie" class="col-sm-2 col-form-label">Catégorie</label>
-            <select class="col-sm-10" name="categorie" id="categorie" class="form-control" required>
-                <% List<Categorie> categorieList = (List<Categorie>) request.getAttribute("categorieList");
-                    for (Categorie ct: categorieList) { %>
-                <option value="<%= ct.getNoCategorie() %>"><%= ct.getLibelle() %></option>
-                <% } %>
-            </select>
+                <div class="form-group row">
+                    <label for="categorie" class="col-sm-2 col-form-label">Catégorie</label>
+                    <select class="col-sm-10" name="categorie" id="categorie" class="form-control" required>
+                        <% List<Categorie> categorieList = (List<Categorie>) request.getAttribute("categorieList");
+                            for (Categorie ct: categorieList) { %>
+                        <option value="<%= ct.getNoCategorie() %>"><%= ct.getLibelle() %></option>
+                        <% } %>
+                    </select>
+                </div>
         </div>
+    </div>
 
         <!-- TODO INPUT PHOTO : itération 2
         <div class="form-group row">

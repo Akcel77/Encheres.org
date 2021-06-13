@@ -126,7 +126,6 @@ public class ArticleImpl implements ArticleDAO {
             article.setUtilisateur(UtilisateurManager.selectUserByID(idUser));
             article.setCaterogie(CategorieManager.selectById(idCategorie));
             article.setEncheres(EnchereManager.findAllByArticleId(idArticle));
-            System.out.println("articleimpl 129" + EnchereManager.findAllByArticleId(idArticle));
             article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
             articles.add(article);
         }
