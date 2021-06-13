@@ -33,52 +33,97 @@ public class ServletConnexion extends HttpServlet {
         //Check si le mdp n'est pas null (printWritter Test ?redirection )
         //Si co ServletHome  (ajout session On )
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp");
-        PrintWriter out = response.getWriter();
 
-        HttpSession httpSession = request.getSession();
 
+
+
+        Utilisateur utilisateur = new Utilisateur();
         String erreur = null;
         String id = request.getParameter("id");
         String password = request.getParameter("psw");
+        boolean checkInDataBase = true;
+        String rememberMe = request.getParameter("rememberMe");
 
-        if (id.isEmpty() || id.length() == 0 ){
-            //erreur
-            request.setAttribute("erreur", "Erreur pseudo, Entrez un champs");
-            //Redirection
-            this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
-        }else if (password.isEmpty() || password.length() == 0 ){
-            //erreur
-            request.setAttribute("erreur", "Erreur password, Entrez un champs");
-            //Redirection
-            this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
-        }else{
-            try{
-                //Check BDD
-                Utilisateur utilisateur = UtilisateurManager.selectUserByPseudo(id);
-                //IF ok
-                if(utilisateur != null && password.equals(utilisateur.getMotDePasse())){
-                    //Cookies ok
-                    request.getSession().setAttribute("isConnected", utilisateur);
-                    request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
-                    request.getSession().setMaxInactiveInterval(5 * 60);
+        request.setAttribute("id", id);
+        request.setAttribute("psw", password);
 
-                    //Renvoie sur la ServletHome avec "isConnected" ok
-
-                    this.getServletContext().getRequestDispatcher("/Encheres").forward(request, response);
-                }else{
-                    //Si l'utilisateur n'est pas dans la BDD ou ni le mdp
-                    request.setAttribute("erreur", "Erreur dans le pseudo ou dans le mdp");
-                    System.out.println("erreur BDD");
-
-                    this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
-                }
-            }catch (BusinessException e){
-                //Si autre erreur renvoie sur la page d'erreur en fonction
-                request.setAttribute("erreur", e);
-                this.getServletContext().getRequestDispatcher("/ServletErreur");
+        if(rememberMe != null){
+            Cookie[] cookies = request.getCookies();
+            if (cookies == null || cookies.length > 0){
+                Cookie cookie = new Cookie("loginName", id);
+                cookie.setMaxAge(10*60*60*24*365);
+                response.addCookie(cookie);
             }
         }
+        if (id.contains("@")){
+            utilisateur = new Utilisateur(id, password, true);
+            try {
+                checkInDataBase = UtilisateurManager.checkIfEmailOrPseudo(utilisateur);
+            } catch (BusinessException businessException) {
+                businessException.printStackTrace();
+            }
+        }else {
+            utilisateur = new Utilisateur(id, password, false);
+            try {
+                checkInDataBase = UtilisateurManager.checkIfEmailOrPseudo(utilisateur);
+            } catch (BusinessException businessException) {
+                businessException.printStackTrace();
+            }
+        }
+
+        if (checkInDataBase == true){
+            try {
+                utilisateur = UtilisateurManager.selectUserByPseudo(id);
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("isConnected", utilisateur);
+                httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
+
+                RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
+                rd.forward(request, response);
+            } catch (BusinessException businessException) {
+                businessException.printStackTrace();
+            }
+
+        }else{
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp");
+            rd.forward(request, response);
+        }
+
+//        if (id.isEmpty() || id.length() == 0 ){
+//            //erreur
+//            request.setAttribute("erreur", "Erreur pseudo, Entrez un champs");
+//            //Redirection
+//            this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
+//        }else if (password.isEmpty() || password.length() == 0 ){
+//            //erreur
+//            request.setAttribute("erreur", "Erreur password, Entrez un champs");
+//            //Redirection
+//            this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
+//        }else{
+//            try{
+//                //Check BDD
+//                Utilisateur utilisateur = UtilisateurManager.selectUserByPseudo(id);
+//                //IF ok
+//                if(utilisateur != null && password.equals(utilisateur.getMotDePasse())){
+//                    //Cookies ok
+//                    request.getSession().setAttribute("isConnected", utilisateur);
+//                    request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
+//                    request.getSession().setMaxInactiveInterval(5 * 60);
+//
+//                    //Renvoie sur la ServletHome avec "isConnected" ok
+//
+//                    this.getServletContext().getRequestDispatcher("/Encheres").forward(request, response);
+//                }else{
+//
+//
+//                    this.getServletContext().getRequestDispatcher("/Connexion").forward(request,response);
+//                }
+//            }catch (BusinessException e){
+//                //Si autre erreur renvoie sur la page d'erreur en fonction
+//                request.setAttribute("erreur", e);
+//                this.getServletContext().getRequestDispatcher("/ServletErreur");
+//            }
+//        }
 
 
     }
