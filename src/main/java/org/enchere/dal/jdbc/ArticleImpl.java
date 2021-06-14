@@ -30,11 +30,15 @@ public class ArticleImpl implements ArticleDAO {
 
     private final String SEARCH = "SELECT u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, " +
             "cat.no_categorie, cat.libelle, " +
-            "a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente," +
+            "a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente " +
             "FROM articles_vendus a " +
             "JOIN categories cat ON a.no_article = cat.no_categorie " +
             "JOIN utilisateurs u ON a.no_utilisateur = u.no_utilisateur " +
             "WHERE a.nom_article LIKE ? ";
+
+
+
+
 
     /**
      *
@@ -233,7 +237,7 @@ public class ArticleImpl implements ArticleDAO {
 
         try (Connection connection = ConectionProvider.getConnection()){
             if (noCategorie!= -1){
-                sqlRequete = SEARCH + "AND c.no_categorie=" + noCategorie + " " + condition;
+                sqlRequete = SEARCH + "AND cat.no_categorie=" + noCategorie + " " + condition;
             }else {
                 sqlRequete = SEARCH + condition;
             }
