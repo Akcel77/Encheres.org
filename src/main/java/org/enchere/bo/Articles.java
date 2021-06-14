@@ -1,5 +1,7 @@
 package org.enchere.bo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Gestions des articles
  */
 public class Articles {
+    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private int id;
     private String nomArticles;
     private String description;

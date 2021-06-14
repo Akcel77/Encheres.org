@@ -2,6 +2,7 @@ package org.enchere.servlet.enchere;
 
 import org.enchere.bll.ArticleManager;
 import org.enchere.bll.EnchereManager;
+import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Enchere;
 import org.enchere.bo.Utilisateur;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(name = "ServletDetailVente", value = "/DetailVente")
 public class ServletDetailVente extends HttpServlet {
@@ -47,11 +49,37 @@ public class ServletDetailVente extends HttpServlet {
         int idArticle = Integer.parseInt(request.getParameter("id_article"));
         int idUtilisateur = utilisateur.getNoUtilisateur();
 
-        //Créer une enchere
-        Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
+        //Vérifie si l'utilisateur as assez de crédit
         try {
-            EnchereManager.createEnchere(enchere);
-        } catch (BusinessException e) {
+            int creditAcheteur = UtilisateurManager.selectUserByID(idUtilisateur).getCredit();
+            int lastEncherePrice = 0;
+            List<Enchere> enchereList = ArticleManager.find(idArticle).getEncheres();
+            for (Enchere encheres: enchereList) {
+                if (encheres.getNo_utilisateur() == idUtilisateur){
+                    lastEncherePrice = encheres.getMontant_enchere();
+                }
+            }
+            int sommeADepenser = enchereValue - lastEncherePrice;
+            System.out.println("************************************");
+            System.out.println("DEBUG Gestion crédit");
+            System.out.println("************************************");
+            System.out.println("credit acheteur : " + creditAcheteur);
+            System.out.println("enchere placer : " + enchereValue);
+            System.out.println("valeur de sa dernieres enchere sur cette article " + lastEncherePrice);
+            System.out.println("Valeur du portefeuille apres enchere : " + (creditAcheteur - sommeADepenser));
+            System.out.println("************************************");
+            if (creditAcheteur >= sommeADepenser){
+                //Créer une enchere si il as suffisament de crédit et le soustrait a son compte
+                Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
+                try {
+                    EnchereManager.createEnchere(enchere);
+                    utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - sommeADepenser );
+                    UtilisateurManager.updateUser(utilisateur);
+                } catch (BusinessException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (BusinessException | SQLException e) {
             e.printStackTrace();
         }
 

@@ -60,6 +60,15 @@
                     <input type="date" name="date_fin" id="date_fin" class="form-control" required>
                 </div>
 
+                <div class="col-6">
+                    <label for="heure_debut">Heure debut</label>
+                    <input type="time" name="heure_debut" id="heure_debut" class="form-control" required>
+                </div>
+                <div class="col-6">
+                    <label for="heure_fin">Heure Fin</label>
+                    <input type="time" name="heure_fin" id="heure_fin" class="form-control" required>
+                </div>
+
                 <% Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur"); %>
 
                 <div class="col-6">

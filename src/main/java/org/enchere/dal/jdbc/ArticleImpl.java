@@ -196,6 +196,9 @@ public class ArticleImpl implements ArticleDAO {
     @Override
     public ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException{
         ArrayList<Articles> articlesArrayList = new ArrayList<>();
+        int idCategorie = 0;
+        int idUtilisateur = 0;
+        int idArticle = 0;
         try(Connection connection = ConectionProvider.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(SELECT_BY_NOM);
             stmt.setString(1, "%"+nomArticle+"%");
@@ -208,7 +211,12 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
                 articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
-                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
+                idArticle = rs.getInt("no_article");
+                idCategorie = rs.getInt("no_categorie");
+                idUtilisateur = rs.getInt("no_utilisateur");
+                articles.setCaterogie(CategorieManager.selectById(idCategorie));
+                articles.setUtilisateur(UtilisateurManager.selectUserByID(idUtilisateur));
+                articles.setEncheres(EnchereManager.findAllByArticleId(idArticle));
                 articlesArrayList.add(articles);
             }
 

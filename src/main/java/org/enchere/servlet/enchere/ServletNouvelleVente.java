@@ -58,7 +58,8 @@ public class ServletNouvelleVente extends HttpServlet {
         }
 
         //Recupere les champs de formulaire et insert en bdd
-        // TODO controle sur les input
+        System.out.println(request.getParameter("heure_debut")); //TODO recuperer l'heure
+        System.out.println(request.getParameter("heure_fin")); //TODO recuperer l'heure
         try {
             Articles article = new Articles(
                     request.getParameter("nom"),
