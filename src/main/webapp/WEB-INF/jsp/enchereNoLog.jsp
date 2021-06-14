@@ -35,9 +35,6 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="submit-block"  >
-            <button  class="btn btn-outline-success valider-submit" type="submit">Valider</button>
-        </div>
     </div>
     <div class="checkbox-block"  >
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
