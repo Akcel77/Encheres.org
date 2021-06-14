@@ -1,12 +1,7 @@
 package org.enchere.servlet.enchere;
 
 import org.enchere.bll.ArticleManager;
-import org.enchere.bll.CategorieManager;
-import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Articles;
-import org.enchere.bo.Categorie;
-import org.enchere.bo.Retrait;
-import org.enchere.bo.Utilisateur;
 import org.enchere.outils.BusinessException;
 
 
@@ -23,7 +18,6 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -48,8 +42,32 @@ public class ServletListeEncheres extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession httpSession = request.getSession();
+        if (httpSession.getAttribute("isConnected") != null){
+
+            try {
+                if (request.getParameter("encheres") != null && request.getParameter("ventes") != null){
+                    //TODO redirection
+                    System.out.println("erreur");
+                }else if(request.getParameter("encheres") != null || request.getParameter("ventes") != null){
+                    String checkbox;
+                    if (request.getParameter("encheres") != null){
+                        checkbox="encheres";
+                    }else {
+                        checkbox="ventes";
+                    }
+                    request.setAttribute("encheres", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categorie")),request.getParameter(checkbox), (int ) httpSession.getAttribute("isConnected")));
+                }
 
 
+                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                request.setAttribute("articles", ArticleManager.findAll());
+                this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
+
+            }catch (SQLException | BusinessException b){
+                b.printStackTrace();
+            }
+        }
 
     }
     private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{

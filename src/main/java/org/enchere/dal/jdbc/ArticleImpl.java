@@ -184,7 +184,6 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
                 articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
-
                 articlesArrayList.add(articles);
             }
 
@@ -209,7 +208,7 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
                 articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
-//                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
+                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
                 articlesArrayList.add(articles);
             }
 

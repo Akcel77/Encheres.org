@@ -13,7 +13,7 @@ public class ServletDeconnexion extends HttpServlet {
         httpSession.removeAttribute("isConnected");
         httpSession.invalidate();
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Encheres");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
         requestDispatcher.forward(request,response);
 
     }
