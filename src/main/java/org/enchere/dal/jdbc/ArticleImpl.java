@@ -1,5 +1,6 @@
 package org.enchere.dal.jdbc;
 
+import com.sun.org.glassfish.gmbal.ManagedAttribute;
 import org.enchere.bll.CategorieManager;
 import org.enchere.bll.EnchereManager;
 import org.enchere.bll.RetraitManager;
@@ -187,7 +188,8 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
                 articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
-                articles.setCaterogie(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
+                articles.setCaterogie(CategorieManager.selectById(rs.getInt("no_categorie")));
+
                 articlesArrayList.add(articles);
             }
 

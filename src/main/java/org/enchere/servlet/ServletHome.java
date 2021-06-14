@@ -33,7 +33,6 @@ import java.util.List;
 public class ServletHome extends HttpServlet {
     private static LocalDate today = LocalDate.now();
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Check si user est connecte dans la session
@@ -53,7 +52,6 @@ public class ServletHome extends HttpServlet {
         request.setAttribute("categories", categoriesList);
 
         // recuperer la liste de tout les artciles
-
         try {
             request.setAttribute("articles", ArticleManager.findAll());
         } catch (SQLException | BusinessException throwables) {
@@ -84,12 +82,7 @@ public class ServletHome extends HttpServlet {
         }
         request.setAttribute("categories", categoriesList);
 
-
-
-
-
-
-        // Recupere l'utilisateur connecter
+        // Recupere l'utilisateur connecté
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         String nomArticle;
@@ -162,6 +155,25 @@ public class ServletHome extends HttpServlet {
 
 
 
+//        }else{
+//            try {
+//                System.out.println("test1");
+//                if(request.getParameter("choix").equals("achat")|| request.getParameter("choix").equals("vente")){
+//                    String checkbox;
+//                    if (request.getParameter("choix").equals("achat")){
+//                        checkbox="achats";
+//                    }else {
+//                        checkbox="ventes";
+//                    }
+//
+//                    request.setAttribute("choix", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categories")),request.getParameter(checkbox), 2));
+//                }
+//                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+//                request.setAttribute("articles", ArticleManager.findAll());
+//                this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
+//            }catch (SQLException | BusinessException b){
+//                b.printStackTrace();
+//            }
 
     private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{
         ArrayList<Articles> articles  = null;
@@ -171,7 +183,6 @@ public class ServletHome extends HttpServlet {
         String dateFormat = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         String dateformatee = "" + simpleDateFormat.format(date);
-
 
         switch (checkbox) {
             case "enchereOuverte":
@@ -200,8 +211,6 @@ public class ServletHome extends HttpServlet {
                 break;
 
         }return articles;
-
-
     }
 
 //    // methode pour définir quand enchère est remportée
