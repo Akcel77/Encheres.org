@@ -20,8 +20,6 @@
 <%@include file="fragment/navbar.jsp"%>
 <h1 class="text-center my-5">Liste des enchères</h1>
 
-
-
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
     <div class="saisie search-bar">
         <input class="form-control me-2 input-search" type="search" id="recherche-article" name="recherche"
@@ -39,38 +37,27 @@
     <div class="checkbox-block"  >
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
-
-
 </form>
-<section class="enchere-section">
 
+<section class="enchere-section">
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
             <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-
                     <%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
-
                 <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
-
             </div>
             <div class="card-footer">
                 <a href="<%=request.getContextPath()%>/Connexion" class="btn btn-primary">Connexion</a>
             </div>
         </div>
-
     </c:forEach>
-
 </section>
 
 <%@include file="fragment/footer.jsp"%>
-
-
-
 
 </body>
 </html>
