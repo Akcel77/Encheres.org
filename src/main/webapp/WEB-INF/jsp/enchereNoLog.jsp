@@ -31,7 +31,7 @@
             <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
                 <option selected value="all">Toutes les catégories</option>
                 <c:forEach var="categories" items="${categories}">
-                    <option value="${categories.noCategorie}">${categories.libelle}</option>
+                    <option name="sCategorie" value="${categories.noCategorie}">${categories.libelle}</option>
                 </c:forEach>
             </select>
         </div>
@@ -39,7 +39,9 @@
             <button  class="btn btn-outline-success valider-submit" type="submit">Valider</button>
         </div>
     </div>
-
+    <div class="checkbox-block"  >
+        <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
+    </div>
 
 
 </form>
@@ -47,9 +49,10 @@
 
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
+            <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-                <h4 class="card-title" >Article : ${articles.getNomArticles()}</h4>
+
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
 
