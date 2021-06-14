@@ -35,6 +35,9 @@
 .span-conf{
     float: right;
 }
+.span-pseudo{
+    font-size: 0.7rem;
+}
 
 /* PROFIL */
 .profil-section{

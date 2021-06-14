@@ -44,6 +44,19 @@ public class ServletListeEncheres extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //                    if (request.getParameter("choix") == null){
+//                        nomArticle = request.getParameter("recherche");
+//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+//                        request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
+//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+//                        rd.forward(request, response);
+//                    }else if(request.getParameter("choix")!= null ){
+//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+//                        request.setAttribute("articles", selectCond(request.getParameter("recherche"), Integer.parseInt(request.getParameter("categories")), request.getParameter("choix"), utilisateur.getNoUtilisateur()));
+//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+//                        rd.forward(request, response);
+//                    }
+
     }
 }
 

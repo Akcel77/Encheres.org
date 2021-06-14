@@ -44,6 +44,7 @@ public class ServletConnexion extends HttpServlet {
         boolean checkInDataBase = true;
         String rememberMe = request.getParameter("rememberMe");
 
+
         request.setAttribute("id", id);
         request.setAttribute("psw", password);
 
@@ -73,10 +74,14 @@ public class ServletConnexion extends HttpServlet {
 
         if (checkInDataBase == true){
             try {
-                utilisateur = UtilisateurManager.selectUserByPseudo(id);
                 HttpSession httpSession = request.getSession();
+                utilisateur = UtilisateurManager.selectUserByPseudo(id);
+
+
                 httpSession.setAttribute("isConnected", utilisateur);
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
+                //test zone
+
 
                 RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
                 rd.forward(request, response);
