@@ -20,10 +20,18 @@
 <%@include file="fragment/navbar.jsp"%>
 <main class="container">
     <div class="main-detail-vente row">
-        <h1 class="m-5 text-center" >Detail d'un article</h1>
-        <% if(!(boolean)request.getAttribute("enCours")){ %>
-        <h1>Déja vendu !</h1>
+
+        <% if(!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("venteRemportee")){ %>
+        <h1 class="vente_title">Bravo ! Vous avez remporté l'article.</h1>
+         <% } else if (!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("maVente")){ %>
+        <h1 class="vente_title">L'enchère est terminée.</h1>
+        <h2 class="vente_subtitle">Vendez de nouveaux articles !</h2>
+        <% } else if (!(boolean)request.getAttribute("enCours")){ %>
+        <h1 class="vente_title">L'enchère est terminée.</h1>
+        <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
+
+        <h1 class="m-5 text-center" >Détail d'un article</h1>
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
@@ -53,7 +61,7 @@
             <div class="col-8"><%= article.getDateFinEncheres() %></div>
 
             <div class=" col-4">Retrait :</div>
-            <div class=" col-8"><%= article.getRetrait().getRue() %>
+            <div class=" col-8"><%= article.getRetrait().getRue() %>,
                 <%= article.getRetrait().getCode_postal() %>
                 <%= article.getRetrait().getVille() %></div>
 
@@ -72,6 +80,10 @@
                 </div>
             </form>
             <% } %>
+
+            <form>
+                <input type="button" value="Retour" onclick="history.back()">
+            </form>
 
         </div>
 
