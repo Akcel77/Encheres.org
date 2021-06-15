@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 @WebServlet(name = "ServletEnchere", value = "/EncheresEnCours")
@@ -32,7 +33,7 @@ public class ServletEnchere extends HttpServlet {
         List<Articles> listeEncheresEnCours = null;
         try {
             listeEncheresEnCours = articleManager.findAll();
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 

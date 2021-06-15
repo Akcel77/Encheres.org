@@ -13,6 +13,9 @@ import org.enchere.dal.ArticleDAO;
 import org.enchere.outils.BusinessException;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,8 @@ public class ArticleImpl implements ArticleDAO {
     private final String DELETE_BY_USER = "DELETE FROM articles_vendus WHERE no_utilisateur=?";
     private final String SELECT_BY_CATEGORIE = "SELECT * FROM articles_vendus WHERE no_categorie=?";
     private final String SELECT_BY_NOM = "SELECT * FROM articles_vendus WHERE nom_article LIKE ? ";
-
+    private DateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat dateFormatHour = new SimpleDateFormat("HH:mm:ss");
 
     private final String SEARCH = "SELECT u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, " +
             "cat.no_categorie, cat.libelle, " +
@@ -36,10 +40,6 @@ public class ArticleImpl implements ArticleDAO {
             "JOIN categories cat ON a.no_article = cat.no_categorie " +
             "JOIN utilisateurs u ON a.no_utilisateur = u.no_utilisateur " +
             "WHERE a.nom_article LIKE ? ";
-
-
-
-
 
     /**
      *
@@ -52,8 +52,8 @@ public class ArticleImpl implements ArticleDAO {
         PreparedStatement stmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
         stmt.setString(1,article.getNomArticles());
         stmt.setString(2,article.getDescription());
-        stmt.setString(3,article.getDateDebutEncheres());
-        stmt.setString(4,article.getDateFinEncheres());
+        stmt.setString(3,article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
+        stmt.setString(4,article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
         stmt.setInt(5,article.getMiseAprix());
         stmt.setInt(6,article.getUtilisateur().getNoUtilisateur());
         stmt.setInt(7,article.getCaterogie().getNoCategorie());
@@ -80,8 +80,8 @@ public class ArticleImpl implements ArticleDAO {
         PreparedStatement stmt = cnx.prepareStatement(UPDATE);
         stmt.setString(1,article.getNomArticles());
         stmt.setString(2,article.getDescription());
-        stmt.setString(3,article.getDateDebutEncheres());
-        stmt.setString(4,article.getDateFinEncheres());
+        stmt.setString(3,article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
+        stmt.setString(4,article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
         stmt.setInt(5,article.getMiseAprix());
         stmt.setInt(6,article.getCaterogie().getNoCategorie());
 
@@ -111,6 +111,7 @@ public class ArticleImpl implements ArticleDAO {
         int idUser = 0;
         int idCategorie = 0;
         int idArticle = 0;
+
         List<Articles> articles = new ArrayList<>();
         Connection cnx = ConectionProvider.getConnection();
 
@@ -122,8 +123,10 @@ public class ArticleImpl implements ArticleDAO {
             article.setId(rs.getInt("no_article"));
             article.setNomArticles(rs.getString("nom_article"));
             article.setDescription(rs.getString("description"));
-            article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
-            article.setDateFinEncheres(rs.getString("date_fin_encheres"));
+            article.setDateDebutEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+            article.setDateFinEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
+            article.setHeureDebut(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+            article.setHeureFin(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
             article.setMiseAprix(rs.getInt("prix_initial"));
             idUser = rs.getInt("no_utilisateur");
             idCategorie = rs.getInt("no_categorie");
@@ -144,7 +147,7 @@ public class ArticleImpl implements ArticleDAO {
      * @throws SQLException
      */
     @Override
-    public Articles find(int id) throws SQLException, BusinessException {
+    public Articles find(int id) throws SQLException, BusinessException{
         int idUser = 0;
         int idCategorie = 0;
         int idArticle = 0;
@@ -158,8 +161,10 @@ public class ArticleImpl implements ArticleDAO {
             article.setId(rs.getInt("no_article"));
             article.setNomArticles(rs.getString("nom_article"));
             article.setDescription(rs.getString("description"));
-            article.setDateDebutEncheres(rs.getString("date_debut_encheres"));
-            article.setDateFinEncheres(rs.getString("date_fin_encheres"));
+            article.setDateDebutEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+            article.setDateFinEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
+            article.setHeureDebut(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+            article.setHeureFin(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
             article.setMiseAprix(rs.getInt("prix_initial"));
             idUser = rs.getInt("no_utilisateur");
             idCategorie = rs.getInt("no_categorie");
@@ -174,7 +179,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     @Override
-    public ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
+    public ArrayList<Articles> findByCategorie(int noCat) {
         ArrayList<Articles> articlesArrayList = new ArrayList<>();
         try(Connection connection = ConectionProvider.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(SELECT_BY_CATEGORIE);
@@ -185,15 +190,17 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setId(rs.getInt("no_article"));
                 articles.setNomArticles(rs.getString("nom_article"));
                 articles.setDescription(rs.getString("description"));
-                articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
-                articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+                articles.setDateDebutEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+                articles.setDateFinEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
+                articles.setHeureDebut(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+                articles.setHeureFin(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
                 articles.setCaterogie(CategorieManager.selectById(rs.getInt("no_categorie")));
 
                 articlesArrayList.add(articles);
             }
 
-        } catch (SQLException sqlException) {
+        } catch (SQLException | BusinessException sqlException) {
             sqlException.printStackTrace();
         }
         return articlesArrayList;
@@ -214,8 +221,10 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setId(rs.getInt("no_article"));
                 articles.setNomArticles(rs.getString("nom_article"));
                 articles.setDescription(rs.getString("description"));
-                articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
-                articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+                articles.setDateDebutEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+                articles.setDateFinEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
+                articles.setHeureDebut(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+                articles.setHeureFin(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
                 articles.setMiseAprix(rs.getInt("prix_initial"));
                 idArticle = rs.getInt("no_article");
                 idCategorie = rs.getInt("no_categorie");
@@ -233,7 +242,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     @Override
-    public ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
+    public ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition){
         ArrayList<Articles> articles = new ArrayList<>();
         String sqlRequete = "";
 
@@ -250,7 +259,7 @@ public class ArticleImpl implements ArticleDAO {
                 articles.add(createArticleEnchere(rs));
             }
 
-        } catch (SQLException sqlException) {
+        } catch (SQLException | ParseException sqlException) {
             sqlException.printStackTrace();
         }return articles;
     }
@@ -298,7 +307,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     @Override
-    public List<Articles> search() throws SQLException {
+    public List<Articles> search() throws SQLException, ParseException {
         List<Articles> articlesSearch = new ArrayList<>();
         Connection cnx = ConectionProvider.getConnection();
         PreparedStatement stmt = cnx.prepareStatement(SEARCH);
@@ -310,7 +319,7 @@ public class ArticleImpl implements ArticleDAO {
         return articlesSearch;
     }
 
-    private Articles createArticleEnchere(ResultSet rs) throws SQLException {
+    private Articles createArticleEnchere(ResultSet rs) throws SQLException, ParseException {
         Articles articles = new Articles();
         Categorie categorie = new Categorie();
         Utilisateur utilisateur = new Utilisateur();
@@ -334,8 +343,10 @@ public class ArticleImpl implements ArticleDAO {
 
         articles.setNomArticles(rs.getString("nom_article"));
         articles.setDescription(rs.getString("description"));
-        articles.setDateDebutEncheres(rs.getString("date_debut_encheres"));
-        articles.setDateFinEncheres(rs.getString("date_fin_encheres"));
+        articles.setDateDebutEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+        articles.setDateFinEncheres(dateFormatDay.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
+        articles.setHeureDebut(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_debut_encheres"))));
+        articles.setHeureFin(dateFormatHour.format(java.sql.Timestamp.valueOf(rs.getString("date_fin_encheres"))));
         articles.setMiseAprix(rs.getInt("prix_initial"));
 
         articles.setId(rs.getInt("no_article"));

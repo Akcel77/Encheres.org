@@ -102,7 +102,7 @@
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
 
-                <p class="card-text">Fin de l'enchere: ${articles.getDateFinEncheres()}</p>
+                <p class="card-text">Fin de l'enchere: le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
 
 <%--                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
 

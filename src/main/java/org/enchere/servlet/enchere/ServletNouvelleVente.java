@@ -12,6 +12,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "ServletNouvelleVente", value = "/NouvelleVente")
@@ -39,6 +42,10 @@ public class ServletNouvelleVente extends HttpServlet {
         // on bind les valeurs pour la jsp
         request.setAttribute("categorieList", categorieList);
         request.setAttribute("utilisateur", utilisateur);
+        DateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormatHour = new SimpleDateFormat("HH:mm");
+        request.setAttribute("aujourdhui", dateFormatDay.format(new Date()));
+        request.setAttribute("maintenant", dateFormatHour.format(new Date()));
 
         // Forward sur vendre.jsp
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/vendre.jsp");
@@ -58,14 +65,14 @@ public class ServletNouvelleVente extends HttpServlet {
         }
 
         //Recupere les champs de formulaire et insert en bdd
-        System.out.println(request.getParameter("heure_debut")); //TODO recuperer l'heure
-        System.out.println(request.getParameter("heure_fin")); //TODO recuperer l'heure
         try {
             Articles article = new Articles(
                     request.getParameter("nom"),
                     request.getParameter("description"),
                     request.getParameter("date_debut"),
                     request.getParameter("date_fin"),
+                    request.getParameter("heure_debut"),
+                    request.getParameter("heure_fin"),
                     Integer.parseInt(request.getParameter("prix")),
                     CategorieManager.selectById(Integer.parseInt(request.getParameter("categorie"))),
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
