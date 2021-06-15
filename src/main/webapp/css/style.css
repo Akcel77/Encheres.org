@@ -149,11 +149,18 @@
 /* Vente Reussie */
 
 .vente_title{
-    margin-top: 3rem;
+    margin-top: 10rem;
     font-family: 'Caveat', cursive;
-    font-size: 2em;
+    font-size: 3em;
     text-align: center;
 }
+
+.vente_subtitle{
+    margin-top: 3rem;
+    font-size: 1em;
+    text-align: center;
+}
+
 
 /* Small Desktop VIEW*/
 @media screen and (max-width: 1100px){
