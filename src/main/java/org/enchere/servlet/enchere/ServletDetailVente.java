@@ -48,13 +48,15 @@ public class ServletDetailVente extends HttpServlet {
         Date date1 = null;
         Date date2 = null;
         try {
-            date1 = new Date();
+            String d1 = dateFormatDayUS.format(new Date());
+            date1 = dateFormatDayUS.parse(d1);
             date2 = dateFormatDayUS.parse(article.getDateFinEncheres());
             compareDate = date1.compareTo(date2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        boolean enCours = compareDate == -1; //FIXME ne renvois pas si c'est la date du jour
+        boolean enCours = (compareDate == -1 || compareDate == 0);
+        System.out.println(compareDate);
 
         //bind les parametre pour la jsp
         request.setAttribute("article", article);
