@@ -41,6 +41,8 @@ public class ServletConnexion extends HttpServlet {
         String erreur = null;
         String id = request.getParameter("id");
         String password = request.getParameter("psw");
+        String recherche = request.getParameter("recherche");
+        Integer cate = (Integer) request.getAttribute("categories");
         boolean checkInDataBase = true;
         String rememberMe = request.getParameter("rememberMe");
 
@@ -77,7 +79,8 @@ public class ServletConnexion extends HttpServlet {
                 HttpSession httpSession = request.getSession();
                 utilisateur = UtilisateurManager.selectUserByPseudo(id);
 
-
+                request.getParameter("recherche");
+                request.getAttribute("categories");
                 httpSession.setAttribute("isConnected", utilisateur);
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
                 //test zone
