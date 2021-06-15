@@ -15,6 +15,12 @@
 </jsp:include>
 <body>
 <%@include file="../../WEB-INF/jsp/fragment/navbar.jsp"%>
+<core:if test="${erreurVente != null}" var="test">
+    <div class="alert alert-danger message-alert" role="alert">${erreurVente}</div>
+</core:if>
+<core:if test="${successVente != null}" var="test">
+    <div class="alert alert-success message-alert" role="alert">${successVente}</div>
+</core:if>
 <main class="container">
     <div class="main_vente">
         <div class="main_vente__pix">
@@ -84,6 +90,8 @@
                     <label for="ville">Ville</label>
                     <input type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>" required>
                 </div>
+
+
 
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                 <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">

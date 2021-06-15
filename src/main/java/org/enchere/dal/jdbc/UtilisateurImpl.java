@@ -15,7 +15,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
 
     // REQUETE SQL INSERT
     private static final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit, administrateur) " +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?,?,?,?,100,?)";
 
     // REQUETE SQL UPDATE
     private static final String UPDATE ="UPDATE utilisateurs " +
@@ -49,6 +49,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
     private static final String ALL_PSEUDO = "SELECT pseudo " +
             "FROM utilisateurs ";
 
+    private static final String ALL_MAIL = "SELECT email " +
+            "FROM utilisateurs ";
     private static final String ALL_ARTICLE = "SELECT * " +
             "FROM articles_vendus " +
             "WHERE no_utilisateur=?";
@@ -120,8 +122,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             stmt.setString(7, utilisateur.getCodePostal());
             stmt.setString(8, utilisateur.getVille());
             stmt.setString(9, utilisateur.getMotDePasse());
-            stmt.setInt(10, utilisateur.getCredit());
-            stmt.setBoolean(11, utilisateur.isAdministrateur());
+
+            stmt.setBoolean(10, utilisateur.isAdministrateur());
 
             stmt.executeUpdate();
             ResultSet resultSet = stmt.getGeneratedKeys();
@@ -287,6 +289,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
         return utilisateurList;
     }
 
+
     /**
      * Recuperation de tout les pseudo (pour lors de la creation verification si un pseudo est deja present ou non)
      * @return
@@ -302,6 +305,26 @@ public class UtilisateurImpl implements UtilisateurDAO {
 
             while(rs.next()){
                 listPseudo.add(rs.getString("pseudo"));
+
+            }
+
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return listPseudo;
+    }
+
+    @Override
+    public List<String> getAllMail() throws BusinessException {
+        List<String> listPseudo = new ArrayList<>();
+
+        try (Connection connection = ConectionProvider.getConnection()){
+            PreparedStatement stmt = connection.prepareStatement(ALL_MAIL);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                listPseudo.add(rs.getString("email"));
 
             }
 

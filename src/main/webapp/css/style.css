@@ -35,6 +35,11 @@
 .span-conf{
     float: right;
 }
+.message-alert{
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
 
 /* PROFIL */
 .profil-section{
@@ -145,6 +150,22 @@
 #label-prop{
     font-weight: bold;
 }
+
+/* Vente Reussie */
+
+.vente_title{
+    margin-top: 10rem;
+    font-family: 'Caveat', cursive;
+    font-size: 3em;
+    text-align: center;
+}
+
+.vente_subtitle{
+    margin-top: 3rem;
+    font-size: 1em;
+    text-align: center;
+}
+
 
 /* Small Desktop VIEW*/
 @media screen and (max-width: 1100px){

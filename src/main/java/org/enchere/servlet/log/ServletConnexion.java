@@ -84,6 +84,7 @@ public class ServletConnexion extends HttpServlet {
                 System.out.println(request.getAttribute("categorie"));
                 httpSession.setAttribute("isConnected", utilisateur);
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
+                request.getSession().setMaxInactiveInterval(5 * 60);
                 //test zone
 
                 response.sendRedirect("Encheres");
@@ -94,8 +95,9 @@ public class ServletConnexion extends HttpServlet {
             }
 
         }else{
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp");
-            rd.forward(request, response);
+
+            request.setAttribute("erreurE", "Identifiant ou mot de passe incorrect");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
         }
 
 //        if (id.isEmpty() || id.length() == 0 ){

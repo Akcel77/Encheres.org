@@ -42,6 +42,9 @@ public class ServletDetailVente extends HttpServlet {
         // test si le detail du produit est notre vente ou celle d'un autre
         boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
 
+        // teste si l'utilisateur en cours est l'acquéreur de la vente
+        boolean venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
+
         //Test si la date est avant ou apres la date du jour
         DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
         int compareDate = 0;
@@ -62,6 +65,7 @@ public class ServletDetailVente extends HttpServlet {
         request.setAttribute("article", article);
         request.setAttribute("maVente", isMaVente);
         request.setAttribute("enCours", enCours);
+        request.setAttribute("venteRemportee", venteRemportee);
 
         //forward sur jsp
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
