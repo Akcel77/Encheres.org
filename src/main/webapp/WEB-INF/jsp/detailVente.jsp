@@ -21,6 +21,9 @@
 <main class="container">
     <div class="main-detail-vente row">
         <h1 class="m-5 text-center" >Detail d'un article</h1>
+        <% if(!(boolean)request.getAttribute("enCours")){ %>
+        <h1>Déja vendu !</h1>
+        <% } %>
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
@@ -57,10 +60,10 @@
             <div class=" col-4">Vendeur :</div>
             <div class=" col-8 mb-4"><%= article.getUtilisateur().getPseudo() %></div>
 
+            <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>
             <form action="DetailVente" method="post"  class="row g-3 proposition-form ml-2">
                 <div id="label-prop" class=" col-4 my-auto ">Faire une proposition</div>
                 <div class="col-3 my-auto ">
-                    <!-- <label for="nombreEnchere">Ma proposition </label>-->
                     <input type="hidden" name="id_article" value="<%= article.getId() %>">
                     <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
                 </div>
@@ -68,6 +71,7 @@
                 <button type="submit" class="btn btn-primary">Encherir !</button>
                 </div>
             </form>
+            <% } %>
 
         </div>
 

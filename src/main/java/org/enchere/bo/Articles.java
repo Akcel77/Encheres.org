@@ -28,6 +28,24 @@ public class Articles {
     private Retrait retrait;
     private List<Enchere> encheres;
 
+//    //test de date
+//    static{
+//        DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
+//        String d1 = "2021-06-15";
+//        String d2 = "2021-06-15";
+//
+//        Date date1 = null;
+//        Date date2 = null;
+//        try {
+//            date1 = dateFormatDayUS.parse(d1);
+//            date2 = dateFormatDayUS.parse(d2);
+//            System.out.println("compare date : " + date1.compareTo(date2)); // -1 si date1 < date2 1 si date1 > date2 et 0 si égal
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
     public Articles(){
     }
 

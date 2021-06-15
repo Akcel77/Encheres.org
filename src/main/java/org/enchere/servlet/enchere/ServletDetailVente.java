@@ -13,8 +13,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "ServletDetailVente", value = "/DetailVente")
@@ -31,8 +34,32 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
+        // recupere l'id de l'utilisateur
+        HttpSession httpSession = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
+        int idUtilisateur = utilisateur.getNoUtilisateur();
+
+        // test si le detail du produit est notre vente ou celle d'un autre
+        boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
+
+        //Test si la date est avant ou apres la date du jour
+        DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
+        int compareDate = 0;
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = new Date();
+            date2 = dateFormatDayUS.parse(article.getDateFinEncheres());
+            compareDate = date1.compareTo(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        boolean enCours = compareDate == -1; //FIXME ne renvois pas si c'est la date du jour
+
         //bind les parametre pour la jsp
         request.setAttribute("article", article);
+        request.setAttribute("maVente", isMaVente);
+        request.setAttribute("enCours", enCours);
 
         //forward sur jsp
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
