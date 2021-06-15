@@ -35,6 +35,11 @@
 .span-conf{
     float: right;
 }
+.message-alert{
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
 
 /* PROFIL */
 .profil-section{
