@@ -21,6 +21,9 @@
 <main class="container">
     <div class="main-detail-vente row">
         <h1 class="m-5 text-center" >Detail d'un article</h1>
+        <% if(!(boolean)request.getAttribute("enCours")){ %>
+        <h1>Déja vendu !</h1>
+        <% } %>
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-4 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
@@ -57,15 +60,16 @@
             <div class=" col-3">Vendeur :</div>
             <div class=" col-9"><%= article.getUtilisateur().getPseudo() %></div>
 
-            <form action="DetailVente" method="post"  class="row g-3 proposition-form">
-                <label for="nombreEnchere" id="label-prop">Faire une proposition</label>
-                <div class="col-2">
-                    <!-- <label for="nombreEnchere">Ma proposition </label>-->
-                    <input type="hidden" name="id_article" value="<%= article.getId() %>">
-                    <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
-                </div>
-                <button type="submit" class="btn btn-primary col-2">Encherir !</button>
-            </form>
+            <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>
+                <form action="DetailVente" method="post"  class="row g-3 proposition-form">
+                    <label for="nombreEnchere" id="label-prop">Faire une proposition</label>
+                    <div class="col-2">
+                        <input type="hidden" name="id_article" value="<%= article.getId() %>">
+                        <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-2">Encherir !</button>
+                </form>
+            <% } %>
 
         </div>
 
