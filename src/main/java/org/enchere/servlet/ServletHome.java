@@ -16,6 +16,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -54,7 +55,7 @@ public class ServletHome extends HttpServlet {
         // recuperer la liste de tout les artciles
         try {
             request.setAttribute("articles", ArticleManager.findAll());
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
@@ -118,7 +119,7 @@ public class ServletHome extends HttpServlet {
 
 
 
-            } catch (SQLException | BusinessException sqlException) {
+            } catch (SQLException | BusinessException | ParseException sqlException) {
                 sqlException.printStackTrace();
             }
         }else{
@@ -140,7 +141,7 @@ public class ServletHome extends HttpServlet {
                     }
                 }
 
-            } catch (SQLException | BusinessException sqlException) {
+            } catch (SQLException | BusinessException | ParseException sqlException) {
                 sqlException.printStackTrace();
             }
 

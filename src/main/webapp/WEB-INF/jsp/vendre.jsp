@@ -27,23 +27,22 @@
             <form action="NouvelleVente" method="post" class="row g-3">
                 <div class="col-12">
                     <label for="nom">Nom de l'articles</label>
-                    <input type="text" name="nom" id="nom" class="form-control" required>
+                    <input type="text" name="nom" id="nom" class="form-control" required placeholder="Entrer un nom d'article">
                 </div>
 
                 <div class="col-12">
                     <label for="description">Description</label>
-                    <input type="text" name="description" id="description" class="form-control" required>
+                    <input type="text" name="description" id="description" class="form-control" required placeholder="Entrer une description">
                 </div>
 
                 <div class="col-6">
                     <label for="prix">Prix</label>
-                    <input  type="number" name="prix" id="prix" class="form-control" required>
+                    <input  type="number" name="prix" id="prix" class="form-control" required placeholder="1">
                 </div>
 
                 <div class="col-6">
                     <label for="categorie" >Catégorie</label>
                     <select  name="categorie" id="categorie" class="form-control" required>
-                        <option selected>Choisir une catégorie</option>
                         <% List<Categorie> categorieList = (List<Categorie>) request.getAttribute("categorieList");
                             for (Categorie ct: categorieList) { %>
                         <option value="<%= ct.getNoCategorie() %>"><%= ct.getLibelle() %></option>
@@ -53,17 +52,19 @@
 
                 <div class="col-6">
                     <label for="date_debut">Date debut</label>
-                    <input type="date" name="date_debut" id="date_debut" class="form-control" required>
-                </div>
-                <div class="col-6">
-                    <label for="date_fin">Date Fin</label>
-                    <input type="date" name="date_fin" id="date_fin" class="form-control" required>
+                    <input type="date" name="date_debut" id="date_debut" class="form-control" min="<%= request.getAttribute("aujourdhui") %>" value="<%= request.getAttribute("aujourdhui") %>" required>
                 </div>
 
                 <div class="col-6">
                     <label for="heure_debut">Heure debut</label>
-                    <input type="time" name="heure_debut" id="heure_debut" class="form-control" required>
+                    <input type="time" name="heure_debut" id="heure_debut" class="form-control" min="<%= request.getAttribute("maintenant") %>" value="<%= request.getAttribute("maintenant") %>" required>
                 </div>
+
+                <div class="col-6">
+                    <label for="date_fin">Date Fin</label>
+                    <input type="date" name="date_fin" id="date_fin" class="form-control" min="<%= request.getAttribute("aujourdhui") %>" value="<%= request.getAttribute("aujourdhui") %>" required>
+                </div>
+
                 <div class="col-6">
                     <label for="heure_fin">Heure Fin</label>
                     <input type="time" name="heure_fin" id="heure_fin" class="form-control" required>
