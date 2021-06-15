@@ -138,6 +138,15 @@
 }
 
 
+/* Vente Reussie */
+
+.vente_title{
+    margin-top: 3rem;
+    font-family: 'Caveat', cursive;
+    font-size: 2em;
+    text-align: center;
+}
+
 /* Small Desktop VIEW*/
 @media screen and (max-width: 1100px){
     .enchere-section {
