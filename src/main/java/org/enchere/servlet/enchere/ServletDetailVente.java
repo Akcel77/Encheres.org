@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ServletDetailVente extends HttpServlet {
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
@@ -60,14 +61,6 @@ public class ServletDetailVente extends HttpServlet {
                 }
             }
             int sommeADepenser = enchereValue - lastEncherePrice;
-            System.out.println("************************************");
-            System.out.println("DEBUG Gestion crédit");
-            System.out.println("************************************");
-            System.out.println("credit acheteur : " + creditAcheteur);
-            System.out.println("enchere placer : " + enchereValue);
-            System.out.println("valeur de sa dernieres enchere sur cette article " + lastEncherePrice);
-            System.out.println("Valeur du portefeuille apres enchere : " + (creditAcheteur - sommeADepenser));
-            System.out.println("************************************");
             if (creditAcheteur >= sommeADepenser){
                 //Créer une enchere si il as suffisament de crédit et le soustrait a son compte
                 Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
@@ -79,7 +72,7 @@ public class ServletDetailVente extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-        } catch (BusinessException | SQLException e) {
+        } catch (BusinessException | SQLException | ParseException e) {
             e.printStackTrace();
         }
 
@@ -87,7 +80,7 @@ public class ServletDetailVente extends HttpServlet {
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 

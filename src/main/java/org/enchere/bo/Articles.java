@@ -1,20 +1,26 @@
 package org.enchere.bo;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Gestions des articles
  */
 public class Articles {
-    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat dateFormatDayFR = new SimpleDateFormat("dd-MM-yyyy");
+    private DateFormat dateFormatHour = new SimpleDateFormat("HH:mm:ss");
     private int id;
     private String nomArticles;
     private String description;
     private String dateDebutEncheres;
     private String dateFinEncheres;
+    private String heureDebut;
+    private String heureFin;
     private int miseAprix;
     private String etatDeVente;
     private Categorie caterogie;
@@ -36,11 +42,13 @@ public class Articles {
         this.retrait = retrait;
     }
 
-    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, int miseAprix, Categorie caterogie, Utilisateur utilisateur) {
+    public Articles(String nomArticles, String description, String dateDebutEncheres, String dateFinEncheres, String heureDebut, String heureFin, int miseAprix, Categorie caterogie, Utilisateur utilisateur) {
         this.nomArticles = nomArticles;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
         this.dateFinEncheres = dateFinEncheres;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
         this.miseAprix = miseAprix;
         this.caterogie = caterogie;
         this.utilisateur = utilisateur;
@@ -106,7 +114,6 @@ public class Articles {
 
     public Enchere getLastEncheres() {
         if (encheres.size() != 0){
-            System.out.println("enchere n'est pas null" + encheres.toString());
             return encheres.get(encheres.size()-1);
         }else{
             return null;
@@ -197,6 +204,27 @@ public class Articles {
     public Retrait getRetrait() { return retrait; }
 
     public void setRetrait(Retrait retrait) { this.retrait = retrait; }
+
+    public String convertToFRDAte(String date) throws ParseException {
+        Date date1 = dateFormatDayUS.parse(date);
+        return dateFormatDayFR.format(date1);
+    }
+
+    public String getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public String getHeureFin() {
+        return heureFin;
+    }
+
+    public void setHeureFin(String heureFin) {
+        this.heureFin = heureFin;
+    }
 
     @Override
     public String toString() {

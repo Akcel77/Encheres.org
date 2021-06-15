@@ -16,6 +16,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -54,7 +55,7 @@ public class ServletHome extends HttpServlet {
         // recuperer la liste de tout les artciles
         try {
             request.setAttribute("articles", ArticleManager.findAll());
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
@@ -87,36 +88,38 @@ public class ServletHome extends HttpServlet {
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         String nomArticle;
 
-        System.out.println(request.getParameter("categories"));
+        System.out.println(request.getAttribute("categories"));
 
 
         if(httpSession.getAttribute("isConnected") != null ){
             try {
-                System.out.println("test 1");
-//                if (request.getParameter("recherche").isEmpty() || request.getParameter("recherche") == null){
-//                    System.out.println("test");
-//                    if (request.getParameter("categories").equals("-1")){
-//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-//                        request.setAttribute("articles", ArticleManager.findAll());
-//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-//                        rd.forward(request, response);
-//                    }else{
-//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-//                        request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
-//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-//                        rd.forward(request, response);
-////                    }
-//
-//
-//
-//                }else{
-                    request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-                    request.setAttribute("articles", ArticleManager.findAll());
-                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-                    rd.forward(request, response);
-//                }
 
-            } catch (SQLException | BusinessException sqlException) {
+                System.out.println("test 1");
+                if (!request.getParameter("recherche").isEmpty() ){
+                    nomArticle = request.getParameter("recherche");
+                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
+                    rd.forward(request, response);
+                }
+                else {
+                    if(request.getAttribute("categories").equals("-1")){
+                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                        request.setAttribute("articles", ArticleManager.findAll());
+                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+                        rd.forward(request, response);
+                    }else{
+                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+                        request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
+                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+                        rd.forward(request, response);
+                    }
+                }
+
+
+
+
+
+            } catch (SQLException | BusinessException | ParseException sqlException) {
                 sqlException.printStackTrace();
             }
         }else{
@@ -138,7 +141,7 @@ public class ServletHome extends HttpServlet {
                     }
                 }
 
-            } catch (SQLException | BusinessException sqlException) {
+            } catch (SQLException | BusinessException | ParseException sqlException) {
                 sqlException.printStackTrace();
             }
 
