@@ -24,7 +24,8 @@ public class ServletProfil extends HttpServlet {
         String pseudo = (String) request.getSession().getAttribute("pseudo");
 
         Utilisateur utilisateurEnCours = null;
-
+        int idUtilisateur = utilisateur.getNoUtilisateur();
+        System.out.println(idUtilisateur  + "noUt");
         try {
             utilisateurEnCours = UtilisateurManager.selectUserByPseudo(pseudo);
         }catch (BusinessException e){
