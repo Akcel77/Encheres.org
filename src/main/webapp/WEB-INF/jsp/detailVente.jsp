@@ -20,7 +20,13 @@
 <%@include file="fragment/navbar.jsp"%>
 <main class="container">
     <div class="main-detail-vente row">
+        <% Articles articleVendu = null ;
+        if(articleVendu.getDateFinEncheres() != null) {
+
+            }
+        %>
         <h1 class="m-5 text-center" >Detail d'un article</h1>
+
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-4 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
@@ -38,7 +44,7 @@
             <div class=" col-3">Meilleure offre :</div>
             <div class=" col-9"><% Enchere lastEnchere = (Enchere) article.getLastEncheres();
                 if(lastEnchere == null){ %>
-                Aucune enchere en cours !
+                Aucune enchère en cours !
                 <% }else{ %>
                 <%= lastEnchere.getMontant_enchere() %> pts par
                 <%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo() %><% } %></div>

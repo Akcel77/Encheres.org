@@ -21,7 +21,7 @@ public class ServletDetailVente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Recupere l'id envoyer par le get
+        // Recupere l'id envoyé par le get
         int idArticle = Integer.parseInt(request.getParameter("id"));
         Articles article = null;
         try {
@@ -30,7 +30,7 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        //bind les parametre pour la jsp
+        //bind les parametres pour la jsp
         request.setAttribute("article", article);
 
         //forward sur jsp
@@ -44,7 +44,7 @@ public class ServletDetailVente extends HttpServlet {
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
 
-        // Recupere les data necessaire à la création d'une enchere
+        // Recupere les datas nécessaires à la création d'une enchère
         int enchereValue = Integer.parseInt(request.getParameter("nombreEnchere"));
         int idArticle = Integer.parseInt(request.getParameter("id_article"));
         int idUtilisateur = utilisateur.getNoUtilisateur();
@@ -91,7 +91,7 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        //bind les parametre pour la jsp
+        //bind les paramètres pour la jsp
         request.setAttribute("article", article);
 
         // forward
