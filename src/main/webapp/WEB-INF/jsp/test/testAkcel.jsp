@@ -7,10 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
+<head></head>
 <body>
-        <h1> erreur</h1>
+<form action="Image" method="post" enctype="multipart/form-data" >
+    <input type="file" name="photo" size="10"
+           required="required" />
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>

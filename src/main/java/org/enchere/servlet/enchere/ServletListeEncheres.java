@@ -2,6 +2,7 @@ package org.enchere.servlet.enchere;
 
 import org.enchere.bll.ArticleManager;
 import org.enchere.bo.Articles;
+import org.enchere.bo.Utilisateur;
 import org.enchere.outils.BusinessException;
 
 
@@ -30,7 +31,7 @@ import java.util.Date;
 public class ServletListeEncheres extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ServletListeEncheres(){
+    public ServletListeEncheres() {
         super();
     }
 
@@ -38,82 +39,27 @@ public class ServletListeEncheres extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //forward sur la liste des enchères quand l'utilisateur est non connecté
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession httpSession = request.getSession();
-        if (httpSession.getAttribute("isConnected") != null){
 
-            try {
-                if (request.getParameter("encheres") != null && request.getParameter("ventes") != null){
-                    //TODO redirection
-                    System.out.println("erreur");
-                }else if(request.getParameter("encheres") != null || request.getParameter("ventes") != null){
-                    String checkbox;
-                    if (request.getParameter("encheres") != null){
-                        checkbox="encheres";
-                    }else {
-                        checkbox="ventes";
-                    }
-                    request.setAttribute("encheres", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categorie")),request.getParameter(checkbox), (int ) httpSession.getAttribute("isConnected")));
-                }
-
-
-                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-                request.setAttribute("articles", ArticleManager.findAll());
-                this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
-
-            }catch (SQLException | BusinessException | ParseException b){
-                b.printStackTrace();
-            }
-        }
-
-    }
-    private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{
-        ArrayList<Articles> articles  = null;
-        String cond;
-        Date date = new Date();
-        String dateFormat = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        String dateformatee = "'" + simpleDateFormat.format(date)+ "'";
-
-
-        switch (checkbox) {
-            case "enchereOuverte":
-                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "mesEncheres":
-                cond = "AND a.date_debut_encheres<" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "enchereRemportee":
-                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "vente":
-                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "nonDebute":
-                cond = "AND a.date_debut_encheres>" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "terminees":
-                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-
-        }return articles;
+        //                    if (request.getParameter("choix") == null){
+//                        nomArticle = request.getParameter("recherche");
+//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+//                        request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
+//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+//                        rd.forward(request, response);
+//                    }else if(request.getParameter("choix")!= null ){
+//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
+//                        request.setAttribute("articles", selectCond(request.getParameter("recherche"), Integer.parseInt(request.getParameter("categories")), request.getParameter("choix"), utilisateur.getNoUtilisateur()));
+//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+//                        rd.forward(request, response);
+//                    }
 
 
     }
-
 }
-
-
-
 
 

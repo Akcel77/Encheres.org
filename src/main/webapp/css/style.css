@@ -136,7 +136,22 @@
     font-size: 2em;
     text-align: end;
 }
+/*Detail vente*/
+.main-detail-vente{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
 
+.main-detail-vente img{
+    width: 100%;
+}
+
+#label-prop{
+    font-weight: bold;
+}
 
 /* Small Desktop VIEW*/
 @media screen and (max-width: 1100px){

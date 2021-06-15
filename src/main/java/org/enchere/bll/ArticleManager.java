@@ -72,7 +72,6 @@ public class ArticleManager{
         return articleDAO.findByNomArticle(nomArticle);
     }
     public static ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
-        System.out.println(nom + " " + noCategorie + " "  + condition);
         return articleDAO.findWithCond(nom, noCategorie, condition);
     }
 }

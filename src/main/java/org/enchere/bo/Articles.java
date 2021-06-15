@@ -1,15 +1,18 @@
 package org.enchere.bo;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Gestions des articles
  */
 public class Articles {
-    private DateFormat dateFormatDay = new SimpleDateFormat("dd-MM-yyyy");
+    private DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat dateFormatDayFR = new SimpleDateFormat("dd-MM-yyyy");
     private DateFormat dateFormatHour = new SimpleDateFormat("HH:mm:ss");
     private int id;
     private String nomArticles;
@@ -202,8 +205,9 @@ public class Articles {
 
     public void setRetrait(Retrait retrait) { this.retrait = retrait; }
 
-    public String convertToFRDAte(String date){
-       return date; //FIXME
+    public String convertToFRDAte(String date) throws ParseException {
+        Date date1 = dateFormatDayUS.parse(date);
+        return dateFormatDayFR.format(date1);
     }
 
     public String getHeureDebut() {
