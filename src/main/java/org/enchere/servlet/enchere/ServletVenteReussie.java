@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 @WebServlet(name = "ServletVenteReussie", value = "/VenteReussie")
 public class ServletVenteReussie extends HttpServlet {
@@ -24,7 +25,7 @@ public class ServletVenteReussie extends HttpServlet {
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
