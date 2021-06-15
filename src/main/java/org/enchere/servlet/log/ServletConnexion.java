@@ -86,9 +86,9 @@ public class ServletConnexion extends HttpServlet {
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
                 //test zone
 
-
-                RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
-                rd.forward(request, response);
+                response.sendRedirect("Encheres");
+//                RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
+//                rd.forward(request, response);
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
             }
