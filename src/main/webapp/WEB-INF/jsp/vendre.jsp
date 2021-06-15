@@ -82,11 +82,11 @@
                     <label for="rue">Rue</label>
                     <input type="text" name="rue" id="rue" class="form-control" value="<%= utilisateur.getRue() %>" required>
                 </div>
-                <div class="col-2">
+                <div class="col-6 ">
                     <label for="codePostal">Code Postal</label>
                     <input type="text" name="codePostal" id="codePostal" class="form-control" value="<%= utilisateur.getCodePostal() %>" required>
                 </div>
-                <div class="col-4">
+                <div class="col-6 ">
                     <label for="ville">Ville</label>
                     <input type="text" name="ville" id="ville" class="form-control" value="<%= utilisateur.getVille() %>" required>
                 </div>

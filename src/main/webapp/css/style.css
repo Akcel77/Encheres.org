@@ -196,6 +196,16 @@
     .groot{
         width: 50%;
     }
+    .profil-section{
+        width: 70%;
+    }
+    .main_vente{
+        flex-direction: column;
+        align-items: center;
+    }
+    .main_vente__pix{
+        width: 40%;
+    }
 }
 /*Mobile VIEW*/
 @media screen and (max-width: 600px){
