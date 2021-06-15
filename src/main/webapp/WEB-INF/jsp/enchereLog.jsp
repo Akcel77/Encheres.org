@@ -33,9 +33,9 @@
                aria-label="Rechercher l'article">
         <div class="filtre">
             <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
-                <option selected value="-1">Toutes les catégories</option>
+                <option name="lCategorie" selected value="-1">Toutes les catégories</option>
                 <c:forEach var="categorie" items="${categories}">
-                    <option value="${categorie.noCategorie}">${categorie.libelle}</option>
+                    <option name="sCategorie" value="${categorie.noCategorie}">${categorie.libelle}</option>
                 </c:forEach>
             </select>
         </div>
