@@ -88,27 +88,20 @@ public class ServletHome extends HttpServlet {
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         String nomArticle;
 
-
-
         if(httpSession.getAttribute("isConnected") != null ){
             try {
-                if (request.getParameter("recherche") == null || request.getParameter("recherche").equals("null") ||  request.getParameter("recherche").isEmpty() ){
-
-
+                if (request.getParameter("recherche") == null || request.getParameter("recherche").isEmpty() ){
+                    System.out.println(request.getParameter("enchereOuverte"));
                     if(request.getParameter("categories") == null ){
-
                         request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
                         request.setAttribute("articles", ArticleManager.findAll());
                         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
                         rd.forward(request, response);
                     }else{
-
-
                         request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
                         request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
                         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
                         rd.forward(request, response);
-
                     }
                 }else{
                     System.out.println("test 2");
@@ -117,34 +110,6 @@ public class ServletHome extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
                     rd.forward(request, response);
                 }
-
-//                if (request.getParameter("recherche") != null ||!request.getParameter("recherche").equals("null") || !request.getParameter("recherche").isEmpty() ){
-//                    System.out.println("test 2");
-//                    nomArticle = request.getParameter("recherche");
-//                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
-//                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-//                    rd.forward(request, response);
-//                }
-//                else {
-//                    if(request.getAttribute("categories").equals("-1")){
-//                        System.out.println("test 3");
-//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-//                        request.setAttribute("articles", ArticleManager.findAll());
-//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-//                        rd.forward(request, response);
-//                    }else{
-//                        System.out.println("test 4");
-//                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-//                        request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
-//                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-//                        rd.forward(request, response);
-//                    }
-//                }
-
-
-
-
-
             } catch (SQLException | BusinessException | ParseException sqlException) {
                 sqlException.printStackTrace();
             }
