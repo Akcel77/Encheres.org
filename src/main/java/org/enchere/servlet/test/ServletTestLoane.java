@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ServletTestLoane extends HttpServlet {
         List<Articles> listeEncheresEnCours = null;
         try {
             listeEncheresEnCours = articleManager.findAll();
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 

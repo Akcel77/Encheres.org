@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class ServletListeEncheres extends HttpServlet {
                 request.setAttribute("articles", ArticleManager.findAll());
                 this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
 
-            }catch (SQLException | BusinessException b){
+            }catch (SQLException | BusinessException | ParseException b){
                 b.printStackTrace();
             }
         }

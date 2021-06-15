@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ServletDetailVente extends HttpServlet {
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
@@ -79,7 +80,7 @@ public class ServletDetailVente extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-        } catch (BusinessException | SQLException e) {
+        } catch (BusinessException | SQLException | ParseException e) {
             e.printStackTrace();
         }
 
@@ -87,7 +88,7 @@ public class ServletDetailVente extends HttpServlet {
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
-        } catch (SQLException | BusinessException throwables) {
+        } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
