@@ -18,8 +18,9 @@
         <section class="section-inscription-form mx-auto">
             <form class="inscription-form" action="<%=request.getContextPath()%>/Inscription" method="post" >
                 <div class="row-form">
-                    <label class="form-label" for="pseudo"> Pseudo* :</label>
-                    <input class="form-control" name="pseudo" id="pseudo" required placeholder="Votre pseudo">
+                    <label class="form-label"  for="pseudo"> Pseudo* :</label>
+                    <span class="span-conf span-pseudo" id='pseudoValid' ></span>
+                    <input class="form-control" onchange="validatePseudo()" name="pseudo" id="pseudo" required placeholder="Votre pseudo">
                     <label class="form-label" for="nom">Nom* :</label>
                     <input class="form-control" name="nom" id="nom" required placeholder="Votre nom" >
                 </div>

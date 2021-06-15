@@ -18,84 +18,59 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
-    <main class="container">
-        <h1 class="text-center mt-5">Detail d'un article</h1>
-        <h2>Detail de l'article</h2>
+<main class="container">
+    <div class="main-detail-vente row">
+        <h1 class="m-5 text-center" >Detail d'un article</h1>
         <% Articles article = (Articles) request.getAttribute("article"); %>
-        <table class="table table-info">
-            <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Categorie</th>
-                <th scope="col">Mise à prix</th>
-                <th scope="col">Date début</th>
-                <th scope="col">Date fin</th>
-                <th scope="col">Description</th>
-                <th scope="col">Vendeur</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><%= article.getNomArticles() %></td>
-                <td><%= article.getCaterogie().getLibelle() %></td>
-                <td><%= article.getMiseAprix() %></td>
-                <td><%= article.getDateDebutEncheres() %></td>
-                <td><%= article.getDateFinEncheres() %></td>
-                <td><%= article.getDescription() %></td>
-                <td><%= article.getUtilisateur().getPseudo() %></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="main-image-article col-4 align-self-center mb-5">
+            <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
+        </div>
+        <div class="main-detail-article col-7 row g-3">
+            <div class=" col-3"> Article : </div>
+            <div class=" col-9"><%= article.getNomArticles() %></div>
 
-        <h2>Meilleur enchere </h2>
-        <% Enchere lastEnchere = (Enchere) article.getLastEncheres();
-            if(lastEnchere == null){ %>
-            <p>Aucune enchere en cours !</p>
-        <% }else{ %>
-        <table class="table table-info">
-            <thead>
-            <tr>
-                <th scope="col">Utilisateur</th>
-                <th scope="col">Prix</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo()  %></td>
-                <td><%= lastEnchere.getMontant_enchere() %> pts</td>
-            </tr>
-            </tbody>
-        </table>
-        <% } %>
+            <div class=" col-3">Description :</div>
+            <div class=" col-9"><%= article.getDescription() %></div>
 
-        <h2>Retrait</h2>
-        <table class="table table-info">
-            <thead>
-            <tr>
-                <th scope="col">Rue</th>
-                <th scope="col">Code Postal</th>
-                <th scope="col">Ville</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><%= article.getRetrait().getRue() %></td>
-                <td><%= article.getRetrait().getCode_postal() %></td>
-                <td><%= article.getRetrait().getVille() %></td>
-            </tr>
-            </tbody>
-        </table>
+            <div class="col-3">Catégorie :</div>
+            <div class=" col-9"><%= article.getCaterogie().getLibelle() %></div>
 
-        <h2>Faire une proposition</h2>
-        <form action="DetailVente" method="post"  class="row g-3">
-            <div class="col-12">
-                <label for="nombreEnchere">Ma proposition </label>
-                <input type="hidden" name="id_article" value="<%= article.getId() %>">
-                <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
-            </div>
-            <button type="submit" class="btn btn-primary">Encherir !</button>
-        </form>
-    </main>
+            <div class=" col-3">Meilleure offre :</div>
+            <div class=" col-9"><% Enchere lastEnchere = (Enchere) article.getLastEncheres();
+                if(lastEnchere == null){ %>
+                Aucune enchere en cours !
+                <% }else{ %>
+                <%= lastEnchere.getMontant_enchere() %> pts par
+                <%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo() %><% } %></div>
+
+            <div class="col-3">Mise à prix :</div>
+            <div class=" col-9"><%= article.getMiseAprix() %></div>
+
+            <div class=" col-3">Fin de l'enchère :</div>
+            <div class="col-9"><%= article.getDateFinEncheres() %></div>
+
+            <div class=" col-3">Retrait :</div>
+            <div class=" col-9"><%= article.getRetrait().getRue() %>
+                <%= article.getRetrait().getCode_postal() %>
+                <%= article.getRetrait().getVille() %></div>
+
+            <div class=" col-3">Vendeur :</div>
+            <div class=" col-9"><%= article.getUtilisateur().getPseudo() %></div>
+
+            <form action="DetailVente" method="post"  class="row g-3 proposition-form">
+                <label for="nombreEnchere" id="label-prop">Faire une proposition</label>
+                <div class="col-2">
+                    <!-- <label for="nombreEnchere">Ma proposition </label>-->
+                    <input type="hidden" name="id_article" value="<%= article.getId() %>">
+                    <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
+                </div>
+                <button type="submit" class="btn btn-primary col-2">Encherir !</button>
+            </form>
+
+        </div>
+
+    </div>
+</main>
 <%@include file="fragment/footer.jsp"%>
 </body>
 </html>
