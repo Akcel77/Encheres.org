@@ -53,7 +53,7 @@
             <div class=" col-9"><%= article.getMiseAprix() %></div>
 
             <div class=" col-3">Fin de l'enchère :</div>
-            <div class="col-9"><%= article.getDateFinEncheres() %></div>
+            <div class="col-9"><%= article.convertToFRDAte(article.getDateFinEncheres()) %> à <%= article.getHeureFin() %></div>
 
             <div class=" col-3">Retrait :</div>
             <div class=" col-9"><%= article.getRetrait().getRue() %>
