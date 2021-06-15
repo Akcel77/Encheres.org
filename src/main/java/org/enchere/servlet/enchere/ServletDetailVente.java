@@ -41,7 +41,6 @@ public class ServletDetailVente extends HttpServlet {
 
         // test si le detail du produit est notre vente ou celle d'un autre
         boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
-        System.out.println("c'est ma vente : " + isMaVente);
 
         //Test si la date est avant ou apres la date du jour
         DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
