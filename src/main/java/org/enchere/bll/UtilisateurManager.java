@@ -50,6 +50,8 @@ public class UtilisateurManager {
         return utilisateurDAO.checkIfEmailOrPseudo(utilisateur);
     }
 
+
+
     /**
      * Condition pour inscription Fonctionne avec SignInUser
      * @param utilisateur
@@ -112,6 +114,7 @@ public class UtilisateurManager {
         return utilisateurDAO.getByPseudo(pseudo);
     }
 
+
     /**
      * Select un User en fonction de son mail
      * @param email
@@ -150,6 +153,9 @@ public class UtilisateurManager {
      */
     public static List<String> AllPseudoList()throws BusinessException{
         return utilisateurDAO.getAllPseudo();
+    }
+    public static List<String> getAllMail() throws BusinessException{
+        return utilisateurDAO.getAllMail();
     }
 
     public static Utilisateur selectUserByID(int idUser) throws BusinessException {

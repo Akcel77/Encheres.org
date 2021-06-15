@@ -27,6 +27,20 @@ public class ServletInscription extends HttpServlet {
         //Si c'est ok cree un Utilisateur
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
         Utilisateur utilisateur = null;
+        List<String> listEmail = null;
+        List<String> listePseudo = null;
+        try {
+            listEmail = UtilisateurManager.getAllMail();
+            listePseudo  = UtilisateurManager.AllPseudoList();
+        } catch (BusinessException businessException) {
+            businessException.printStackTrace();
+        }
+
+
+
+
+
+
 
         try {
             String pseudo = request.getParameter("pseudo");
@@ -40,44 +54,25 @@ public class ServletInscription extends HttpServlet {
             String ville = request.getParameter("ville");
             String codePostal = request.getParameter("codePostal");
 
-            List<String> listePseudo = UtilisateurManager.AllPseudoList();
-            if (pseudo.length() == 0 || pseudo.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner un pseudo");
-            }else if (listePseudo.contains(pseudo)){
-                request.setAttribute("erreur", "Pseudo deja utilise veuillez renseigner un autre pseudo");
-            }else if (nom.length() == 0 || nom.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner un nom");
-            }else if (prenom.length() == 0 || prenom.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner un prenom");
-            }else if (email.length() == 0 || email.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner un email");
-            }else if (password.length() == 0 || password.isEmpty()) {
-                request.setAttribute("erreur", "Veuillez renseigner un password");
-            }else if (rue.length() == 0 || rue.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner une rue");
-            }else if (ville.length() == 0 || ville.isEmpty()){
-                request.setAttribute("erreur", "Veuillez renseigner une ville");
-            }else if (codePostal.length() == 0 || codePostal.isEmpty()) {
-                request.setAttribute("erreur", "Veuillez renseigner un codePostal");
-            }else if ( passwordConf.equals(password)){
-                utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,password);
-
-                System.out.println("test Ajout");
-
-                utilisateur = UtilisateurManager.signInUser(utilisateur);
-
-                //Connection de l'utilisateur apres son enregistrement
-                if (utilisateur != null){
-                    HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("isConnected", utilisateur);
-                    this.getServletContext().getRequestDispatcher("/ServletHome").forward(request, response);
-                }else{
-                    request.setAttribute("erreur", "Pas d'utilisateur");
-                    rd.forward(request, response);
+            if (listEmail.contains(email)){
+                request.setAttribute("erreurMail", "Email déjà utilisé veuillez renseigner un autre email");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);
+            }else if(listePseudo.contains(pseudo)){
+                request.setAttribute("erreurPseudo", "Pseudo déjà utilisé veuillez renseigner un autre pseudo");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);
+            }else if (!pseudo.isEmpty() && ! nom.isEmpty() && !prenom.isEmpty() && !email.isEmpty() && !password.isEmpty() && !rue.isEmpty() && !ville.isEmpty() && !codePostal.isEmpty() ) {
+                utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password);
+                if (passwordConf.equals(password) && !listEmail.contains(email) && !listePseudo.contains(pseudo) ) {
+                    utilisateur = UtilisateurManager.signInUser(utilisateur);
                 }
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("isConnected", utilisateur);
+                this.getServletContext().getRequestDispatcher("/Encheres").forward(request, response);
             }
-        }catch (BusinessException e){
-            e.printStackTrace();
+
+
+    } catch (BusinessException businessException) {
+            businessException.printStackTrace();
         }
     }
 }
