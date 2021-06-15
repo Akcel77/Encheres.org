@@ -104,9 +104,9 @@
 
                 <p class="card-text">Fin de l'enchere: le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
 
-<%--                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
+                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
 
-                <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
+                <p class="card-text vendeur">Vendeur : <a  href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
 
             </div>
             <div class="card-footer">

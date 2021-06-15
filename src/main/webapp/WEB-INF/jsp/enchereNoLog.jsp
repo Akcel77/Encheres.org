@@ -47,7 +47,7 @@
             <div class="card-body">
                 <p class="card-text">Description : ${articles.getDescription()}</p>
                 <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-                    <%--                    <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>--%>
+                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
                 <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
             </div>
             <div class="card-footer">
