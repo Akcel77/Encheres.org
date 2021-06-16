@@ -21,22 +21,23 @@
 <main class="container">
     <div class="main-detail-vente row">
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
-        <core:if test="${erreurEncheres != null}" var="test">
-            <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
-        </core:if>
-        <core:if test="${successEnchere != null}" var="test">
-            <div class="alert alert-success message-alert" role="alert">${successEnchere}</div>
-        </core:if>
         <% if(!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("venteRemportee")){ %>
         <h2 class="vente_title">Bravo ! Vous avez remporté l'article.</h2>
+
          <% } else if (!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("maVente")){ %>
         <h2 class="vente_title">L'enchère est terminée.</h2>
         <h2 class="vente_subtitle">Vendez de nouveaux articles !</h2>
-        <% } else if (!(boolean)request.getAttribute("enCours")){ %>
+
+        <% } else if (!(boolean)request.getAttribute("enCours")&&!(boolean)request.getAttribute("venteRemportee")){ %>
+        <h2 class="vente_title">L'enchère est terminée.</h2>
+
+        <% } else if (request.getAttribute("enchereRemportee")!=null){ %>
         <h2 class="vente_title">L'enchère est terminée.</h2>
         <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
+
+
+        <h1 class="m-5 text-center" >Détail d'un article</h1>
 
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
@@ -76,17 +77,21 @@
 
             <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>
             <form action="DetailVente" method="post"  class="row g-3 proposition-form ml-2">
-                <div id="label-prop" class=" col-12 my-auto ">Faire une proposition</div>
-                <div class="col-12 my-auto ">
+                <div id="label-prop" class=" col-4 my-auto ">Faire une proposition</div>
+                <div class="col-3 my-auto ">
                     <input type="hidden" name="id_article" value="<%= article.getId() %>">
                     <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
                 </div>
-                <button type="submit" class="btn btn-primary col-12">Encherir !</button>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
+                <div class=" col-3 my-auto">
+                <button type="submit" class="btn btn-primary">Encherir !</button>
+                </div>
             </form>
-            <% }else{ %>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             <% } %>
+
+            <form>
+                <input type="button" value="Retour" onclick="history.back()">
+            </form>
+
         </div>
 
     </div>

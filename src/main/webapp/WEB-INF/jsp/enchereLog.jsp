@@ -87,10 +87,15 @@
     <div class="checkbox-block"  >
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
-
-
-
 </form>
+
+<div class="enchere_subtitle">
+    <% if(request.getAttribute("articlesNull")!=null) { %>
+    <h1>Aucun article ne correspond à votre recherche.</h1>
+    <% } %>
+</div>
+
+
 <section class="enchere-section">
 
     <c:forEach var="articles" items="${articles}">
