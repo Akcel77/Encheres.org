@@ -93,18 +93,20 @@ public class ServletDetailVente extends HttpServlet {
             if (creditAcheteur >= enchereValue){
                 Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
                 try {
-                    //débit
-                    EnchereManager.createEnchere(enchere);
-                    utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
-                    UtilisateurManager.updateUser(utilisateur);
-
-                    //crédit
+                    // on crédite l'ancien meilleur enchérisseur du montant de son enchere
                     Articles article = ArticleManager.find(idArticle);
                     Utilisateur compteACrediter = article.getUtilisateur();
                     Enchere lastEnchere = article.getLastEncheres();
                     if (lastEnchere != null){
                         compteACrediter.setCredit(compteACrediter.getCredit() + lastEnchere.getMontant_enchere());
                     }
+                    UtilisateurManager.updateUser(compteACrediter);
+
+                    // on débite l'utilisateur connecter de son enchere
+                    EnchereManager.createEnchere(enchere);
+                    utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
+                    UtilisateurManager.updateUser(utilisateur);
+
                 } catch (BusinessException | SQLException | ParseException e) {
                     e.printStackTrace();
                 }
@@ -121,8 +123,35 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
+        // test si le detail du produit est notre vente ou celle d'un autre
+        boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
+
+        // teste si l'utilisateur en cours est l'acquéreur de la vente
+        boolean venteRemportee = false;
+        if(article.getLastEncheres() != null){
+            venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
+        }
+
+        //Test si la date est avant ou apres la date du jour
+        DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
+        int compareDate = 0;
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            String d1 = dateFormatDayUS.format(new Date());
+            date1 = dateFormatDayUS.parse(d1);
+            date2 = dateFormatDayUS.parse(article.getDateFinEncheres());
+            compareDate = date1.compareTo(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        boolean enCours = (compareDate == -1 || compareDate == 0);
+
         //bind les parametre pour la jsp
         request.setAttribute("article", article);
+        request.setAttribute("maVente", isMaVente);
+        request.setAttribute("enCours", enCours);
+        request.setAttribute("venteRemportee", venteRemportee);
 
         // forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
