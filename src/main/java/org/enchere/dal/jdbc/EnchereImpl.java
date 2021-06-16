@@ -40,6 +40,8 @@ public class EnchereImpl implements EnchereDAO {
                                 if (rs.next()) {
                                         enchere.setNo_enchere(rs.getInt(1));
                                 }
+                                cnx.close();
+                                stmt.close();
                         } catch (SQLException throwables) {
                                 throwables.printStackTrace();
                         }
@@ -58,6 +60,8 @@ public class EnchereImpl implements EnchereDAO {
                         stmt.setInt(3, enchere.getNo_article());
                         stmt.setInt(4, enchere.getNo_utilisateur());
                         stmt.executeUpdate();
+                        cnx.close();
+                        stmt.close();
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();
                 }
@@ -70,6 +74,8 @@ public class EnchereImpl implements EnchereDAO {
                         PreparedStatement stmt = cnx.prepareStatement(DELETE);
 
                         stmt.executeUpdate();
+                        cnx.close();
+                        stmt.close();
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();
                 }
@@ -97,7 +103,8 @@ public class EnchereImpl implements EnchereDAO {
                                 ));
                         }
 
-
+                        cnx.close();
+                        stmt.close();
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();
                 }
@@ -119,9 +126,12 @@ public class EnchereImpl implements EnchereDAO {
                                 enchere.setNo_article(rs.getInt("no_article"));
                                 enchere.setNo_utilisateur(rs.getInt("no_utilisateur"));
                         }
+                        cnx.close();
+                        stmt.close();
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();
                 }
+
                 return enchere;
         }
 
@@ -143,7 +153,8 @@ public class EnchereImpl implements EnchereDAO {
 
                                 ));
                         }
-
+                        cnx.close();
+                        stmt.close();
 
                 } catch (SQLException throwables) {
                         throwables.printStackTrace();

@@ -66,6 +66,8 @@ public class ArticleImpl implements ArticleDAO {
         if (rs.next()){
             noArticle =  rs.getInt(1);
         }
+        cnx.close();
+        stmt.close();
         return noArticle;
     }
 
@@ -86,6 +88,9 @@ public class ArticleImpl implements ArticleDAO {
         stmt.setInt(6,article.getCaterogie().getNoCategorie());
 
         stmt.executeUpdate();
+
+        cnx.close();
+        stmt.close();
     }
 
     /**
@@ -99,6 +104,9 @@ public class ArticleImpl implements ArticleDAO {
         PreparedStatement stmt = cnx.prepareStatement(DELETE);
         stmt.setInt(1,id);
         stmt.executeUpdate();
+
+        cnx.close();
+        stmt.close();
     }
 
     /**
@@ -137,6 +145,8 @@ public class ArticleImpl implements ArticleDAO {
             article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
             articles.add(article);
         }
+        cnx.close();
+        stmt.close();
         return articles;
     }
 
@@ -174,7 +184,8 @@ public class ArticleImpl implements ArticleDAO {
         article.setCaterogie(CategorieManager.selectById(idCategorie));
         article.setEncheres(EnchereManager.findAllByArticleId(idArticle));
         article.setRetrait(RetraitManager.selectRetraitByArticleId(idArticle));
-
+        cnx.close();
+        stmt.close();
         return article;
     }
 
@@ -199,10 +210,13 @@ public class ArticleImpl implements ArticleDAO {
 
                 articlesArrayList.add(articles);
             }
+            connection.close();
+            stmt.close();
 
         } catch (SQLException | BusinessException sqlException) {
             sqlException.printStackTrace();
         }
+
         return articlesArrayList;
     }
 
@@ -234,10 +248,12 @@ public class ArticleImpl implements ArticleDAO {
                 articles.setEncheres(EnchereManager.findAllByArticleId(idArticle));
                 articlesArrayList.add(articles);
             }
-
+            connection.close();
+            stmt.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+
         return articlesArrayList;
     }
 
@@ -258,10 +274,13 @@ public class ArticleImpl implements ArticleDAO {
             while (rs.next()){
                 articles.add(createArticleEnchere(rs));
             }
-
+            connection.close();
+            stmt.close();
         } catch (SQLException | ParseException sqlException) {
             sqlException.printStackTrace();
-        }return articles;
+        }
+
+        return articles;
     }
 
 
@@ -290,6 +309,8 @@ public class ArticleImpl implements ArticleDAO {
                     new Categorie()
             ));
         }
+        cnx.close();
+        stmt.close();
         return articlesList;
     }
 
@@ -316,6 +337,8 @@ public class ArticleImpl implements ArticleDAO {
         while(rs.next()) {
             articlesSearch.add(createArticleEnchere(rs));
         }
+        cnx.close();
+        stmt.close();
         return articlesSearch;
     }
 

@@ -218,7 +218,7 @@ public class ServletHome extends HttpServlet {
             }
 
             // j'ai placer une enchere
-            if(mesEncheres != null && mesEncheres.equals("on")){
+            else if(mesEncheres != null && mesEncheres.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
                     boolean placeEnchere = false;
@@ -235,7 +235,7 @@ public class ServletHome extends HttpServlet {
             }
 
             // Je suis le meilleurs encherisseur
-            if(enchereRemportee != null && enchereRemportee.equals("on")){
+            else if(enchereRemportee != null && enchereRemportee.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
                     if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur()){
