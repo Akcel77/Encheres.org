@@ -43,7 +43,10 @@ public class ServletDetailVente extends HttpServlet {
         boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
 
         // teste si l'utilisateur en cours est l'acquéreur de la vente
-        boolean venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
+        boolean venteRemportee = false;
+        if(article.getLastEncheres() != null){
+            venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
+        }
 
         //Test si la date est avant ou apres la date du jour
         DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
@@ -59,7 +62,6 @@ public class ServletDetailVente extends HttpServlet {
             e.printStackTrace();
         }
         boolean enCours = (compareDate == -1 || compareDate == 0);
-        System.out.println(compareDate);
 
         //bind les parametre pour la jsp
         request.setAttribute("article", article);
