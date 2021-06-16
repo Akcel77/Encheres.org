@@ -76,21 +76,17 @@
 
             <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>
             <form action="DetailVente" method="post"  class="row g-3 proposition-form ml-2">
-                <div id="label-prop" class=" col-4 my-auto ">Faire une proposition</div>
-                <div class="col-3 my-auto ">
+                <div id="label-prop" class=" col-12 my-auto ">Faire une proposition</div>
+                <div class="col-12 my-auto ">
                     <input type="hidden" name="id_article" value="<%= article.getId() %>">
                     <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
                 </div>
-                <div class=" col-3 my-auto">
-                <button type="submit" class="btn btn-primary">Encherir !</button>
-                </div>
+                <button type="submit" class="btn btn-primary col-12">Encherir !</button>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             </form>
+            <% }else{ %>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             <% } %>
-
-            <form>
-                <input type="button" value="Retour" onclick="history.back()">
-            </form>
-
         </div>
 
     </div>
