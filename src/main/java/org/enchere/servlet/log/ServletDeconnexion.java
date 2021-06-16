@@ -9,13 +9,14 @@ import java.io.IOException;
 public class ServletDeconnexion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Recupere la session puis efface la mémorisation de la connection
         HttpSession httpSession = request.getSession();
         httpSession.removeAttribute("isConnected");
         httpSession.invalidate();
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Encheres");
-        requestDispatcher.forward(request,response);
-
+        //redirection
+        response.sendRedirect("Encheres");
     }
 
     @Override
