@@ -118,6 +118,12 @@
     padding: 0.3rem;
 }
 
+.enchere_subtitle{
+    font-family: 'Caveat', cursive;
+    font-size: 0.2rem;
+    text-align: center;
+}
+
 
 /*Nouvelle vente*/
 .main_vente{

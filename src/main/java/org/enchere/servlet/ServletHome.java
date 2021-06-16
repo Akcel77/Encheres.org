@@ -109,15 +109,29 @@ public class ServletHome extends HttpServlet {
         //   Filtre
         //***************
 
-        //tri par mot clé
-        if(!filter.equals("")){
+        //tri mot clé
+        if(!filter.equals("")) {
             List<Articles> temporaryList = new ArrayList<>();
             for (Articles article : articles) {
-                if (article.getNomArticles().toLowerCase().contains(filter)){
+                if (article.getNomArticles().toLowerCase().contains(filter)) {
                     temporaryList.add(article);
                 }
+                articles = temporaryList;
+
+                /*}else if(!article.getNomArticles().toLowerCase().contains(filter)){
+                    try {
+                        articles = ArticleManager.findAll();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (BusinessException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    request.setAttribute("articlesNull", "Aucun article ne correspond à votre recherche.");
+                    }
+                }*/
             }
-            articles = temporaryList;
         }
 
         //tri par catégories
@@ -243,6 +257,16 @@ public class ServletHome extends HttpServlet {
                     }
                 }
                 articles = temporaryList;
+            }
+        }
+
+        // Teste si la recherche n'a aucun résultat
+        if(articles.isEmpty()){
+            request.setAttribute("articlesNull", articles);
+            try {
+                articles = ArticleManager.findAll();
+            } catch (SQLException | BusinessException | ParseException throwables) {
+                throwables.printStackTrace();
             }
         }
 
