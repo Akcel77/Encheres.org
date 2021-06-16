@@ -33,10 +33,6 @@ public class ServletConnexion extends HttpServlet {
         //Check si le mdp n'est pas null (printWritter Test ?redirection )
         //Si co ServletHome  (ajout session On )
 
-
-
-
-
         Utilisateur utilisateur = new Utilisateur();
         String erreur = null;
         String id = request.getParameter("id");
@@ -85,11 +81,10 @@ public class ServletConnexion extends HttpServlet {
                 httpSession.setAttribute("isConnected", utilisateur);
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
                 request.getSession().setMaxInactiveInterval(5 * 60);
-                //test zone
 
+                //redirection
+                response.sendRedirect("Encheres");
 
-                RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
-                rd.forward(request, response);
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
             }

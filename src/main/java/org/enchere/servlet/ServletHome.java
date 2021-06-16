@@ -23,27 +23,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
- * Servlet pour savoir si un utlisateur est connecte ou non sur la page d'acceuil
- * Si il est connecte attribute("isConnected") renvoit sur enchereLog
- * Sinon renvoit sur enchereNoLog
+ * Renvois vers EnchereLog ou enchereNoLOg suivant si l'utilisateur est connecter ou non
  */
 @WebServlet(name = "ServletHome", value = "/Encheres")
 public class ServletHome extends HttpServlet {
-    private static LocalDate today = LocalDate.now();
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private Date ojd = new Date();
+    private Date debut = null;
+    private Date fin = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Check si user est connecte dans la session
-        //Si il est pas co > enchereNoLog
-        //Sinon EnchereLog
 
+        // Démarre la session
         HttpSession httpSession = request.getSession();
 
-        // Recupere la liste de toutes les categories pour le filtre
-        CategorieManager categorieManager = new CategorieManager();
+        // Recupere la liste de toutes les categories
         List<Categorie> categoriesList = null;
         try {
             categoriesList = CategorieManager.selectAll();
@@ -52,13 +51,14 @@ public class ServletHome extends HttpServlet {
         }
         request.setAttribute("categories", categoriesList);
 
-        // recuperer la liste de tout les artciles
+        // recuperer la liste de tout les articles
         try {
             request.setAttribute("articles", ArticleManager.findAll());
         } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
         }
 
+        // Si l'utilisateur est connecter redirige vers EnchereLog sinon EnchereNoLog
         if(httpSession.getAttribute("isConnected") == null ){
             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
             requestDispatcher.forward(request,response);
@@ -73,7 +73,6 @@ public class ServletHome extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Recupere la liste de toutes les catégories
-        CategorieManager categorieManager = new CategorieManager();
         Categorie categorie = new Categorie();
         List<Categorie> categoriesList = null;
         try {
@@ -86,200 +85,177 @@ public class ServletHome extends HttpServlet {
         // Recupere l'utilisateur connecté
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
-        String nomArticle;
 
-        if(httpSession.getAttribute("isConnected") != null ){
-            try {
-                if (request.getParameter("recherche") == null || request.getParameter("recherche").isEmpty() ){
-                    System.out.println(request.getParameter("enchereOuverte"));
-                    if(request.getParameter("categories") == null ){
-                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-                        request.setAttribute("articles", ArticleManager.findAll());
-                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-                        rd.forward(request, response);
-                    }else{
-                        request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-                        request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
-                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-                        rd.forward(request, response);
-                    }
-                }else{
-                    System.out.println("test 2");
-                    nomArticle = request.getParameter("recherche");
-                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
-                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
-                    rd.forward(request, response);
+        // Recupere tout les Parametres du formulaire
+        String choix = request.getParameter("choix");
+        int numCategorie = Integer.parseInt(request.getParameter("categories"));
+        String filter = request.getParameter("recherche").toLowerCase();
+        String enchereOuverte = request.getParameter("enchereOuverte");
+        String mesEncheres = request.getParameter("mesEncheres");
+        String enchereRemportee = request.getParameter("enchereRemportee");
+        String venteEncours = request.getParameter("venteEncours");
+        String nonDebute = request.getParameter("nonDebute");
+        String terminees = request.getParameter("terminees");
+
+        // recuperer la liste de tout les articles
+        List<Articles> articles = null;
+        try {
+            articles = ArticleManager.findAll();
+        } catch (SQLException | BusinessException | ParseException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //***************
+        //   Filtre
+        //***************
+
+        //tri par mot clé
+        if(!filter.equals("")){
+            List<Articles> temporaryList = new ArrayList<>();
+            for (Articles article : articles) {
+                if (article.getNomArticles().toLowerCase().contains(filter)){
+                    temporaryList.add(article);
                 }
-            } catch (SQLException | BusinessException | ParseException sqlException) {
-                sqlException.printStackTrace();
             }
+            articles = temporaryList;
+        }
+
+        //tri par catégories
+        if(numCategorie > 0){
+            List<Articles> temporaryList = new ArrayList<>();
+            for (Articles article : articles) {
+                if (article.getCaterogie().getNoCategorie() == numCategorie){
+                    temporaryList.add(article);
+                }
+            }
+            articles = temporaryList;
+        }
+
+        // tri par mes ventes
+        if(choix != null && choix.equals("vente")){
+            List<Articles> temporaryList = new ArrayList<>();
+            for (Articles article : articles) {
+                if (article.getUtilisateur().getNoUtilisateur() == utilisateur.getNoUtilisateur()){
+                    temporaryList.add(article);
+                }
+            }
+            articles = temporaryList;
+
+            // Ce sont mes ventes en cours
+            if(venteEncours != null && venteEncours.equals("on")){
+                temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    try {
+                        debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if (fin.compareTo(ojd) >= 0 && debut.compareTo(ojd) <= 0 ){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // Ce sont mes ventes non débuté
+            else if(nonDebute != null && nonDebute.equals("on")){
+                temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    try {
+                        debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if (debut.compareTo(ojd) == 1 ){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // Ce sont mes ventes déja terminé
+            else if(terminees != null && terminees.equals("on")){
+                temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    try {
+                        debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if (fin.compareTo(ojd) == -1 ){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                articles = temporaryList;
+            }
+
+        // choix par défaut affiche tout les articles
+        }else {
+
+            // tri par articles disponible à l'achat
+            if (choix != null && choix.equals("achat")){
+                List<Articles> temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    if (article.getUtilisateur().getNoUtilisateur() != utilisateur.getNoUtilisateur()){
+                        temporaryList.add(article);
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // Aucune enchere en cours
+            if(enchereOuverte != null && enchereOuverte.equals("on")){
+                List<Articles> temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    if(article.getEncheres().size() == 0){
+                        temporaryList.add(article);
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // j'ai placer une enchere
+            if(mesEncheres != null && mesEncheres.equals("on")){
+                List<Articles> temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    boolean placeEnchere = false;
+                    for (Enchere enchere: article.getEncheres()) {
+                        if(enchere.getNo_utilisateur() == utilisateur.getNoUtilisateur()){
+                            placeEnchere = true;
+                        }
+                    }
+                    if (placeEnchere){
+                        temporaryList.add(article);
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // Je suis le meilleurs encherisseur
+            if(enchereRemportee != null && enchereRemportee.equals("on")){
+                List<Articles> temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur()){
+                        temporaryList.add(article);
+                    }
+                }
+                articles = temporaryList;
+            }
+        }
+
+        //bind les values
+        request.setAttribute("articles", articles);
+
+        // Si l'utilisateur est connecter redirige vers EnchereLog sinon EnchereNoLog
+        if(httpSession.getAttribute("isConnected") == null ){
+            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
+            requestDispatcher.forward(request,response);
         }else{
-            try {
-                if (!request.getParameter("recherche").isEmpty()){
-                    nomArticle = request.getParameter("recherche");
-                    request.setAttribute("articles", ArticleManager.findByNomArticle(nomArticle));
-                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-                    rd.forward(request, response);
-                }else{
-                    if (request.getParameter("categories").equals("-1")){
-                        request.setAttribute("articles", ArticleManager.findAll());
-                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-                        rd.forward(request, response);
-                    }else{
-                        request.setAttribute("articles", ArticleManager.findByCategorie(Integer.parseInt(request.getParameter("categories"))));
-                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
-                        rd.forward(request, response);
-                    }
-                }
-
-            } catch (SQLException | BusinessException | ParseException sqlException) {
-                sqlException.printStackTrace();
-            }
-
+            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
+            requestDispatcher.forward(request,response);
         }
     }
-
-
-
-//        }else{
-//            try {
-//                System.out.println("test1");
-//                if(request.getParameter("choix").equals("achat")|| request.getParameter("choix").equals("vente")){
-//                    String checkbox;
-//                    if (request.getParameter("choix").equals("achat")){
-//                        checkbox="achats";
-//                    }else {
-//                        checkbox="ventes";
-//                    }
-//
-//                    request.setAttribute("choix", selectCond(request.getParameter("nom"), Integer.parseInt(request.getParameter("categories")),request.getParameter(checkbox), 2));
-//                }
-//                request.setAttribute("utilisateur", httpSession.getAttribute("isConnected"));
-//                request.setAttribute("articles", ArticleManager.findAll());
-//                this.getServletContext().getRequestDispatcher("/WEB_INF/jsp/enchereLog.jsp").forward(request,response);
-//            }catch (SQLException | BusinessException b){
-//                b.printStackTrace();
-//            }
-
-    private ArrayList<Articles> selectCond (String nom , int noCategorie, String checkbox, int noUtilisateur) throws BusinessException{
-        ArrayList<Articles> articles  = null;
-        String cond;
-        Date date = new Date();
-
-        String dateFormat = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        String dateformatee = "" + simpleDateFormat.format(date);
-
-        switch (checkbox) {
-            case "enchereOuverte":
-                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "mesEncheres":
-                cond = "AND a.date_debut_encheres<" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "enchereRemportee":
-                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "vente":
-                cond = "AND a.date_debut_encheres<=" + dateformatee + " AND a.date_fin_encheres>" + dateformatee + " AND a.no_utilisateur=" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "nonDebute":
-                cond = "AND a.date_debut_encheres>" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-            case "terminees":
-                cond = "AND a.date_debut_encheres<" + dateformatee +" AND a.no_utilisateur<>" + noUtilisateur;
-                articles = ArticleManager.findWithCond(nom, noCategorie, cond);
-                break;
-
-        }return articles;
-    }
-
-//    // methode pour définir quand enchère est remportée
-//    private boolean enchereRemportee( Articles item){
-//        boolean estRemportee = true;
-//        //TODO récupérer le no utilisateur
-//        // récupérer les enchères associées
-//        // filtrer si date de fin avant date du jour
-//        // vérifier si enchère de l'utilisateur est la dernière sur l'article
-//        if(true){
-//
-//        }else{
-//            estRemportee =false;
-//        }
-//        return estRemportee;
-//    }
 }
-//
-//    // recuperer la liste de tout les artciles
-//    List<Articles> articlesList = null;
-//        try {
-//                articlesList = ArticleManager.findAll();
-//                } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//                }
-//                request.setAttribute("listeArticles", articlesList );
-//
-//                // apres soumission du formulaire
-//                String choix = request.getParameter("choix");
-//                List <Articles> newList = new ArrayList<>();
-//
-//        // Si l'user choisie achat
-//        if (choix!=null && choix.equals("achat")){
-//        if(request.getParameter("enchereOuverte").equals("on")){
-//        //List<Articles> articles = new ArrayList<>();
-//        for (Articles item: articlesList) {
-//        LocalDate dateDebut = LocalDate.parse(item.getDateDebutEncheres());
-//        LocalDate dateFin =  LocalDate.parse(item.getDateFinEncheres());
-//        if(dateDebut.isBefore(today) && dateFin.isAfter(today)){
-//        newList.add(item);
-//        }
-//        }
-//        if(request.getParameter("mesEncheres").equals("on")){
-//        Utilisateur user = (Utilisateur) httpSession.getAttribute("pseudo");
-//        // TODO créer une requete sql join utilisateur + articles + encheres
-//        //newList.add();
-//        }
-//        }
-//        if(request.getParameter("enchereRemportee").equals("on")){
-//        for (Articles item : articlesList){
-//        if(enchereRemportee(item)){
-//        newList.add(item);
-//        }
-//        }
-//        }
-//        }else if (choix!=null && choix.equals("vente")){
-//        if (request.getParameter("venteEncours").equals("on")){
-//        for(Articles item : articlesList){
-//        //TODO récupérer les articles associés
-//        // récupérer le no utilisateur
-//        // filtrer si date du jour entre date de début et fin de vente
-//
-//        if(true){
-//        }
-//        }
-//        }
-//        if (request.getParameter("nonDebute").equals("on")){
-//        //TODO récupérer les articles associés
-//        // récupérer le no utilisateur
-//        // filtrer si date de début après date du jour
-//        for(Articles item : articlesList){
-//        if(true){
-//        }
-//        }
-//        }
-//        if (request.getParameter("terminees").equals("on")){
-//        //TODO récupérer les articles associés
-//        // récupérer le no utilisateur
-//        // filtrer si date de début avant date du jour
-//        for(Articles item : articlesList){
-//        if(true){
-//        }
-//        }
-//        }
-//        }
-
