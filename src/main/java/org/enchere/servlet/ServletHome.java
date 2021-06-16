@@ -110,7 +110,6 @@ public class ServletHome extends HttpServlet {
                 if (article.getNomArticles().toLowerCase().contains(filter)) {
                     temporaryList.add(article);
                 }
-                articles = temporaryList;
 
                 /*}else if(!article.getNomArticles().toLowerCase().contains(filter)){
                     try {
@@ -126,6 +125,7 @@ public class ServletHome extends HttpServlet {
                     }
                 }*/
             }
+            articles = temporaryList;
         }
 
         //tri par catégories
