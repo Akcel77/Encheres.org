@@ -2,8 +2,6 @@ package org.enchere.servlet;
 
 import org.enchere.bll.ArticleManager;
 import org.enchere.bll.CategorieManager;
-import org.enchere.bll.EnchereManager;
-import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
@@ -18,13 +16,10 @@ import java.sql.SQLException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 
 /**
  * Renvois vers EnchereLog ou enchereNoLOg suivant si l'utilisateur est connecter ou non
@@ -66,7 +61,6 @@ public class ServletHome extends HttpServlet {
             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereLog.jsp");
             requestDispatcher.forward(request,response);
         }
-
     }
 
     @Override

@@ -18,6 +18,7 @@
 <body>
 
 <%@include file="fragment/navbar.jsp"%>
+<img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
 <h1 class="text-center my-5">Liste des enchères</h1>
 
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
