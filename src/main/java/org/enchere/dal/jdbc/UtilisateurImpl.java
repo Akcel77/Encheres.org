@@ -89,6 +89,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             if (rs.next()){
                 utilisateur = userBuilder(rs);
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -132,9 +134,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 utilisateur.setNoUtilisateur(resultSet.getInt(1));
             }
             System.out.println("DAL " + utilisateur);
+            connection.close();
             stmt.close();
-
-
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -170,6 +171,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             stmt.setInt(11, utilisateur.getNoUtilisateur());
 
             stmt.executeUpdate();
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -192,6 +195,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             //TODO : Suppression des articles utilisateur
 
             stmt.executeUpdate();
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -221,6 +226,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 utilisateur = userBuilder(rs);
 
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -250,6 +257,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             if (rs.next()){
                 utilisateur = userBuilder(rs);
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -279,6 +288,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 utilisateur = userBuilder(rs);
                 utilisateurList.add(utilisateur);
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);
@@ -307,7 +318,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 listPseudo.add(rs.getString("pseudo"));
 
             }
-
+            connection.close();
+            stmt.close();
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -327,7 +339,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 listPseudo.add(rs.getString("email"));
 
             }
-
+            connection.close();
+            stmt.close();
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -351,6 +364,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
             while (rs.next()){
                 userBuilder(rs);
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -383,6 +398,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                 // Private Retrait lieuRetrait
 
             }
+            connection.close();
+            stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -406,6 +423,8 @@ public class UtilisateurImpl implements UtilisateurDAO {
                     utilisateur = userBuilder(rs);
                     isInDataBase = true;
                 }
+                connection.close();
+                stmt.close();
             }catch (SQLException e){
                 e.printStackTrace();
 //            BusinessException businessException = new BusinessException(e.getMessage(), e);

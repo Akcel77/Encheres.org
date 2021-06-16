@@ -32,9 +32,12 @@ public class CategorieImpl implements CategorieDAO {
                 categorie.setNoCategorie(rs.getInt("no_catgorie"));
                 categorie.setLibelle(libelle);
             }
+            connection.close();
+            stmt.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+
         return categorie;
     }
 

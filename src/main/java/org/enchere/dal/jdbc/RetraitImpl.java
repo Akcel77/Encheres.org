@@ -57,6 +57,8 @@ public class RetraitImpl implements RetraitDAO {
 
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
+            connection.close();
+            stmt.close();
 
             if (rs.next()){
                 retrait.setId(rs.getInt(1));
@@ -94,6 +96,8 @@ public class RetraitImpl implements RetraitDAO {
                 retrait.setCode_postal(rs.getString("code_postal"));
                 retrait.setVille(rs.getString("ville"));
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -124,6 +128,8 @@ public class RetraitImpl implements RetraitDAO {
                 retrait.setVille(rs.getString("ville"));
                 retraitList.add(retrait);
             }
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -150,7 +156,8 @@ public class RetraitImpl implements RetraitDAO {
             stmt.setInt(4, retrait.getId());
 
             stmt.executeUpdate();
-
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -178,7 +185,8 @@ public class RetraitImpl implements RetraitDAO {
             //              Utilisateur utilisateur
                 //          Retrait lieuRetrait
             //LISTE <Article> for each loop
-
+            connection.close();
+            stmt.close();
         }catch (SQLException e) {
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
@@ -203,6 +211,8 @@ public class RetraitImpl implements RetraitDAO {
                 retrait.setVille(rs.getString("ville"));
             }
             retrait.setNoArticle(idArticle);
+            connection.close();
+            stmt.close();
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();

@@ -86,26 +86,28 @@ public class ServletDetailVente extends HttpServlet {
         //Vérifie si l'utilisateur as assez de crédit
         try {
             int creditAcheteur = UtilisateurManager.selectUserByID(idUtilisateur).getCredit();
-            int lastEncherePrice = 0;
-            List<Enchere> enchereList = ArticleManager.find(idArticle).getEncheres();
-            for (Enchere encheres: enchereList) {
-                if (encheres.getNo_utilisateur() == idUtilisateur){
-                    lastEncherePrice = encheres.getMontant_enchere();
-                }
-            }
-            int sommeADepenser = enchereValue - lastEncherePrice;
-            if (creditAcheteur >= sommeADepenser){
-                //Créer une enchere si il as suffisament de crédit et le soustrait a son compte
+
+            // débite l'utilisateur si assez de crédit et débite l'ancien encherisseur
+            if (creditAcheteur >= enchereValue){
                 Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
                 try {
+                    //débit
                     EnchereManager.createEnchere(enchere);
-                    utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - sommeADepenser );
+                    utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
                     UtilisateurManager.updateUser(utilisateur);
-                } catch (BusinessException e) {
+
+                    //crédit
+                    Articles article = ArticleManager.find(idArticle);
+                    Utilisateur compteACrediter = article.getUtilisateur();
+                    Enchere lastEnchere = article.getLastEncheres();
+                    if (lastEnchere != null){
+                        compteACrediter.setCredit(compteACrediter.getCredit() + lastEnchere.getMontant_enchere());
+                    }
+                } catch (BusinessException | SQLException | ParseException e) {
                     e.printStackTrace();
                 }
             }
-        } catch (BusinessException | SQLException | ParseException e) {
+        } catch (BusinessException e) {
             e.printStackTrace();
         }
 
