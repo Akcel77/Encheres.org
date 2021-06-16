@@ -28,8 +28,7 @@ public class ServletSupprimerCompte extends HttpServlet {
             httpSession.removeAttribute("isConnected");
             httpSession.invalidate();
 
-            RequestDispatcher rd = request.getRequestDispatcher("/Encheres");
-            rd.forward(request,response);
+            response.sendRedirect("Encheres");
         }catch (BusinessException e){
             e.printStackTrace();
             RequestDispatcher rd = request.getRequestDispatcher("/Profil");

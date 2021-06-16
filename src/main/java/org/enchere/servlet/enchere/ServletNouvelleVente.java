@@ -78,7 +78,7 @@ public class ServletNouvelleVente extends HttpServlet {
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
             );
             int noArticle = ArticleManager.insert(article);
-            request.setAttribute("successVente", "Votre enchere a bien ete ajoutee");
+            request.setAttribute("successVente", "Votre article a bien ete ajoute");
             Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),noArticle);
             RetraitManager.insert(retrait);
         } catch (BusinessException | SQLException e) {

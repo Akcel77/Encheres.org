@@ -95,21 +95,25 @@ public class ServletDetailVente extends HttpServlet {
                 try {
                     // on crédite l'ancien meilleur enchérisseur du montant de son enchere
                     Articles article = ArticleManager.find(idArticle);
-                    Utilisateur compteACrediter = article.getUtilisateur();
+                    Utilisateur compteACrediter = null;
                     Enchere lastEnchere = article.getLastEncheres();
                     if (lastEnchere != null){
+                        compteACrediter = UtilisateurManager.selectUserByID(article.getLastEncheres().getNo_utilisateur());
                         compteACrediter.setCredit(compteACrediter.getCredit() + lastEnchere.getMontant_enchere());
+                        UtilisateurManager.updateUser(compteACrediter);
                     }
-                    UtilisateurManager.updateUser(compteACrediter);
 
                     // on débite l'utilisateur connecter de son enchere
                     EnchereManager.createEnchere(enchere);
+                    request.setAttribute("successEnchere", "Votre enchere a bien ete ajoutee.");
                     utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
                     UtilisateurManager.updateUser(utilisateur);
 
                 } catch (BusinessException | SQLException | ParseException e) {
                     e.printStackTrace();
                 }
+            }else{
+                request.setAttribute("erreurEncheres", "Veuillez recharger votre credit pour effectuer cette mise.");
             }
         } catch (BusinessException e) {
             e.printStackTrace();

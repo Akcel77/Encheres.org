@@ -19,15 +19,15 @@ public class ServletProfil extends HttpServlet {
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
 
+        // recupere le pseudo de l'utilisateur
         request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
-
         String pseudo = (String) request.getSession().getAttribute("pseudo");
 
+        // on recherche l'user à afficher
+        int noProfil = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : utilisateur.getNoUtilisateur();
         Utilisateur utilisateurEnCours = null;
-        int idUtilisateur = utilisateur.getNoUtilisateur();
-        System.out.println(idUtilisateur  + "noUt");
         try {
-            utilisateurEnCours = UtilisateurManager.selectUserByPseudo(pseudo);
+            utilisateurEnCours = UtilisateurManager.selectUserByID(noProfil);
         }catch (BusinessException e){
             request.getRequestDispatcher("/WEB-INF/jsp/test/testAkcel.jsp").forward(request,response);
             e.printStackTrace();

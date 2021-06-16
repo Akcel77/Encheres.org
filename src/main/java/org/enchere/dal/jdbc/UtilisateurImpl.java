@@ -1,7 +1,9 @@
 package org.enchere.dal.jdbc;
 
+import org.enchere.bll.ArticleManager;
 import org.enchere.bo.Articles;
 import org.enchere.bo.Utilisateur;
+import org.enchere.dal.ArticleDAO;
 import org.enchere.dal.CodeErreurDAL;
 import org.enchere.dal.UtilisateurDAO;
 import org.enchere.outils.BusinessException;
@@ -192,8 +194,10 @@ public class UtilisateurImpl implements UtilisateurDAO {
         try(Connection connection = ConectionProvider.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(DELETE);
             stmt.setInt(1, no);
-            //TODO : Suppression des articles utilisateur
-
+            List<Articles> articlesList = ArticleManager.findAllByUser(no);
+            for(Articles article : articlesList){
+                ArticleManager.delete(article.getId());
+            }
             stmt.executeUpdate();
             connection.close();
             stmt.close();
