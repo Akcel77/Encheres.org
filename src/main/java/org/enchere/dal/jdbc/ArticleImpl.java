@@ -377,4 +377,5 @@ public class ArticleImpl implements ArticleDAO {
         articles.setCaterogie(categorie);
         return articles;
     }
+
 }
