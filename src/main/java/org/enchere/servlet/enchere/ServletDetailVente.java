@@ -95,12 +95,13 @@ public class ServletDetailVente extends HttpServlet {
                 try {
                     // on crédite l'ancien meilleur enchérisseur du montant de son enchere
                     Articles article = ArticleManager.find(idArticle);
-                    Utilisateur compteACrediter = article.getUtilisateur();
+                    Utilisateur compteACrediter = null;
                     Enchere lastEnchere = article.getLastEncheres();
                     if (lastEnchere != null){
+                        compteACrediter = UtilisateurManager.selectUserByID(article.getLastEncheres().getNo_utilisateur());
                         compteACrediter.setCredit(compteACrediter.getCredit() + lastEnchere.getMontant_enchere());
+                        UtilisateurManager.updateUser(compteACrediter);
                     }
-                    UtilisateurManager.updateUser(compteACrediter);
 
                     // on débite l'utilisateur connecter de son enchere
                     EnchereManager.createEnchere(enchere);
