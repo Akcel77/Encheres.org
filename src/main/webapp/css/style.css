@@ -16,6 +16,7 @@
 .groot{
     display: block;
     margin: 0 auto;
+    max-width: 400px;
 }
 
 /* INSCRIPTION */
@@ -226,4 +227,31 @@
         grid-template-columns: 1fr;
         width: 100%;
     }
+}
+
+/* theme */
+.bg-dark{
+    background-color: #583968 !important;
+}
+
+.title-card{
+    background-color: #7a5989 !important;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+footer{
+    background-color: #7a5989 !important;
+    color: white;
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }

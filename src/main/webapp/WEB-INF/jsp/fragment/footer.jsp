@@ -7,6 +7,42 @@
 --%>
 
 <footer>
+    <div class="social-box">
+        <div class="social-box_header">
+            Nom prenom
+        </div>
+        <div class="social-box_body">
+            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
+            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+        </div>
+    </div>
+    <div class="social-box">
+        <div class="social-box_header">
+            Nom prenom
+        </div>
+        <div class="social-box_body">
+            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
+            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+        </div>
+    </div>
+    <div class="social-box">
+        <div class="social-box_header">
+            Nom prenom
+        </div>
+        <div class="social-box_body">
+            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
+            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+        </div>
+    </div>
+    <div class="social-box">
+        <div class="social-box_header">
+            Nom prenom
+        </div>
+        <div class="social-box_body">
+            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
+            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+        </div>
+    </div>
 
 </footer>
 <script src="${pageContext.request.contextPath}/js/main.js" ></script>
