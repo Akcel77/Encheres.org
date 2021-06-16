@@ -22,7 +22,12 @@
     <div class="main-detail-vente row">
 
         <h1 class="m-5 text-center" >Détail d'un article</h1>
-
+        <core:if test="${erreurEncheres != null}" var="test">
+            <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
+        </core:if>
+        <core:if test="${successEnchere != null}" var="test">
+            <div class="alert alert-success message-alert" role="alert">${successEnchere}</div>
+        </core:if>
         <% if(!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("venteRemportee")){ %>
         <h2 class="vente_title">Bravo ! Vous avez remporté l'article.</h2>
          <% } else if (!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("maVente")){ %>

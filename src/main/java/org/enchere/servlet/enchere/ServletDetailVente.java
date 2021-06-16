@@ -105,12 +105,15 @@ public class ServletDetailVente extends HttpServlet {
 
                     // on débite l'utilisateur connecter de son enchere
                     EnchereManager.createEnchere(enchere);
+                    request.setAttribute("successEnchere", "Votre enchere a bien ete ajoutee.");
                     utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
                     UtilisateurManager.updateUser(utilisateur);
 
                 } catch (BusinessException | SQLException | ParseException e) {
                     e.printStackTrace();
                 }
+            }else{
+                request.setAttribute("erreurEncheres", "Veuillez recharger votre credit pour effectuer cette mise.");
             }
         } catch (BusinessException e) {
             e.printStackTrace();

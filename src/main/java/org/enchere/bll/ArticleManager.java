@@ -64,6 +64,9 @@ public class ArticleManager{
     public static List<Articles> search() throws SQLException, ParseException {
         return articleDAO.search();
     }
+    public static List<Articles> findAllByUser(int id) throws SQLException{
+        return articleDAO.findAllByUser(id);
+    }
 
     public static ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
         return articleDAO.findByCategorie(noCat);

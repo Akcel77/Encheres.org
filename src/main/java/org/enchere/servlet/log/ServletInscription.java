@@ -67,7 +67,7 @@ public class ServletInscription extends HttpServlet {
                 }
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("isConnected", utilisateur);
-                this.getServletContext().getRequestDispatcher("/Encheres").forward(request, response);
+                response.sendRedirect("Encheres");
             }
 
 
