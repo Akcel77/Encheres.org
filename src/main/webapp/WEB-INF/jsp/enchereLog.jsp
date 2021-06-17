@@ -13,7 +13,7 @@
 
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
-<h1 class="text-center my-5">Liste des enchères</h1>
+
 
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
     <div class="saisie search-bar">
@@ -37,33 +37,33 @@
             </div>
             <div>
                 <input type="checkbox" id="ouverte" name="enchereOuverte" >
-                <label class="mr-2" for="ouverte">enchères ouvertes</label>
+                <label class="mr-2" for="ouverte">Enchères ouvertes</label>
             </div>
             <div>
                 <input type="checkbox" id="encours" name="mesEncheres">
-                <label class="mr-2" for="encours">mes enchères</label>
+                <label class="mr-2" for="encours">Mes enchères</label>
             </div>
             <div>
                 <input type="checkbox" id="remportees" name="enchereRemportee">
-                <label class="mr-2" for="remportees">mes enchères remportées</label>
+                <label class="mr-2" for="remportees">Mes enchères remportées</label>
             </div>
         </div>
         <div>
             <div id="vente-block" >
                 <input type="radio" onchange='witchCheckbox();' name="choix" id="ventes" value="vente">
-                <label class="mr-2" for="ventes">Mes ventes</label>
+                <label class="mr-2" for="ventes">Ventes</label>
             </div>
             <div>
                 <input type="checkbox" id="venteEncours" name="venteEncours">
-                <label class="mr-2" for="venteEncours">mes ventes en cours</label>
+                <label class="mr-2" for="venteEncours">Mes ventes en cours</label>
             </div>
             <div>
                 <input type="checkbox" id="nonDebute" name="nonDebute">
-                <label class="mr-2" for="nonDebute">ventes non débutées</label>
+                <label class="mr-2" for="nonDebute">Ventes non débutées</label>
             </div>
             <div>
                 <input type="checkbox" id="terminees" name="terminees">
-                <label class="mr-2" for="terminees">ventes terminées</label>
+                <label class="mr-2" for="terminees">Ventes terminées</label>
             </div>
         </div>
     </div>
@@ -72,11 +72,17 @@
     </div>
 </form>
 
+<h1 class="text-center my-5">Liste des enchères</h1>
+
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
     <h1>Aucun article ne correspond à votre recherche.</h1>
     <% } %>
 </div>
+
+<core:if test="${aucuneEnchere != null}" var="test">
+    <h1 class="text-center my-5">${aucuneEnchere}</h1>
+</core:if>
 
 <section class="enchere-section">
     <c:forEach var="articles" items="${articles}">
