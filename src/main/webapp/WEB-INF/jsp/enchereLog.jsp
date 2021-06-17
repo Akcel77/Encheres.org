@@ -36,7 +36,7 @@
                 <label class="mr-2" for="achats">Achats</label>
             </div>
             <div>
-                <input type="checkbox" id="ouverte" name="enchereOuverte" checked>
+                <input type="checkbox" id="ouverte" name="enchereOuverte">
                 <label class="mr-2" for="ouverte">enchères ouvertes</label>
             </div>
             <div>
