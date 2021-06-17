@@ -13,7 +13,6 @@
 <%@include file="fragment/navbar.jsp"%>
 <main class="container">
 
-
     <core:if test="${erreurEncheres != null}" var="test">
         <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
     </core:if>
@@ -90,9 +89,7 @@
             <% }else{ %>
             <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             <% } %>
-
         </div>
-
     </div>
 </main>
 <%@include file="fragment/footer.jsp"%>
