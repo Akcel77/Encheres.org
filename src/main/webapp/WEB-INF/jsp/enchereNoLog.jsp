@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Encheres.org"/>
+    <jsp:param name="title" value="ENI Encheres"/>
 </jsp:include>
 <head>
     <title>Liste des enchères</title>
@@ -19,7 +19,6 @@
 
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
-<h1 class="text-center my-5">Liste des enchères</h1>
 
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
     <div class="saisie search-bar">

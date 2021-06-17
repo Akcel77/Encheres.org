@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Encheres.org"/>
+    <jsp:param name="title" value="ENI Encheres"/>
 </jsp:include>
 <head>
     <title>Liste des enchères</title>
@@ -71,8 +71,6 @@
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
 </form>
-
-<h1 class="text-center my-5">Liste des enchères</h1>
 
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
