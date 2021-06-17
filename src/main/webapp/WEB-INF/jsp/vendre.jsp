@@ -92,9 +92,10 @@
                 </div>
 
 
-
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">
+                <div class="nouvelle-vente-btn">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Annuler">
+                </div>
             </form>
         </div>
     </div>

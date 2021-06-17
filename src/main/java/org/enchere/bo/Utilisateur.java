@@ -55,7 +55,6 @@ public class Utilisateur<Article> {
         this.motDePasse = motDePasse;
     }
 
-
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
         super();
         this.pseudo = pseudo;
@@ -71,9 +70,8 @@ public class Utilisateur<Article> {
         this.administrateur = administrateur;
     }
 
+    //Getters And Setters
 
-
-    //Getter And Setter
     public int getNoUtilisateur() {
         return noUtilisateur;
     }

@@ -90,14 +90,14 @@
             <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">Description : ${articles.getDescription()}</p>
-                <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-                <p class="card-text">Fin de l'enchere: le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
-                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
-                <p class="card-text vendeur">Vendeur : <a  href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
+                <p class="card-text"><strong>Description :</strong> ${articles.getDescription()}</p>
+                <p class="card-text"><strong>Enchère actuelle :</strong> ${articles.getLastEncheres().getMontant_enchere()}</p>
+                <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()}</p>
+                <p class="card-text"><strong>Fin de l'enchère :</strong> le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
+                <p class="card-text vendeur"><strong>Vendeur :</strong> <a href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
             </div>
             <div class="card-footer">
-                <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-primary">Détail article</a>
+                <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-outline-success">Détail article</a>
             </div>
         </div>
     </c:forEach>

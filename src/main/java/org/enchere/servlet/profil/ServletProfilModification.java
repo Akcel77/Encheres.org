@@ -69,7 +69,7 @@ public class ServletProfilModification extends HttpServlet {
             }
             UtilisateurManager.updateUser(isConnected);
             httpSession.setAttribute("isConnected", isConnected);
-
+            request.setAttribute("profilOk", "Profil mis à jour");
             this.getServletContext().getRequestDispatcher("/Profil").forward(request,response);
         }catch (Exception e){
             e.printStackTrace();

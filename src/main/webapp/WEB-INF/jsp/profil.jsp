@@ -19,7 +19,12 @@
         <img src="${pageContext.request.contextPath}/images/social.png" class="groot">
         <h1 class="text-center my-5">Profil ${utilisateurEnCours.pseudo}</h1>
 
-
+        <core:if test="${profilOk != null}" var="test">
+            <div class="alert alert-success message-alert" role="alert">${profilOk}</div>
+        </core:if>
+        <core:if test="${profilNotOk != null}" var="test">
+            <div class="alert alert-danger message-alert" role="alert">${profilNotOk}</div>
+        </core:if>
         <%if (session.getAttribute("isConnected") != null){
             Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");
             Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurEnCours");

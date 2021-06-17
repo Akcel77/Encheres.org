@@ -35,7 +35,6 @@ public class ArticleManager{
         articleDAO.update(article);
     }
 
-
     /**
      * Supprime un article
      * @param id
