@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Encheres.org"/>
+    <jsp:param name="title" value="ENI Encheres"/>
 </jsp:include>
 <head>
     <title>Liste des enchères</title>
@@ -72,8 +72,6 @@
     </div>
 </form>
 
-<h1 class="text-center my-5">Liste des enchères</h1>
-
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
     <h1>Aucun article ne correspond à votre recherche.</h1>
@@ -83,7 +81,7 @@
 <core:if test="${aucuneEnchere != null}" var="test">
     <h1 class="text-center my-5">${aucuneEnchere}</h1>
 </core:if>
-
+<h1 class="text-center">Liste des enchères </h1>
 <section class="enchere-section">
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
@@ -91,10 +89,19 @@
             <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
                 <p class="card-text"><strong>Description :</strong> ${articles.getDescription()}</p>
-                <p class="card-text"><strong>Enchère actuelle :</strong> ${articles.getLastEncheres().getMontant_enchere()}</p>
-                <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()}</p>
+
+                <c:choose>
+                    <c:when test="${articles.getLastEncheres() == null}">
+                        <p class="card-text"><strong>Enchère actuelle :</strong> Aucune enchère en cours </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="card-text"><strong>Enchère actuelle :</strong> ${articles.getLastEncheres().getMontant_enchere()} pts</p>
+                    </c:otherwise>
+                </c:choose>
+
+                <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()} pts</p>
                 <p class="card-text"><strong>Fin de l'enchère :</strong> le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
-                <p class="card-text vendeur"><strong>Vendeur :</strong> <a href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
+                <p class="card-text vendeur"><strong>Vendeur :</strong> <a class="vendeur-a" href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
             </div>
             <div class="card-footer">
                 <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-outline-success">Détail article</a>
