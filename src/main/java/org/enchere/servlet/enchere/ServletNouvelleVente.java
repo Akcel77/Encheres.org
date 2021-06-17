@@ -22,7 +22,7 @@ public class ServletNouvelleVente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // On recupere la liste des catégories
+        // Récupère la liste des catégories
         List<Categorie> categorieList = null;
         try {
             categorieList = CategorieManager.selectAll();
@@ -30,7 +30,7 @@ public class ServletNouvelleVente extends HttpServlet {
             e.printStackTrace();
         }
 
-        // On recupere l'utilisateur depuis session
+        // Récupère l'utilisateur depuis session
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         try {
@@ -39,7 +39,7 @@ public class ServletNouvelleVente extends HttpServlet {
             e.printStackTrace();
         }
 
-        // on bind les valeurs pour la jsp
+        // Bind les valeurs pour la jsp
         request.setAttribute("categorieList", categorieList);
         request.setAttribute("utilisateur", utilisateur);
         DateFormat dateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
@@ -55,7 +55,7 @@ public class ServletNouvelleVente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // On recupere l'utilisateur depuis session
+        // Récupère l'utilisateur depuis session
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         try {
@@ -64,7 +64,7 @@ public class ServletNouvelleVente extends HttpServlet {
             e.printStackTrace();
         }
 
-        //Recupere les champs de formulaire et insert en bdd
+        // Récupère les champs de formulaire et insert en bdd
         try {
             Articles article = new Articles(
                     request.getParameter("nom"),
@@ -78,14 +78,14 @@ public class ServletNouvelleVente extends HttpServlet {
                     UtilisateurManager.selectUserByPseudo(utilisateur.getPseudo())
             );
             int noArticle = ArticleManager.insert(article);
-            request.setAttribute("successVente", "Votre article a bien ete ajoute");
+            request.setAttribute("successVente", "Votre article a bien été ajouté");
             Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"),noArticle);
             RetraitManager.insert(retrait);
         } catch (BusinessException | SQLException e) {
             e.printStackTrace();
         }
 
-        // renvois vers DoGet
+        // Renvoie vers DoGet
         doGet(request, response);
     }
 }

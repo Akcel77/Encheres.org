@@ -86,7 +86,7 @@ public class Articles {
 
     // Méthodes
     /**
-     * Ajoute une enchere dans la liste des encheres
+     * Ajoute une enchère dans la liste des enchères
      * @param enchere
      */
     public void addEnchere(Enchere enchere){
@@ -97,9 +97,9 @@ public class Articles {
     }
 
     /**
-     * Retourne une instance d'enchere
+     * Retourne une instance d'enchère
      * @param id
-     * @return une instance d'enchere qui as pour as pour id l'id passé en parametre si elle existe sinon null
+     * @return une instance d'enchere qui a pour id l'id passé en paramètre si elle existe, sinon null
      */
     public Enchere getEnchereByID(int id){
         Enchere enchere = null;
@@ -120,7 +120,7 @@ public class Articles {
     }
 
     private enum EtatDeVente {
-        CREEE("Creee"),
+        CREEE("Créée"),
         EN_COURS("En cours"),
         NON_VENDU("Non vendu"),
         REMPORTEE_PAR_MOI("Remportée par moi"),

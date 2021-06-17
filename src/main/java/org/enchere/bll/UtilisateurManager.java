@@ -31,7 +31,7 @@ public class UtilisateurManager {
         return instance;
     }
     /**
-     * Permet a un utilisateur de s'enregistrer si les conditions de validInscription sont bonnes
+     * Permet à un utilisateur de s'enregistrer si les conditions de validInscription sont bonnes
      * @param utilisateur
      * @return utilisateur
      * @throws BusinessException
@@ -53,7 +53,7 @@ public class UtilisateurManager {
 
 
     /**
-     * Condition pour inscription Fonctionne avec SignInUser
+     * Conditions pour inscription Fonctionne avec SignInUser
      * @param utilisateur
      */
     private static void validInscription(Utilisateur utilisateur){
@@ -67,12 +67,12 @@ public class UtilisateurManager {
                 utilisateur.getMotDePasse().trim().equals("")
         ) {
             businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES);
-            System.out.println("Erreur Valider coordonees Inscription");
+            System.out.println("Erreur Valider coordonnees Inscription");
         }
     }
 
     /**
-     * Update les infos User si les conditions sont acceptees cf updateInfo()
+     * Update les infos User si les conditions sont acceptées cf updateInfo()
      * @param utilisateur
      * @throws BusinessException
      */
@@ -86,7 +86,7 @@ public class UtilisateurManager {
     }
 
     /**
-     * Condition pour mise a jour des infos Fonctionne avec updateUser()
+     * Conditions pour mise à jour des infos Fonctionne avec updateUser()
      * @param utilisateur
      */
     private static void updateInfo(Utilisateur utilisateur){
@@ -105,7 +105,7 @@ public class UtilisateurManager {
     }
 
     /**
-     * Recupere un user par son pseudo
+     * Récupère un user par son pseudo
      * @param pseudo
      * @return
      * @throws BusinessException
@@ -126,7 +126,7 @@ public class UtilisateurManager {
     }
 
     /**
-     * Return une liste de tout les utlisateurs
+     * Return une liste de tous les utilisateurs
      * @return
      * @throws BusinessException
      */
@@ -147,7 +147,7 @@ public class UtilisateurManager {
 
 
     /**
-     * Liste de tout les pseudos ( Utile pour verifier si un pseudo est deja utilise)
+     * Liste de tous les pseudos ( Utile pour vérifier si un pseudo est déjà utilisé)
      * @return
      * @throws BusinessException
      */

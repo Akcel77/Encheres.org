@@ -104,7 +104,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
     }
 
     /**
-     * Creation d'un nouvel utilisateur
+     * Création d'un nouvel utilisateur
      * @param utilisateur
      * @throws BusinessException
      */
@@ -151,7 +151,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
     }
 
     /**
-     * Mise a jour d'un nouvel utilisateur
+     * Mise à jour d'un nouvel utilisateur
      * @param utilisateur
      * @throws BusinessException
      */
@@ -211,7 +211,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
     }
 
     /**
-     * Recuperation d'un Utilisateur par son pseudo
+     * Récupération d'un Utilisateur par son pseudo
      * @param pseudo
      * @return
      * @throws BusinessException
@@ -275,7 +275,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
 
 
     /**
-     * Renvoie la liste de tous les utlisateurs
+     * Renvoie la liste de tous les utilisateurs
      * @return
      * @throws BusinessException
      */
@@ -306,7 +306,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
 
 
     /**
-     * Recuperation de tout les pseudo (pour lors de la creation verification si un pseudo est deja present ou non)
+     * Récupération de tous les pseudos (lors de la création, vérification si un pseudo est déjà présent ou non)
      * @return
      * @throws BusinessException
      */
@@ -460,7 +460,7 @@ public class UtilisateurImpl implements UtilisateurDAO {
     }
 
     /**
-     * Function pour eviter la redondance
+     * Function pour éviter la redondance
      * @param rs
      * @return
      * @throws SQLException

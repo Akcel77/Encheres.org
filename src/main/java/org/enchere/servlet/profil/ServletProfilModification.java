@@ -51,7 +51,7 @@ public class ServletProfilModification extends HttpServlet {
             String newPassword = request.getParameter("newPassword");
             String newPassConf = request.getParameter("newPassConf");
             if (listEmail.contains(email)){
-                request.setAttribute("erreurMail", "Email déjà utilisé veuillez renseigner un autre email");
+                request.setAttribute("erreurMail", "Email déjà utilisé. Veuillez renseigner un autre email");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/profilModification.jsp").forward(request, response);
             }
             isConnected.setNom(nom);

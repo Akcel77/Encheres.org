@@ -14,11 +14,12 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
+    <img src="${pageContext.request.contextPath}/images/login.png" class="groot">
+
     <h1 class="text-center mt-5">Connexion</h1>
     <core:if test="${erreurE != null}" var="test">
         <div class="alert alert-danger message-alert" role="alert">${erreurE}</div>
     </core:if>
-    <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
 
     <section class="login-form">
         <form class="form-connection" action="<%=request.getContextPath()%>/Connexion" method="post" >

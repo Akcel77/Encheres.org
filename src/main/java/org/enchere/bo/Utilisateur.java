@@ -43,8 +43,6 @@ public class Utilisateur<Article> {
         this.motDePasse = motDePasse;
     }
 
-
-
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
         this.pseudo = pseudo;
         this.nom = nom;

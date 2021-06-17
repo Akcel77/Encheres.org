@@ -16,7 +16,7 @@
 <body>
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/social.png" class="groot">
-<h1 class="text-center my-5"> Modification Profil ${isConnected.pseudo}</h1>
+<h1 class="text-center my-5"> Modification du profil ${isConnected.pseudo}</h1>
 
 
     <% Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");%>
@@ -27,15 +27,15 @@
     <form class="inscription-form" action="<%=request.getContextPath()%>/ProfilModification?<%isConnected.getPseudo();%>" method="post" >
          <div class="row-form">
              <label class="form-label" for="nom"> Nom : </label>
-             <input class="form-control" name="nom" id="nom" value="${isConnected.nom}" required placeholder="Votre prenom">
-             <label class="form-label" for="prenom"> Prenom : </label>
-             <input class="form-control" name="prenom" id="prenom" value="${isConnected.prenom}" required placeholder="Votre prenom">
+             <input class="form-control" name="nom" id="nom" value="${isConnected.nom}" required placeholder="Votre nom">
+             <label class="form-label" for="prenom"> Prénom : </label>
+             <input class="form-control" name="prenom" id="prenom" value="${isConnected.prenom}" required placeholder="Votre prénom">
              <label class="form-label" for="email">Email :</label>
              <input class="form-control" type="email" name="email" id="email" value="${isConnected.email}" required placeholder="Votre email" >
         </div>
         <div class="row-form">
-            <label class="form-label" for="telephone"> Telephone : </label>
-            <input class="form-control" name="telephone" id="telephone" value="${isConnected.telephone}" required placeholder="Votre telephone">
+            <label class="form-label" for="telephone"> Téléphone : </label>
+            <input class="form-control" name="telephone" id="telephone" value="${isConnected.telephone}" required placeholder="Votre téléphone">
             <label class="form-label" for="rue">Rue : </label>
             <input class="form-control" name="rue" id="rue" value="${isConnected.rue}" required placeholder="Votre rue" >
             <label class="form-label" for="ville"> Ville :</label>
@@ -44,17 +44,17 @@
         <div class="row-form">
 
             <label class="form-label" for="codePostal">Code Postal</label>
-            <input class="form-control" name="codePostal" id="codePostal" value="${isConnected.codePostal}" required placeholder="Votre code Postal" >
-            <label class="form-label" for="password"> Mot de passe : </label>
-            <input class="form-control" type="password" name="password" id="password" required placeholder="Votre Mot de passe">
+            <input class="form-control" name="codePostal" id="codePostal" value="${isConnected.codePostal}" required placeholder="Votre code postal" >
+            <label class="form-label" for="password"> Mot de Passe : </label>
+            <input class="form-control" type="password" name="password" id="password" required placeholder="Votre mot de passe">
         </div>
         <div class="row-form">
 
-            <label class="form-label" for="newPassword">Nouveau Mot de passe : </label>
-            <input class="form-control" type="password" name="newPassword" id="newPassword"  onchange="check_pass_profil()"  placeholder="Votre Nouveau Mot de passe">
-            <label class="form-label" for="newPassConf">Confirmation Nouveau Mot de passe: </label>
+            <label class="form-label" for="newPassword">Nouveau Mot de Passe : </label>
+            <input class="form-control" type="password" name="newPassword" id="newPassword"  onchange="check_pass_profil()"  placeholder="Votre nouveau mot de passe">
+            <label class="form-label" for="newPassConf">Confirmation Nouveau Mot de Passe: </label>
             <span class="span-conf" id='message' ></span>
-            <input class="form-control" type="password" name="newPassConf" id="newPassConf"  onchange="check_pass_profil()"  placeholder="Votre Confirmation de nouveau mot de passe" >
+            <input class="form-control" type="password" name="newPassConf" id="newPassConf"  onchange="check_pass_profil()"  placeholder="Votre nouveau mot de passe" >
         </div>
 
         <div class="row-form-btn">
@@ -76,7 +76,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Etes-vous sûrs de vouloir supprimer votre compte?
+                Êtes-vous sûr de vouloir supprimer votre compte?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>

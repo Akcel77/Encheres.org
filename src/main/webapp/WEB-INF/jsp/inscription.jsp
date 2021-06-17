@@ -15,6 +15,9 @@
     <body>
 
     <%@include file="fragment/navbar.jsp"%>
+
+    <img src="${pageContext.request.contextPath}/images/signup.png" class="groot">
+
     <h1 class="text-center mt-5">Inscription</h1>
     <core:if test="${erreurPseudo != null}" var="test">
         <div class="alert alert-danger message-alert" role="alert">${erreurPseudo}</div>
@@ -38,13 +41,13 @@
                 </div>
                 <div class="row-form">
                     <label class="form-label" for="prenom"> Prénom* : </label>
-                    <input class="form-control" name="prenom" id="prenom" pattern="[^0-9]{3,30}" required placeholder="Votre prenom">
+                    <input class="form-control" name="prenom" id="prenom" pattern="[^0-9]{3,30}" required placeholder="Votre prénom">
                     <label class="form-label" for="email">Email* :</label>
                     <input class="form-control" type="email" name="email" id="email" required placeholder="Votre email" >
                 </div>
                 <div class="row-form">
                     <label class="form-label" for="telephone"> Téléphone* : </label>
-                    <input class="form-control" name="telephone" id="telephone" required placeholder="Votre telephone">
+                    <input class="form-control" name="telephone" id="telephone" required placeholder="Votre téléphone">
                     <label class="form-label" for="rue">Rue* : </label>
                     <input class="form-control" name="rue" id="rue" required placeholder="Votre rue" >
                 </div>
@@ -52,18 +55,18 @@
                     <label class="form-label" for="ville"> Ville* :</label>
                     <input class="form-control" name="ville" id="ville" required placeholder="Votre ville">
                     <label class="form-label" for="codePostal">Code Postal* : </label>
-                    <input class="form-control" name="codePostal" id="codePostal" required placeholder="Votre code Postal" >
+                    <input class="form-control" name="codePostal" id="codePostal" required placeholder="Votre code postal" >
                 </div>
                 <div class="row-form">
                     <label class="form-label" for="psw"> Mot de passe* : </label>
-                    <input class="form-control" type="password" name="psw" id="psw"  maxlength="30" onchange='check_pass();' required placeholder="Votre Mot de passe">
+                    <input class="form-control" type="password" name="psw" id="psw"  maxlength="30" onchange='check_pass();' required placeholder="Votre mot de passe">
 
                 </div>
                 <div class="row-form">
 
-                    <label class="form-label" for="pswConf">Confirmation* : </label>
+                    <label class="form-label" for="pswConf">Confirmation mot de passe* : </label>
                     <span class="span-conf" id='message' ></span>
-                    <input class="form-control" type="password" name="pswConf" id="pswConf"  maxlength="30" onchange='check_pass();' required placeholder="Votre Confirmation mot de passe" >
+                    <input class="form-control" type="password" name="pswConf" id="pswConf"  maxlength="30" onchange='check_pass();' required placeholder="Votre mot de passe" >
 
                 </div>
 
