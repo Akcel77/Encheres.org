@@ -39,7 +39,7 @@
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
 </form>
-
+<h1 class="text-center">Liste des enchères </h1>
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
     <h1>Aucun article ne correspond à votre recherche.</h1>
