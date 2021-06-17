@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Detail vente"/>
+    <jsp:param name="title" value="Detail de l'article"/>
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
@@ -37,14 +37,13 @@
         <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
+        <h1 class="m-5 text-center" >Détail de l'article</h1>
 
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
         </div>
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
         <div class="main-detail-article col-md-7 col-12 row g-3">
             <div class=" col-4"> <strong>Article</strong> : </div>
             <div class=" col-8"><%= article.getNomArticles() %></div>

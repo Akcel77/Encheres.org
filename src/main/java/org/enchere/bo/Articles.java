@@ -187,8 +187,6 @@ public class Articles {
         this.etatDeVente = etatDeVente;
     }
 
-    public String getEtatDeVente() { return etatDeVente; }
-
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }

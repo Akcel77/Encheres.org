@@ -158,6 +158,13 @@ public class UtilisateurManager {
         return utilisateurDAO.getAllMail();
     }
 
+    /**
+     * Retourne un utilisateur en fonction de son id
+     * @param idUser
+     * @return
+     * @throws BusinessException
+     */
+
     public static Utilisateur selectUserByID(int idUser) throws BusinessException {
         return utilisateurDAO.selectUserByID(idUser);
     }
