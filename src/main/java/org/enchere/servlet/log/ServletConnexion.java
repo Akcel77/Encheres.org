@@ -77,7 +77,7 @@ public class ServletConnexion extends HttpServlet {
 
                 request.getParameter("recherche");
 
-                System.out.println(request.getAttribute("categorie"));
+
                 httpSession.setAttribute("isConnected", utilisateur);
                 httpSession.setAttribute("noUtilisateur", utilisateur.getNoUtilisateur());
                 request.getSession().setMaxInactiveInterval(5 * 60);

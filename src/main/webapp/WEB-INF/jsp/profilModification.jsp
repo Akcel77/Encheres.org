@@ -63,6 +63,7 @@
                 Supprimer compte
             </button>
         </div>
+        <input type="hidden" name="utilisateurs" value="${isConnected.noUtilisateur}">
     </form>
 </section>
 

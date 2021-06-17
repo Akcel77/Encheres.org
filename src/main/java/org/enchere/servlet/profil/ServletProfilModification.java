@@ -14,6 +14,9 @@ import java.util.List;
 public class ServletProfilModification extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession httpSession = request.getSession();
+        Utilisateur isConnected = (Utilisateur) httpSession.getAttribute("isConnected");
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/profilModification.jsp");
         requestDispatcher.forward(request,response);
     }
@@ -23,7 +26,9 @@ public class ServletProfilModification extends HttpServlet {
         HttpSession httpSession = request.getSession();
 
         Utilisateur isConnected = (Utilisateur) httpSession.getAttribute("isConnected");
+
         int utilisateur = isConnected.getNoUtilisateur();
+
         System.out.println("test no ut " + utilisateur);
         List<String> listEmail = null;
         List<String> listePseudo = null;
@@ -59,6 +64,8 @@ public class ServletProfilModification extends HttpServlet {
 
             if (password.equals(isConnected.getMotDePasse()) && newPassword.equals(newPassConf)){
                 isConnected.setMotDePasse(newPassword);
+            }else{
+                isConnected.setMotDePasse(password);
             }
             UtilisateurManager.updateUser(isConnected);
             httpSession.setAttribute("isConnected", isConnected);
