@@ -27,7 +27,6 @@ public class EnchereManager {
         enchereDAO.create(enchere);
     }
 
-
     /**
      * Retourne la liste de toutes les enchères pour un article donné
      * @param id
@@ -38,5 +37,4 @@ public class EnchereManager {
     public static List<Enchere> findAllByArticleId(int id) throws BusinessException, SQLException {
         return enchereDAO.findAllByArticleId(id);
     }
-
 }

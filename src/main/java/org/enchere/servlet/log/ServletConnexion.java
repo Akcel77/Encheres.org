@@ -21,6 +21,7 @@ public class ServletConnexion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // Recupere l'utilisateur dans la session
         Utilisateur utilisateur = new Utilisateur();
         String erreur = null;
         String id = request.getParameter("id");
