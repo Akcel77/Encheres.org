@@ -30,10 +30,12 @@
 .btn-outline-success:hover{
     background-color:#7a5989 ;
     color: #FFFFFF;
+    border-color:#583968;
 }
 .btn-outline-success{
     background-color:#FFFFFF ;
     color: black;
+    border-color:#583968;
 }
 
 .btn-danger{
@@ -146,7 +148,8 @@ h1,h2,h3,h4,h5{
     justify-content: center;
 }
 .search-bar{
-    display: flex;
+    display: grid;
+    grid-template-columns: 3.5fr 2fr 1fr;
     width: 70%;
     margin: 2rem auto;
 }
@@ -166,7 +169,9 @@ h1,h2,h3,h4,h5{
     margin: 1rem auto;
 }
 .valider-checkbox{
-    width: 50%;
+    width: 9rem;
+    margin-left: 1rem;
+    height: 2.95rem;
 }
 .image-article{
     border-bottom : 1px solid black;
@@ -189,6 +194,9 @@ h1,h2,h3,h4,h5{
     font-family: 'Caveat', cursive;
     font-size: 0.2rem;
     text-align: center;
+}
+.filtre{
+    margin-left: 1rem;
 }
 
 /*Nouvelle vente*/
@@ -289,9 +297,12 @@ footer{
 
 /*Tablette VIEW*/
 @media screen and (max-width: 890px){
+    .search-bar{
+        grid-template-columns: 2fr 1fr 1fr;
+    }
     .nav-cont{
         display: grid!important;
-        grid-template-columns: 6fr 1fr!important;
+        grid-template-columns: 5fr 1fr!important;
     }
     .checkbox-block{
         grid-template-columns: 1fr 1fr;
@@ -322,6 +333,10 @@ footer{
 }
 /*Mobile VIEW*/
 @media screen and (max-width: 600px){
+    .nav-cont{
+        display: grid!important;
+        grid-template-columns: 6fr 1fr!important;
+    }
     .checkbox-block{
         grid-template-columns: 1fr;
     }
@@ -347,6 +362,15 @@ footer{
     }
     .logo{
         width: 40%;
+    }
+    .search-bar{
+        grid-template-columns: 1fr;
+    }
+    .valider-checkbox{
+        margin-left: 0;
+    }
+    .filtre{
+        margin-left: 0;
     }
 
 

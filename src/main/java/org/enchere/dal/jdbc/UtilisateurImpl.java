@@ -135,7 +135,6 @@ public class UtilisateurImpl implements UtilisateurDAO {
             if (resultSet.next()){
                 utilisateur.setNoUtilisateur(resultSet.getInt(1));
             }
-            System.out.println("DAL " + utilisateur);
             connection.close();
             stmt.close();
         }catch (SQLException e){

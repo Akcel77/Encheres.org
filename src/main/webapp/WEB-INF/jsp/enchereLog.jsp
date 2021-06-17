@@ -21,13 +21,15 @@
                placeholder="Rechercher sur ENI Encheres"
                aria-label="Rechercher l'article">
         <div class="filtre">
-            <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
+            <select  class="form-select form-select-lg mb-3 ml-1" name="categories" id="categories">
                 <option name="lCategorie" selected value="-1">Toutes les catégories</option>
                 <c:forEach var="categorie" items="${categories}">
                     <option name="sCategorie" value="${categorie.noCategorie}">${categorie.libelle}</option>
                 </c:forEach>
             </select>
         </div>
+        <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
+
     </div>
     <div class="checkbox-block">
         <div id="achat-block" class="mb-3">
@@ -66,10 +68,9 @@
                 <label class="mr-2" for="terminees">Ventes terminées</label>
             </div>
         </div>
+
     </div>
-    <div class="checkbox-block"  >
-        <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
-    </div>
+
 </form>
 
 <div class="enchere_subtitle">
