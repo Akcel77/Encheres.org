@@ -18,6 +18,11 @@ public class EnchereManager {
         EnchereManager.enchereDAO = DAOFactory.getEnchereDAO();
     }
 
+    /**
+     * Crée une nouvelle enchère
+     * @param enchere
+     * @throws BusinessException
+     */
     public static void createEnchere(Enchere enchere) throws BusinessException {
         enchereDAO.create(enchere);
     }

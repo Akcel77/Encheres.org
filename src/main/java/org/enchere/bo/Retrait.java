@@ -7,7 +7,6 @@ public class Retrait {
     private String code_postal;
     private String ville;
 
-
     public Retrait() { }
 
     public Retrait(int id, String rue, String code_postal, String ville) {
@@ -25,7 +24,6 @@ public class Retrait {
         this.noArticle = noArticle;
     }
 
-    //Getters & Setters
     public int getId() {
         return id;
     }
@@ -65,10 +63,4 @@ public class Retrait {
     public void setNoArticle(int noArticle) {
         this.noArticle = noArticle;
     }
-
-    @Override
-    public String toString() {
-        return  rue + ", " + code_postal + " " + ville;
-    }
-
 }

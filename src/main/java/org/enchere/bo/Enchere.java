@@ -1,7 +1,5 @@
 package org.enchere.bo;
 
-import java.util.Date;
-
 public class Enchere {
     private int no_enchere;
     private String date_enchere;
@@ -9,7 +7,6 @@ public class Enchere {
     private int no_article;
     private int no_utilisateur;
 
-    //Constructor
     public Enchere(int no_enchere, String date_enchere, int montant_enchere, int no_article, int no_utilisateur) {
         this.no_enchere = no_enchere;
         this.date_enchere = date_enchere;
@@ -52,11 +49,6 @@ public class Enchere {
         this.no_utilisateur = no_utilisateur;
     }
 
-    //getter & Setter
-    public int getNo_enchere() {
-        return no_enchere;
-    }
-
     public String getDate_enchere() {
         return date_enchere;
     }
@@ -72,19 +64,6 @@ public class Enchere {
     public int getNo_utilisateur() {
         return no_utilisateur;
     }
-
-
-    @Override
-    public String toString() {
-        return "Enchere{" +
-                "no_enchere=" + no_enchere +
-                ", date_enchere=" + date_enchere +
-                ", montant_enchere=" + montant_enchere +
-                ", no_article=" + no_article +
-                ", no_utilisateur=" + no_utilisateur +
-                '}';
-    }
-
 }
 
 

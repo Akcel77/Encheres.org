@@ -22,9 +22,6 @@ public class ServletInscription extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Crée un Utilisateur
-        // Check si tous les champs sont remplis
-        // Si c'est ok crée un Utilisateur
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
         Utilisateur utilisateur = null;
         List<String> listEmail = null;
@@ -63,8 +60,6 @@ public class ServletInscription extends HttpServlet {
                 httpSession.setAttribute("isConnected", utilisateur);
                 response.sendRedirect("Encheres");
             }
-
-
     } catch (BusinessException businessException) {
             businessException.printStackTrace();
         }

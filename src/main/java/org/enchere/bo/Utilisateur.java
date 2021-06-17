@@ -18,8 +18,7 @@ public class Utilisateur<Article> {
     private boolean administrateur;
     private List<Enchere> enchereList;
     private List<Article> articleList;
-    
-    //Constructors
+
     public Utilisateur() {
         super();
     }
@@ -69,8 +68,6 @@ public class Utilisateur<Article> {
         this.credit = credit;
         this.administrateur = administrateur;
     }
-
-    //Getters And Setters
 
     public int getNoUtilisateur() {
         return noUtilisateur;
@@ -182,25 +179,5 @@ public class Utilisateur<Article> {
 
     public void setArticleList(List<Article> articleList) {
         this.articleList = articleList;
-    }
-
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "no_utilisateur=" + noUtilisateur +
-                ", pseudo='" + pseudo + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", rue='" + rue + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", credit=" + credit +
-                ", adminsistrateur=" + administrateur +
-                ", enchereList=" + enchereList +
-                ", articleList=" + articleList +
-                '}';
     }
 }
