@@ -84,15 +84,16 @@
                     <input type="hidden" name="id_article" value="<%= article.getId() %>">
                     <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
                 </div>
-                <button type="submit" class="btn btn-primary col-12">Encherir !</button>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
-            </form>
-            <% }else{ %>
-            <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
-            <% } %>
+                <button type="submit" class="btn btn-primary  btn-detail mt-5">Encherir !</button>
 
+            <!-- ajout bouton "modifier" avec le elseif-->
+                    <% } if ((boolean)request.getAttribute("maVente") && !(boolean)request.getAttribute("encherePasCommencee")){ %>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger btn-detail  mt-5" value="Retour">
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/ModificationVente?id=<%= article.getId() %>';" class="btn btn-primary btn-detail  mt-5" value="Modifier">
+                    <% }else{ %>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger btn-detail mt-5" value="Retour">
+                    <% } %>
         </div>
-
     </div>
 </main>
 <%@include file="fragment/footer.jsp"%>

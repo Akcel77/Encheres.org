@@ -23,7 +23,7 @@ public class ArticleImpl implements ArticleDAO {
 
     private final String SELECTALL  = "SELECT * FROM articles_vendus";
     private final String SELECT = "SELECT * FROM articles_vendus WHERE no_article = ?";
-    private final String UPDATE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres =?, date_fin_encheres=?, prix_initial=?,prix_vente=?,no_utilisateur=?,no_categorie=? WHERE no_article=?";
+    private final String UPDATE = "UPDATE articles_vendus SET nom_article=?, description=?, date_debut_encheres =?, date_fin_encheres=?, prix_initial=?,no_categorie=? WHERE no_article=?";
     private final String DELETE = "DELETE FROM articles_vendus WHERE no_article =?";
     private final String INSERT = "INSERT INTO articles_vendus (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES(?,?,?,?,?,?,?) ";
     private final String SELECT_BY_USER = "SELECT * FROM articles_vendus WHERE no_utilisateur=?";
@@ -82,11 +82,11 @@ public class ArticleImpl implements ArticleDAO {
         PreparedStatement stmt = cnx.prepareStatement(UPDATE);
         stmt.setString(1,article.getNomArticles());
         stmt.setString(2,article.getDescription());
-        stmt.setString(3,article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
-        stmt.setString(4,article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+        stmt.setString(3,article.getDateDebutEncheres() + " " + article.getHeureDebut());
+        stmt.setString(4,article.getDateFinEncheres() + " " + article.getHeureFin());
         stmt.setInt(5,article.getMiseAprix());
         stmt.setInt(6,article.getCaterogie().getNoCategorie());
-
+        stmt.setInt(7,article.getId());
         stmt.executeUpdate();
 
         cnx.close();

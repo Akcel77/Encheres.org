@@ -63,11 +63,29 @@ public class ServletDetailVente extends HttpServlet {
         }
         boolean enCours = (compareDate == -1 || compareDate == 0);
 
+        //Test si la date de debut d'enchere est avant la date du jour
+        int compare2Date = 0;
+        Date dateA = null;
+        Date dateB = null;
+        try {
+            String dA = dateFormatDayUS.format(new Date());
+            dateA = dateFormatDayUS.parse(dA);
+            dateB = dateFormatDayUS.parse(article.getDateDebutEncheres());
+            compare2Date = dateA.compareTo(dateB);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        boolean pasCommence = (compare2Date == 1 );
+
+
         // Bind les paramètres pour la jsp
         request.setAttribute("article", article);
         request.setAttribute("maVente", isMaVente);
         request.setAttribute("enCours", enCours);
         request.setAttribute("venteRemportee", venteRemportee);
+        request.setAttribute("encherePasCommencee", pasCommence);
+        request.setAttribute("id_artice", idArticle);
+
 
         // Forward sur jsp
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
@@ -151,11 +169,26 @@ public class ServletDetailVente extends HttpServlet {
         }
         boolean enCours = (compareDate == -1 || compareDate == 0);
 
+        //Test si la date de debut d'enchere est avant la date du jour
+        int compare2Date = 0;
+        Date dateA = null;
+        Date dateB = null;
+        try {
+            String dA = dateFormatDayUS.format(new Date());
+            dateA = dateFormatDayUS.parse(dA);
+            dateB = dateFormatDayUS.parse(article.getDateDebutEncheres());
+            compare2Date = dateA.compareTo(dateB);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        boolean pasCommence = (compare2Date == 1 );
+
         //bind les parametre pour la jsp
         request.setAttribute("article", article);
         request.setAttribute("maVente", isMaVente);
         request.setAttribute("enCours", enCours);
         request.setAttribute("venteRemportee", venteRemportee);
+        request.setAttribute("encherePasCommencee", pasCommence);
 
         // forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");

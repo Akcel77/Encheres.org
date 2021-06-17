@@ -10,19 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnchereImpl implements EnchereDAO {
-        private static final String INSERT = "INSERT INTO encheres(date_enchere, montant_enchere, " +
-                "no_article, no_utilisateur) VALUES(?,?,?,?)";
-        private static final String UPDATE = "UPDATE encheres SET date_enchere=?, montant_enchere=?, no_article=?, " +
-                "no_utilisateur=? WHERE no_enchere=?";
-        private static final String DELETE = "DELETE FROM encheres WHERE no_enchere=?";
-        private static final String FIND_ALL= "SELECT * FROM encheres";
-        private static final String FIND_BY_ID = "SELECT * FROM encheres WHERE no_enchere=?";
-        private static final String FIND_BY_USER_ID = "SELECT * FROM encheres WHERE no_article=?";
+    private static final String INSERT = "INSERT INTO encheres(date_enchere, montant_enchere, " +
+            "no_article, no_utilisateur) VALUES(?,?,?,?)";
+    private static final String FIND_ALL= "SELECT * FROM encheres";
+    private static final String FIND_BY_ID = "SELECT * FROM encheres WHERE no_enchere=?";
+    private static final String FIND_BY_USER_ID = "SELECT * FROM encheres WHERE no_article=?";
 
-        /**
-         * Insérer une nouvelle enchère
-         * @param enchere
-         */
+    /**
+     * Insérer une nouvelle enchère
+     * @param enchere
+     * throws BusinessException
+     */
 
     @Override
     public void create(Enchere enchere)throws BusinessException {
