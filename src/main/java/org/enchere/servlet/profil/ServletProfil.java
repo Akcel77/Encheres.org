@@ -15,15 +15,15 @@ public class ServletProfil extends HttpServlet {
     private static UtilisateurManager utilisateurManager = UtilisateurManager.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Recuperation session
+        // Récupère session
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
 
-        // recupere le pseudo de l'utilisateur
+        // Récupère le pseudo de l'utilisateur
         request.getSession().setAttribute("pseudo", utilisateur.getPseudo());
         String pseudo = (String) request.getSession().getAttribute("pseudo");
 
-        // on recherche l'user à afficher
+        // Recherche le user à afficher
         int noProfil = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : utilisateur.getNoUtilisateur();
         Utilisateur utilisateurEnCours = null;
         try {

@@ -25,7 +25,7 @@ public class ServletDetailVente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Recupere l'id envoyer par le get
+        // Récupère l'id envoyé par le get
         int idArticle = Integer.parseInt(request.getParameter("id"));
         Articles article = null;
         try {
@@ -34,21 +34,21 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        // recupere l'id de l'utilisateur
+        // Récupère l'id de l'utilisateur
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
         int idUtilisateur = utilisateur.getNoUtilisateur();
 
-        // test si le detail du produit est notre vente ou celle d'un autre
+        // Teste si le détail du produit est notre vente ou celle d'un autre
         boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
 
-        // teste si l'utilisateur en cours est l'acquéreur de la vente
+        // Teste si l'utilisateur en cours est l'acquéreur de la vente
         boolean venteRemportee = false;
         if(article.getLastEncheres() != null){
             venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
         }
 
-        //Test si la date est avant ou apres la date du jour
+        // Teste si la date est avant ou après la date du jour
         DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
         int compareDate = 0;
         Date date1 = null;
@@ -63,37 +63,37 @@ public class ServletDetailVente extends HttpServlet {
         }
         boolean enCours = (compareDate == -1 || compareDate == 0);
 
-        //bind les parametre pour la jsp
+        // Bind les paramètres pour la jsp
         request.setAttribute("article", article);
         request.setAttribute("maVente", isMaVente);
         request.setAttribute("enCours", enCours);
         request.setAttribute("venteRemportee", venteRemportee);
 
-        //forward sur jsp
+        // Forward sur jsp
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
         rd.forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // On recupere l'utilisateur depuis session
+        // Récupère l'utilisateur depuis session
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
 
-        // Recupere les data necessaire à la création d'une enchere
+        // Récupère les datas nécessaires à la création d'une enchère
         int enchereValue = Integer.parseInt(request.getParameter("nombreEnchere"));
         int idArticle = Integer.parseInt(request.getParameter("id_article"));
         int idUtilisateur = utilisateur.getNoUtilisateur();
 
-        //Vérifie si l'utilisateur as assez de crédit
+        // Vérifie si l'utilisateur a assez de crédit
         try {
             int creditAcheteur = UtilisateurManager.selectUserByID(idUtilisateur).getCredit();
 
-            // débite l'utilisateur si assez de crédit et débite l'ancien encherisseur
+            // Débite l'utilisateur si assez de crédit et débite l'ancien enchérisseur
             if (creditAcheteur >= enchereValue){
                 Enchere enchere = new Enchere(LocalDate.now().toString(), enchereValue, idArticle, idUtilisateur);
                 try {
-                    // on crédite l'ancien meilleur enchérisseur du montant de son enchere
+                    // on crédite l'ancien meilleur enchérisseur du montant de son enchère
                     Articles article = ArticleManager.find(idArticle);
                     Utilisateur compteACrediter = null;
                     Enchere lastEnchere = article.getLastEncheres();
@@ -103,9 +103,9 @@ public class ServletDetailVente extends HttpServlet {
                         UtilisateurManager.updateUser(compteACrediter);
                     }
 
-                    // on débite l'utilisateur connecter de son enchere
+                    // on débite l'utilisateur connecté de son enchère
                     EnchereManager.createEnchere(enchere);
-                    request.setAttribute("successEnchere", "Votre enchere a bien ete ajoutee.");
+                    request.setAttribute("successEnchere", "Votre enchère a bien été ajoutée.");
                     utilisateur.setCredit(UtilisateurManager.selectUserByID(idUtilisateur).getCredit() - enchereValue);
                     UtilisateurManager.updateUser(utilisateur);
 
@@ -113,13 +113,13 @@ public class ServletDetailVente extends HttpServlet {
                     e.printStackTrace();
                 }
             }else{
-                request.setAttribute("erreurEncheres", "Veuillez recharger votre credit pour effectuer cette mise.");
+                request.setAttribute("erreurEncheres", "Veuillez recharger votre crédit pour effectuer cette mise.");
             }
         } catch (BusinessException e) {
             e.printStackTrace();
         }
 
-        // Recupere l'id envoyer par le get
+        // Récupère l'id envoyé par le get
         Articles article = null;
         try {
             article = ArticleManager.find(idArticle);
@@ -127,16 +127,16 @@ public class ServletDetailVente extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        // test si le detail du produit est notre vente ou celle d'un autre
+        // Teste si le détail du produit est notre vente ou celle d'un autre
         boolean isMaVente = idUtilisateur == article.getUtilisateur().getNoUtilisateur();
 
-        // teste si l'utilisateur en cours est l'acquéreur de la vente
+        // Teste si l'utilisateur en cours est l'acquéreur de la vente
         boolean venteRemportee = false;
         if(article.getLastEncheres() != null){
             venteRemportee = idUtilisateur == article.getLastEncheres().getNo_utilisateur();
         }
 
-        //Test si la date est avant ou apres la date du jour
+        // Teste si la date est avant ou après la date du jour
         DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
         int compareDate = 0;
         Date date1 = null;

@@ -39,4 +39,15 @@ function validatePseudo(){
     return true;
 }
 
+function witchCheckbox(){
+    var achat = document.getElementById('achats').value;
+    var vente = document.getElementById('ventes').value;
+
+    if (achat === true){
+
+    }if(vente === true) {
+
+    }
+}
+
 

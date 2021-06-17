@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Renvois vers EnchereLog ou enchereNoLOg suivant si l'utilisateur est connecter ou non
+ * Renvoie vers EnchereLog ou enchereNoLOg suivant si l'utilisateur est connecté ou non
  */
 @WebServlet(name = "ServletHome", value = "/Encheres")
 public class ServletHome extends HttpServlet {
@@ -37,7 +37,7 @@ public class ServletHome extends HttpServlet {
         // Démarre la session
         HttpSession httpSession = request.getSession();
 
-        // Recupere la liste de toutes les categories
+        // Récupère la liste de toutes les catégories
         List<Categorie> categoriesList = null;
         try {
             categoriesList = CategorieManager.selectAll();
@@ -46,8 +46,7 @@ public class ServletHome extends HttpServlet {
         }
         request.setAttribute("categories", categoriesList);
 
-        // recuperer la liste de tout les articles
-
+        // Récupère la liste de tous les articles
         try {
             request.setAttribute("articles", ArticleManager.findAll());
         } catch (SQLException | BusinessException | ParseException throwables) {
@@ -64,7 +63,7 @@ public class ServletHome extends HttpServlet {
             request.setAttribute("aucuneEnchere", "Aucune enchère en cours");
         }
 
-        // Si l'utilisateur est connecter redirige vers EnchereLog sinon EnchereNoLog
+        // Si l'utilisateur est connecté, redirige vers EnchereLog sinon EnchereNoLog
         if(httpSession.getAttribute("isConnected") == null ){
             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
             requestDispatcher.forward(request,response);
@@ -77,7 +76,7 @@ public class ServletHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Recupere la liste de toutes les catégories
+        // Récupère la liste de toutes les catégories
         Categorie categorie = new Categorie();
         List<Categorie> categoriesList = null;
         try {
@@ -87,11 +86,11 @@ public class ServletHome extends HttpServlet {
         }
         request.setAttribute("categories", categoriesList);
 
-        // Recupere l'utilisateur connecté
+        // Récupère l'utilisateur connecté
         HttpSession httpSession = request.getSession();
         Utilisateur utilisateur = (Utilisateur) httpSession.getAttribute("isConnected");
 
-        // Recupere tout les Parametres du formulaire
+        // Récupère tous les paramètres du formulaire
         String choix = request.getParameter("choix");
         int numCategorie = Integer.parseInt(request.getParameter("categories"));
         String filter = request.getParameter("recherche").toLowerCase();
@@ -102,7 +101,7 @@ public class ServletHome extends HttpServlet {
         String nonDebute = request.getParameter("nonDebute");
         String terminees = request.getParameter("terminees");
 
-        // recuperer la liste de tout les articles
+        // Récupère la liste de tous les articles
         List<Articles> articles = null;
         try {
             articles = ArticleManager.findAll();
@@ -114,11 +113,12 @@ public class ServletHome extends HttpServlet {
             request.setAttribute("aucuneEnchere", "Aucune enchère en cours");
         }
 
+
         //***************
-        //   Filtre
+        //   Filtres
         //***************
 
-        //tri mot clé
+        // tri mot clé
         if(!filter.equals("")) {
             List<Articles> temporaryList = new ArrayList<>();
             for (Articles article : articles) {
@@ -143,7 +143,7 @@ public class ServletHome extends HttpServlet {
             articles = temporaryList;
         }
 
-        //tri par catégories
+        // tri par catégorie
         if(numCategorie > 0){
             List<Articles> temporaryList = new ArrayList<>();
             for (Articles article : articles) {
@@ -181,7 +181,7 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // Ce sont mes ventes non débuté
+            // Ce sont mes ventes non débutées
             else if(nonDebute != null && nonDebute.equals("on")){
                 temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -198,7 +198,7 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // Ce sont mes ventes déja terminé
+            // Ce sont mes ventes déjà terminées
             else if(terminees != null && terminees.equals("on")){
                 temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -215,10 +215,10 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-        // choix par défaut affiche tout les articles
+        // choix par défaut affiche tous les articles
         }else {
 
-            // tri par articles disponible à l'achat
+            // tri par articles disponibles à l'achat
             if (choix != null && choix.equals("achat")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -229,7 +229,7 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // Aucune enchere en cours
+            // Aucune enchère en cours
             if(enchereOuverte != null && enchereOuverte.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -240,7 +240,7 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // j'ai placer une enchere
+            // j'ai placé une enchère
             else if(mesEncheres != null && mesEncheres.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -257,7 +257,7 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // Je suis le meilleurs encherisseur
+            // Je suis le meilleur enchérisseur
             else if(enchereRemportee != null && enchereRemportee.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
@@ -279,10 +279,10 @@ public class ServletHome extends HttpServlet {
             }
         }
 
-        //bind les values
+        // Bind les values
         request.setAttribute("articles", articles);
 
-        // Si l'utilisateur est connecter redirige vers EnchereLog sinon EnchereNoLog
+        // Si l'utilisateur est connecté, redirige vers EnchereLog sinon EnchereNoLog
         if(httpSession.getAttribute("isConnected") == null ){
             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/enchereNoLog.jsp");
             requestDispatcher.forward(request,response);

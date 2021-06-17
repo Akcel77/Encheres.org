@@ -13,7 +13,7 @@
 
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
-<h1 class="text-center my-5">Liste des enchères</h1>
+
 
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
     <div class="saisie search-bar">
@@ -30,40 +30,40 @@
         </div>
     </div>
     <div class="checkbox-block">
-        <div class="mb-3">
+        <div id="achat-block" class="mb-3">
             <div>
-                <input type="radio" name="choix" id="achats" checked value="achat">
+                <input type="radio" onchange='witchCheckbox();' name="choix" id="achats" checked value="achat">
                 <label class="mr-2" for="achats">Achats</label>
             </div>
             <div>
-                <input type="checkbox" id="ouverte" name="enchereOuverte" checked>
-                <label class="mr-2" for="ouverte">enchères ouvertes</label>
+                <input type="checkbox" id="ouverte" name="enchereOuverte" >
+                <label class="mr-2" for="ouverte">Enchères ouvertes</label>
             </div>
             <div>
                 <input type="checkbox" id="encours" name="mesEncheres">
-                <label class="mr-2" for="encours">mes enchères</label>
+                <label class="mr-2" for="encours">Mes enchères</label>
             </div>
             <div>
                 <input type="checkbox" id="remportees" name="enchereRemportee">
-                <label class="mr-2" for="remportees">mes enchères remportées</label>
+                <label class="mr-2" for="remportees">Mes enchères remportées</label>
             </div>
         </div>
         <div>
-            <div>
-                <input type="radio" name="choix" id="ventes" value="vente">
-                <label class="mr-2" for="ventes">Mes ventes</label>
+            <div id="vente-block" >
+                <input type="radio" onchange='witchCheckbox();' name="choix" id="ventes" value="vente">
+                <label class="mr-2" for="ventes">Ventes</label>
             </div>
             <div>
                 <input type="checkbox" id="venteEncours" name="venteEncours">
-                <label class="mr-2" for="venteEncours">mes ventes en cours</label>
+                <label class="mr-2" for="venteEncours">Mes ventes en cours</label>
             </div>
             <div>
                 <input type="checkbox" id="nonDebute" name="nonDebute">
-                <label class="mr-2" for="nonDebute">ventes non débutées</label>
+                <label class="mr-2" for="nonDebute">Ventes non débutées</label>
             </div>
             <div>
                 <input type="checkbox" id="terminees" name="terminees">
-                <label class="mr-2" for="terminees">ventes terminées</label>
+                <label class="mr-2" for="terminees">Ventes terminées</label>
             </div>
         </div>
     </div>
@@ -71,6 +71,8 @@
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
 </form>
+
+<h1 class="text-center my-5">Liste des enchères</h1>
 
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
@@ -88,14 +90,14 @@
             <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">Description : ${articles.getDescription()}</p>
-                <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-                <p class="card-text">Fin de l'enchere: le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
-                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
-                <p class="card-text vendeur">Vendeur : <a  href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
+                <p class="card-text"><strong>Description :</strong> ${articles.getDescription()}</p>
+                <p class="card-text"><strong>Enchère actuelle :</strong> ${articles.getLastEncheres().getMontant_enchere()}</p>
+                <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()}</p>
+                <p class="card-text"><strong>Fin de l'enchère :</strong> le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
+                <p class="card-text vendeur"><strong>Vendeur :</strong> <a href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
             </div>
             <div class="card-footer">
-                <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-primary">Détail article</a>
+                <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-outline-success">Détail article</a>
             </div>
         </div>
     </c:forEach>

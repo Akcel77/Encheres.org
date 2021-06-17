@@ -30,14 +30,12 @@ public class RetraitManager {
         return retraitDAO.getById(id);
     }
 
-    public static void updateRetrait(Retrait retrait) throws BusinessException{
+    public static void updateRetrait(Retrait retrait) throws BusinessException {
         getValidAdress(retrait, businessException);
-        if(!businessException.hasErreurs()){
+        if (!businessException.hasErreurs()) {
             retraitDAO.update(retrait);
         }
     }
-
-
 
     public static void getValidAdress(Retrait retrait , BusinessException businessException){
         if(

@@ -10,12 +10,12 @@ public class ServletDeconnexion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //Recupere la session puis efface la mémorisation de la connection
+        // Récupère la session puis efface la mémorisation de la connection
         HttpSession httpSession = request.getSession();
         httpSession.removeAttribute("isConnected");
         httpSession.invalidate();
 
-        //redirection
+        // Redirection
         response.sendRedirect("Encheres");
     }
 

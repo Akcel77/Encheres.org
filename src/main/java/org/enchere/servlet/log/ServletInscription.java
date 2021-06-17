@@ -15,16 +15,16 @@ public class ServletInscription extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // forward sur la page d'inscription
+        // Forward sur la page d'inscription
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
         rd.forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Cree un Utilisateur
-        //Check si tous les champs sont remplis
-        //Si c'est ok cree un Utilisateur
+        // Crée un Utilisateur
+        // Check si tous les champs sont remplis
+        // Si c'est ok crée un Utilisateur
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
         Utilisateur utilisateur = null;
         List<String> listEmail = null;
@@ -35,12 +35,6 @@ public class ServletInscription extends HttpServlet {
         } catch (BusinessException businessException) {
             businessException.printStackTrace();
         }
-
-
-
-
-
-
 
         try {
             String pseudo = request.getParameter("pseudo");
@@ -55,10 +49,10 @@ public class ServletInscription extends HttpServlet {
             String codePostal = request.getParameter("codePostal");
 
             if (listEmail.contains(email)){
-                request.setAttribute("erreurMail", "Email déjà utilisé veuillez renseigner un autre email");
+                request.setAttribute("erreurMail", "Email déjà utilisé. Veuillez renseigner un autre email.");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);
             }else if(listePseudo.contains(pseudo)){
-                request.setAttribute("erreurPseudo", "Pseudo déjà utilisé veuillez renseigner un autre pseudo");
+                request.setAttribute("erreurPseudo", "Pseudo déjà utilisé. Veuillez renseigner un autre pseudo.");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);
             }else if (!pseudo.isEmpty() && ! nom.isEmpty() && !prenom.isEmpty() && !email.isEmpty() && !password.isEmpty() && !rue.isEmpty() && !ville.isEmpty() && !codePostal.isEmpty() ) {
                 utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password);

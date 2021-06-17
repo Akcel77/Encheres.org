@@ -56,13 +56,14 @@
             <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
             <img class="card-img-top" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">Description : ${articles.getDescription()}</p>
-                <p class="card-text">Prix Initial: ${articles.getMiseAprix()}</p>
-                <p class="card-text">Enchere actuelle: ${articles.getLastEncheres().getMontant_enchere()}</p>
-                <p class="card-text vendeur">Vendeur : ${articles.getUtilisateur().getPseudo()}</p>
+                <p class="card-text"><strong>Description :</strong> ${articles.getDescription()}</p>
+                <p class="card-text"><strong>Enchère actuelle :</strong> ${articles.getLastEncheres().getMontant_enchere()}</p>
+                <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()}</p>
+                <p class="card-text"><strong>Fin de l'enchère :</strong> le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
+                <p class="card-text vendeur"><strong>Vendeur :</strong> ${articles.getUtilisateur().getPseudo()}</p>
             </div>
             <div class="card-footer">
-                <a href="<%=request.getContextPath()%>/Connexion" class="btn btn-primary">Connexion</a>
+                <a href="<%=request.getContextPath()%>/Connexion" class="btn btn-primary">Voir le détail</a>
             </div>
         </div>
     </c:forEach>

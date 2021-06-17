@@ -20,7 +20,7 @@ public class ArticleManager{
     }
 
     /**
-     * Insere un articles
+     * Insère un article
      * @param article
      */
     public static int insert(Articles article) throws SQLException {
@@ -35,9 +35,8 @@ public class ArticleManager{
         articleDAO.update(article);
     }
 
-
     /**
-     * Suprimme un article
+     * Supprime un article
      * @param id
      */
     public static void delete(int id) throws SQLException {
