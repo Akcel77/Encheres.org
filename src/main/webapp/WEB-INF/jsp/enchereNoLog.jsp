@@ -18,6 +18,7 @@
 <body>
 
 <%@include file="fragment/navbar.jsp"%>
+<img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
 <h1 class="text-center my-5">Liste des enchères</h1>
 
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
@@ -38,6 +39,13 @@
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
 </form>
+
+<div class="enchere_subtitle">
+    <% if(request.getAttribute("articlesNull")!=null) { %>
+    <h1>Aucun article ne correspond à votre recherche.</h1>
+    <% } %>
+</div>
+
 
 <section class="enchere-section">
     <c:forEach var="articles" items="${articles}">

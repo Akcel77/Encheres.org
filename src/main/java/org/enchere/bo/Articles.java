@@ -138,9 +138,6 @@ public class Articles {
         }
     }
 
-
-
-
     // Getter & setter
     public Categorie getCaterogie() {
         return caterogie;
@@ -209,6 +206,8 @@ public class Articles {
     public void setEtatDeVente(String etatDeVente) {
         this.etatDeVente = etatDeVente;
     }
+
+    public String getEtatDeVente() { return etatDeVente; }
 
     public Utilisateur getUtilisateur() {
         return utilisateur;

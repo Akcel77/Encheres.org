@@ -15,7 +15,7 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
-
+<img src="${pageContext.request.contextPath}/images/social.png" class="groot">
 <h1 class="text-center my-5"> Modification Profil ${isConnected.pseudo}</h1>
 
 

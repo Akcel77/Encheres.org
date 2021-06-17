@@ -19,21 +19,27 @@
 <body>
 <%@include file="fragment/navbar.jsp"%>
 <main class="container">
-    <div class="main-detail-vente row">
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
-        <core:if test="${erreurEncheres != null}" var="test">
-            <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
-        </core:if>
-        <core:if test="${successEnchere != null}" var="test">
-            <div class="alert alert-success message-alert" role="alert">${successEnchere}</div>
-        </core:if>
+    <h1 class="m-5 text-center" >Détail d'un article</h1>
+    <core:if test="${erreurEncheres != null}" var="test">
+        <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
+    </core:if>
+    <core:if test="${successEnchere != null}" var="test">
+        <div class="alert alert-success message-alert" role="alert">${successEnchere}</div>
+    </core:if>
+
+    <div class="main-detail-vente row">
         <% if(!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("venteRemportee")){ %>
         <h2 class="vente_title">Bravo ! Vous avez remporté l'article.</h2>
+
          <% } else if (!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("maVente")){ %>
         <h2 class="vente_title">L'enchère est terminée.</h2>
         <h2 class="vente_subtitle">Vendez de nouveaux articles !</h2>
-        <% } else if (!(boolean)request.getAttribute("enCours")){ %>
+
+        <% } else if (!(boolean)request.getAttribute("enCours")&&!(boolean)request.getAttribute("venteRemportee")){ %>
+        <h2 class="vente_title">L'enchère est terminée.</h2>
+
+        <% } else if (request.getAttribute("enchereRemportee")!=null){ %>
         <h2 class="vente_title">L'enchère est terminée.</h2>
         <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
@@ -85,8 +91,9 @@
                 <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             </form>
             <% }else{ %>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
+            <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
             <% } %>
+
         </div>
 
     </div>
