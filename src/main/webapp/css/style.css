@@ -252,7 +252,7 @@ body{
 }
 
 footer{
-    background-color: #7a5989 !important;
+    background-color: #583968 !important;
     color: white;
     min-height: 200px;
 
@@ -260,4 +260,19 @@ footer{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+}
+.social-box{
+    width: 20%;
+}
+.social-box_header{
+    margin-bottom: 0.3em;
+    display: flex;
+    justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5em;
+}
+.social-box_body{
+    display: flex;
+    justify-content: center;
+    gap: 0 20px;
 }
