@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Modji
-  Date: 06/06/2021
-  Time: 18:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -14,11 +7,12 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
+    <img src="${pageContext.request.contextPath}/images/login.png" class="groot">
+
     <h1 class="text-center mt-5">Connexion</h1>
     <core:if test="${erreurE != null}" var="test">
         <div class="alert alert-danger message-alert" role="alert">${erreurE}</div>
     </core:if>
-    <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
 
     <section class="login-form">
         <form class="form-connection" action="<%=request.getContextPath()%>/Connexion" method="post" >

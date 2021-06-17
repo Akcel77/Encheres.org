@@ -19,7 +19,12 @@
         <img src="${pageContext.request.contextPath}/images/social.png" class="groot">
         <h1 class="text-center my-5">Profil ${utilisateurEnCours.pseudo}</h1>
 
-
+        <core:if test="${profilOk != null}" var="test">
+            <div class="alert alert-success message-alert" role="alert">${profilOk}</div>
+        </core:if>
+        <core:if test="${profilNotOk != null}" var="test">
+            <div class="alert alert-danger message-alert" role="alert">${profilNotOk}</div>
+        </core:if>
         <%if (session.getAttribute("isConnected") != null){
             Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");
             Utilisateur utilisateurEnCours = (Utilisateur) session.getAttribute("utilisateurEnCours");
@@ -29,9 +34,9 @@
             <div class="mr-5 profil-info">
                 <p>Pseudo :</p>
                 <p>Nom :</p>
-                <p>Prenom :</p>
+                <p>Prénom :</p>
                 <p>Email :</p>
-                <p>Telephone :</p>
+                <p>Téléphone :</p>
                 <p>Rue :</p>
                 <p>Code Postal :</p>
                 <p>Ville :</p>
@@ -45,16 +50,13 @@
                 <p>${utilisateurEnCours.rue}</p>
                 <p>${utilisateurEnCours.codePostal}</p>
                 <p>${utilisateurEnCours.ville}</p>
-
             </div>
-
-
-
         </section>
+
         <core:if test="${utilisateurEnCours.pseudo == isConnected.pseudo}" >
             <div class="credit-info">
                 <div class="mr-5 ">
-                    <p>Credit :</p>
+                    <p>Crédit :</p>
                 </div>
                 <div class="ml-5 credit-user">
                     <p>${utilisateurEnCours.credit}</p>
@@ -63,11 +65,7 @@
             <a class="btn-modif" href="<%= request.getContextPath()%>/ProfilModification">
                 <button type="button" class="btn btn-primary">Modifier Compte</button>
             </a>
-
-
-
         </core:if>
-
         <%}%>
 
         <%@include file="fragment/footer.jsp"%>

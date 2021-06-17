@@ -35,7 +35,7 @@ public class RetraitImpl implements RetraitDAO {
 
 
     /**
-     * Insert un retrait en bdd
+     * Insère un retrait en bdd
      * @param retrait
      * @return
      * @throws BusinessException
@@ -74,7 +74,7 @@ public class RetraitImpl implements RetraitDAO {
 
 
     /**
-     * Recupere un retrait en fonction de son id et return ce retrait
+     * Récupère un retrait en fonction de son id et return ce retrait
      * @param id
      * @return
      * @throws BusinessException
@@ -109,7 +109,7 @@ public class RetraitImpl implements RetraitDAO {
     }
 
     /**
-     * Recupere la liste de tous les retraits et la retourne
+     * Récupère la liste de tous les retraits et la retourne
      * @return
      * @throws BusinessException
      */

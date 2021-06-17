@@ -17,7 +17,7 @@ public class ConectionProvider {
             context = new InitialContext();
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/pool_cnx");
         }catch (NamingException e){
-            throw new RuntimeException("Probleme de connection a la BD");
+            throw new RuntimeException("Problème de connection à la BD");
         }
     }
 

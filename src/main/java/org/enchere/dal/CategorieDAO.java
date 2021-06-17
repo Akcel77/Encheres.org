@@ -8,18 +8,12 @@ import java.util.List;
 
 public interface CategorieDAO {
 
-    public Categorie selectById(int noCategorie) throws BusinessException;
-
-    public List<Categorie> selectAll() throws BusinessException;
-
-    public void insert(Categorie c) throws BusinessException;
-
-    public void update(Categorie c) throws BusinessException;
-
-    public void delete(int id) throws BusinessException;
-
-    public List<Categorie> selectByLibelle() throws BusinessException;
-
-    public Categorie getNumCat(String libelle) throws BusinessException;
+    Categorie selectById(int noCategorie) throws BusinessException;
+    List<Categorie> selectAll() throws BusinessException;
+    void insert(Categorie c) throws BusinessException;
+    void update(Categorie c) throws BusinessException;
+    void delete(int id) throws BusinessException;
+    List<Categorie> selectByLibelle() throws BusinessException;
+    Categorie getNumCat(String libelle) throws BusinessException;
 
 }

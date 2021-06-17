@@ -6,7 +6,7 @@ package org.enchere.bll;
 public abstract class CodeErreurBLL {
 
     /**
-     * Erreur dans l'ajout de coordonees
+     * Erreur dans l'ajout de coordonnées
      */
     public static final int ERREUR_COORDONNEES=1001;
     /**

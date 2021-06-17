@@ -60,7 +60,7 @@ public class ArticleImpl implements ArticleDAO {
 
         stmt.executeUpdate();
 
-        // retourne le numéro géréré par l'auto-incrémentation
+        // retourne le numéro généré par l'auto-incrémentation
         int noArticle = 0;
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs.next()){
@@ -94,7 +94,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     /**
-     * Suprime un article par son ID
+     * Supprime un article par son ID
      * @param id
      * @throws SQLException
      */
@@ -110,7 +110,7 @@ public class ArticleImpl implements ArticleDAO {
     }
 
     /**
-     * Retourne tout les articles
+     * Retourne tous les articles
      * @return
      * @throws SQLException
      */
@@ -212,11 +212,9 @@ public class ArticleImpl implements ArticleDAO {
             }
             connection.close();
             stmt.close();
-
         } catch (SQLException | BusinessException sqlException) {
             sqlException.printStackTrace();
         }
-
         return articlesArrayList;
     }
 

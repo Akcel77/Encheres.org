@@ -14,7 +14,6 @@ public class CategorieManager {
     private static Categorie categorie = new Categorie();
 
     public CategorieManager(){
-
         CategorieManager.categorieDAO = DAOFactory.getCategorieDAO();
     }
 
