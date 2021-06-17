@@ -46,6 +46,9 @@
     <% } %>
 </div>
 
+<core:if test="${aucuneEnchere != null}" var="test">
+    <h1 class="text-center my-5">${aucuneEnchere}</h1>
+</core:if>
 
 <section class="enchere-section">
     <c:forEach var="articles" items="${articles}">

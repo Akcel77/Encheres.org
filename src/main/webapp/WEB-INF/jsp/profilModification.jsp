@@ -14,9 +14,9 @@
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
+
 <img src="${pageContext.request.contextPath}/images/social.png" class="groot">
 <h1 class="text-center my-5"> Modification Profil ${isConnected.pseudo}</h1>
-
 
     <% Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");%>
 
@@ -72,13 +72,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Etes-vous sûrs de vouloir supprimer votre compte?
+                Etes-vous sûr de vouloir supprimer votre compte?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                 <form class="btn-supprimer" action="SupprimerCompte" method="post">
                     <a href="<%= request.getContextPath()%>/SupprimerCompte">
-                        <button type="submit" class="btn btn-danger">Confirmer</button>
+                        <button type="submit" class="btn btn-danger">Confirmer</button></a>
+                </form>
             </div>
         </div>
     </div>

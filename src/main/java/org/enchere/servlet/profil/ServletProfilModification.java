@@ -1,5 +1,6 @@
 package org.enchere.servlet.profil;
 
+import org.enchere.bll.ArticleManager;
 import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Utilisateur;
 
@@ -48,6 +49,7 @@ public class ServletProfilModification extends HttpServlet {
             httpSession.setAttribute("isConnected", isConnected);
 
             this.getServletContext().getRequestDispatcher("/Profil").forward(request,response);
+
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -47,10 +47,21 @@ public class ServletHome extends HttpServlet {
         request.setAttribute("categories", categoriesList);
 
         // recuperer la liste de tout les articles
+
         try {
             request.setAttribute("articles", ArticleManager.findAll());
         } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
+        }
+
+        List<Articles> articles = null;
+        try {
+            articles = ArticleManager.findAll();
+        } catch (SQLException | BusinessException | ParseException throwables) {
+            throwables.printStackTrace();
+        }
+        if (articles.isEmpty()){
+            request.setAttribute("aucuneEnchere", "Aucune enchère en cours");
         }
 
         // Si l'utilisateur est connecter redirige vers EnchereLog sinon EnchereNoLog
@@ -97,6 +108,10 @@ public class ServletHome extends HttpServlet {
             articles = ArticleManager.findAll();
         } catch (SQLException | BusinessException | ParseException throwables) {
             throwables.printStackTrace();
+        }
+
+        if (articles.isEmpty()){
+            request.setAttribute("aucuneEnchere", "Aucune enchère en cours");
         }
 
         //***************
