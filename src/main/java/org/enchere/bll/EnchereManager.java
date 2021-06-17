@@ -18,30 +18,25 @@ public class EnchereManager {
         EnchereManager.enchereDAO = DAOFactory.getEnchereDAO();
     }
 
+    /**
+     * Crée une nouvelle enchère
+     * @param enchere
+     * @throws BusinessException
+     */
     public static void createEnchere(Enchere enchere) throws BusinessException {
         enchereDAO.create(enchere);
     }
 
 
-    public static void updateEnchere(Enchere enchere) throws BusinessException{
-        enchereDAO.update(enchere);
-    }
-
-    public static void deleteEnchere(int no_enchere) throws BusinessException{
-        enchereDAO.delete(no_enchere);
-    }
-
-    public static Enchere findEnchere (int no_enchere) throws BusinessException, SQLException {
-        return  enchereDAO.find(no_enchere);
-    }
-
-    public static List<Enchere> findAll() throws BusinessException, SQLException {
-        return enchereDAO.findAll();
-    }
-
+    /**
+     * Retourne la liste de toutes les enchères pour un article donné
+     * @param id
+     * @return
+     * @throws BusinessException
+     * @throws SQLException
+     */
     public static List<Enchere> findAllByArticleId(int id) throws BusinessException, SQLException {
         return enchereDAO.findAllByArticleId(id);
     }
 
 }
-

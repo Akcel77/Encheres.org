@@ -17,61 +17,22 @@ public class CategorieManager {
         CategorieManager.categorieDAO = DAOFactory.getCategorieDAO();
     }
 
-    public static Categorie getNumCat(String libelle) throws BusinessException{
-       return categorieDAO.getNumCat(libelle);
-    }
     /**
-     * Insert
-     * @param c
-     * @throws BusinessException
-     */
-    public static void insert(Categorie c) throws BusinessException{
-        categorieDAO.insert(c);
-    }
-
-    /**
-     * Update
-     * @param c
-     * @throws BusinessException
-     */
-
-    public static void update(Categorie c) throws BusinessException{
-        categorieDAO.update(c);
-    }
-
-    /**
-     * Return a list of all Categories
+     * Retourne une liste de toutes les catégories
      * @return
      * @throws BusinessException
      */
-
     public static List<Categorie> selectAll() throws BusinessException {
         return categorieDAO.selectAll();
     }
 
     /**
-     * Return a list of Categories by ID
+     * Retourne une catégorie selon son id
      * @param noCategorie
      * @return
      * @throws BusinessException
      */
-
     public static Categorie selectById(int noCategorie) throws BusinessException {
         return categorieDAO.selectById(noCategorie);
     }
-
-    /**
-     * Delete a list of Categories by ID
-     * @param id
-     * @throws BusinessException
-     */
-
-    public static void delete(int id) throws BusinessException {
-        categorieDAO.delete(id);
-    }
-
-    public static List<Categorie> searchByLibelle() throws BusinessException{
-        return categorieDAO.selectByLibelle();
-    }
-
 }

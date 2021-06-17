@@ -12,7 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "ServletProfil", value = "/Profil")
 public class ServletProfil extends HttpServlet {
     private Utilisateur utilisateur = new Utilisateur();
-    private static UtilisateurManager utilisateurManager = UtilisateurManager.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Récupère session
@@ -39,13 +39,10 @@ public class ServletProfil extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp").forward(request,response);
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-
-
 }

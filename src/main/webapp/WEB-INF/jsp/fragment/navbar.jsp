@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AxelDiagne
-  Date: 09/06/2021
-  Time: 00:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="org.enchere.bo.Utilisateur" %>
+
 <%if (session.getAttribute("isConnected") != null){ %>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-            <div class="container">
-                <a class="navbar-brand" href="<%=request.getContextPath()%>/Encheres">Encheres.org</a>
+            <div class="container nav-cont">
+                <a class="navbar-brand" href="<%=request.getContextPath()%>/Encheres"><img src="${pageContext.request.contextPath}/images/logo.png" class="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,11 +31,11 @@
     </header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="<%=request.getContextPath()%>/Encheres">Encheres.org</a>
+                <a class="navbar-brand" href="<%=request.getContextPath()%>/Encheres"><img src="${pageContext.request.contextPath}/images/logo.png" class="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/Inscription">S'inscrire</a>

@@ -1,16 +1,9 @@
 package org.enchere.bo;
 
-import java.util.List;
-
 public class Categorie<String> {
 
     private int noCategorie;
     private String libelle;
-
-    //categorieArticles - Liste des articles par catégorie (0 ou plusieurs articles)
-    List<Articles> articles;
-
-    //Constructor
 
     public Categorie(int noCategorie, String libelle) {
         this.noCategorie = noCategorie;
@@ -20,9 +13,6 @@ public class Categorie<String> {
     public Categorie() {
 
     }
-
-
-    // Getters & Setters
 
     public int getNoCategorie() {
         return noCategorie;
@@ -38,15 +28,5 @@ public class Categorie<String> {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
-    }
-
-
-
-    @Override
-    public java.lang.String toString() {
-        return "Categorie{" +
-                "noCategorie=" + noCategorie +
-                ", libelle=" + libelle +
-                '}';
     }
 }

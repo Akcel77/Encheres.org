@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Gestions des articles
- */
 public class Articles {
     private DateFormat dateFormatDayUS = new SimpleDateFormat("yyyy-MM-dd");
     private DateFormat dateFormatDayFR = new SimpleDateFormat("dd-MM-yyyy");
@@ -84,33 +81,11 @@ public class Articles {
         this.miseAprix = miseAprix;
     }
 
-    // Méthodes
-    /**
-     * Ajoute une enchère dans la liste des enchères
-     * @param enchere
-     */
-    public void addEnchere(Enchere enchere){
-        if (encheres == null){
-            encheres = new ArrayList<>();
-        }
-        this.encheres.add(enchere);
-    }
 
     /**
-     * Retourne une instance d'enchère
-     * @param id
-     * @return une instance d'enchere qui a pour id l'id passé en paramètre si elle existe, sinon null
+     * Retourne la derniere enchère pour un article donné si elle existe sinon renvoie null
+     * @return
      */
-    public Enchere getEnchereByID(int id){
-        Enchere enchere = null;
-        for (Enchere ecr: encheres) {
-            if (ecr.getNo_enchere() == id){
-                enchere = ecr;
-            }
-        }
-        return enchere;
-    }
-
     public Enchere getLastEncheres() {
         if (encheres.size() != 0){
             return encheres.get(encheres.size()-1);
@@ -119,26 +94,17 @@ public class Articles {
         }
     }
 
-    private enum EtatDeVente {
-        CREEE("Créée"),
-        EN_COURS("En cours"),
-        NON_VENDU("Non vendu"),
-        REMPORTEE_PAR_MOI("Remportée par moi"),
-        REMPORTEE_PAR_AUTRE("Remportée par un autre enchérisseur");
-
-        private String etatDeVente;
-
-        //Constructeur
-        EtatDeVente(String etatDeVente) {
-            this.etatDeVente = etatDeVente;
-        }
-
-        public String getEtatDeVente() {
-            return etatDeVente;
-        }
+    /**
+     * Renvoie un format de date FR à partir d'une date US
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public String convertToFRDAte(String date) throws ParseException {
+        Date date1 = dateFormatDayUS.parse(date);
+        return dateFormatDayFR.format(date1);
     }
 
-    // Getter & setter
     public Categorie getCaterogie() {
         return caterogie;
     }
@@ -207,8 +173,6 @@ public class Articles {
         this.etatDeVente = etatDeVente;
     }
 
-    public String getEtatDeVente() { return etatDeVente; }
-
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }
@@ -221,10 +185,6 @@ public class Articles {
 
     public void setRetrait(Retrait retrait) { this.retrait = retrait; }
 
-    public String convertToFRDAte(String date) throws ParseException {
-        Date date1 = dateFormatDayUS.parse(date);
-        return dateFormatDayFR.format(date1);
-    }
 
     public String getHeureDebut() {
         return heureDebut;
@@ -240,21 +200,5 @@ public class Articles {
 
     public void setHeureFin(String heureFin) {
         this.heureFin = heureFin;
-    }
-
-    @Override
-    public String toString() {
-        return "Articles{" +
-                "id=" + id +
-                ", nomArticles='" + nomArticles + '\'' +
-                ", description='" + description + '\'' +
-                ", dateDebutEncheres='" + dateDebutEncheres + '\'' +
-                ", dateFinEncheres='" + dateFinEncheres + '\'' +
-                ", miseAprix=" + miseAprix +
-                ", etatDeVente='" + etatDeVente + '\'' +
-                ", caterogie=" + caterogie +
-                ", utilisateur=" + utilisateur +
-                ", encheres=" + encheres +
-                '}';
     }
 }

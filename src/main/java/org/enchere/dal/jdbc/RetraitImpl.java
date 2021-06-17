@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RetraitImpl implements RetraitDAO {
-    //REQUETE SQL INSERT
     private static final String INSERT = "INSERT INTO retraits (rue, code_postal, ville, no_article) VALUES (?,?,?,?)";
-    //REQUETE SQL SELECT
     private static final String GET_BY_ID = "SELECT * " +
             "FROM retraits " +
             "WHERE no_retrait=?";
@@ -24,28 +22,25 @@ public class RetraitImpl implements RetraitDAO {
             "WHERE no_article=?";
     private static final String ALL_RETRAIT = "SELECT * " +
             "FROM retraits";
-    //REQUETE SQL UPDATE
     private static final String UPDATE = "UPDATE retraits " +
             "SET rue=?," +
             "code_postal=?," +
             "ville=? " +
             "WHERE no_article=?";
-    //REQUETE SQL DELETE
     private static final String DELETE = "DELETE FROM retraits WHERE no_article=?";
 
 
     /**
-     * Insère un retrait en bdd
+     * Insère un retrait dans la bdd
      * @param retrait
      * @return
      * @throws BusinessException
      */
+
     @Override
     public Retrait insert(Retrait retrait) throws BusinessException {
         if(retrait == null) {
             BusinessException businessException = new BusinessException();
-            //TODO Code erreur businessException
-
             throw businessException;
         }
         try (Connection connection = ConectionProvider.getConnection()){
@@ -66,15 +61,13 @@ public class RetraitImpl implements RetraitDAO {
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
             throw businessException;
         }
         return retrait;
     }
 
-
     /**
-     * Récupère un retrait en fonction de son id et return ce retrait
+     * Récupère un retrait en fonction de son id et retourne ce retrait
      * @param id
      * @return
      * @throws BusinessException
@@ -101,8 +94,6 @@ public class RetraitImpl implements RetraitDAO {
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
-
             throw businessException;
         }
         return retrait;
@@ -133,7 +124,6 @@ public class RetraitImpl implements RetraitDAO {
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
             throw businessException;
         }
 
@@ -141,7 +131,7 @@ public class RetraitImpl implements RetraitDAO {
     }
 
     /**
-     * Update un article en fonction du no_retrait
+     * Met à jour un article en fonction du numéro de retrait
      * @param retrait
      * @throws BusinessException
      */
@@ -161,7 +151,6 @@ public class RetraitImpl implements RetraitDAO {
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
             throw businessException;
         }
 
@@ -169,7 +158,7 @@ public class RetraitImpl implements RetraitDAO {
     }
 
     /**
-     * Delete un retrait en fonction du no_retrait
+     * Delete un retrait en fonction du numéro de retrait
      * @param id
      * @throws BusinessException
      */
@@ -180,20 +169,21 @@ public class RetraitImpl implements RetraitDAO {
             stmt.setInt(1, id);
 
             Retrait retrait = getById(id);
-            //TODO : A FINIR QUAND article.DAO est ope et Article.bo aussi
-                // Attribut bo Articles
-            //              Utilisateur utilisateur
-                //          Retrait lieuRetrait
-            //LISTE <Article> for each loop
             connection.close();
             stmt.close();
         }catch (SQLException e) {
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
             throw businessException;
         }
     }
+
+    /**
+     * Récupère un retrait selon l'id article
+     * @param idArticle
+     * @return
+     * @throws BusinessException
+     */
 
     @Override
     public Retrait selectRetraitByArticleId(int idArticle) throws BusinessException {
@@ -216,8 +206,6 @@ public class RetraitImpl implements RetraitDAO {
         }catch (SQLException e){
             e.printStackTrace();
             BusinessException businessException = new BusinessException();
-            //TODO : BusinessException CODE ERROR
-
             throw businessException;
         }
         return retrait;
