@@ -103,7 +103,7 @@
 
                 <p class="card-text"><strong>Prix initial :</strong> ${articles.getMiseAprix()} pts</p>
                 <p class="card-text"><strong>Fin de l'enchère :</strong> le ${articles.convertToFRDAte(articles.getDateFinEncheres())} à ${articles.getHeureFin()}</p>
-                <p class="card-text vendeur"><strong>Vendeur :</strong> <a href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
+                <p class="card-text vendeur"><strong>Vendeur :</strong> <a class="vendeur-a" href="<%=request.getContextPath()%>/Profil?id=${articles.getUtilisateur().getNoUtilisateur()}" > ${articles.getUtilisateur().getPseudo()}</a></p>
             </div>
             <div class="card-footer">
                 <a href="<%=request.getContextPath()%>/DetailVente?id=${articles.getId()}" class="btn btn-outline-success">Détail article</a>
