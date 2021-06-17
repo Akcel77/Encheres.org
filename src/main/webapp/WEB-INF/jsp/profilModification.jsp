@@ -16,7 +16,7 @@
 <body>
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/social.png" class="groot">
-<h1 class="text-center my-5"> Modification du profil ${isConnected.pseudo}</h1>
+<h1 class="text-center my-5"> Modification profil ${isConnected.pseudo}</h1>
 
 
     <% Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");%>

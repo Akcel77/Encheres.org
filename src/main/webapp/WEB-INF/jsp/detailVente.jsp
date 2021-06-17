@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Modji
-  Date: 06/06/2021
-  Time: 18:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="org.enchere.bo.Articles" %>
 <%@ page import="org.enchere.bo.Enchere" %>
 <%@ page import="org.enchere.bll.UtilisateurManager" %>
@@ -20,7 +13,7 @@
 <%@include file="fragment/navbar.jsp"%>
 <main class="container">
 
-    <h1 class="m-5 text-center" >Détail d'un article</h1>
+
     <core:if test="${erreurEncheres != null}" var="test">
         <div class="alert alert-danger message-alert" role="alert">${erreurEncheres}</div>
     </core:if>
@@ -44,10 +37,14 @@
         <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
 
+        <h1 class="m-5 text-center" >Détail d'un article</h1>
+
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
         </div>
+
+        <h1 class="m-5 text-center" >Détail d'un article</h1>
         <div class="main-detail-article col-md-7 col-12 row g-3">
             <div class=" col-4"> Article : </div>
             <div class=" col-8"><%= article.getNomArticles() %></div>
@@ -61,7 +58,7 @@
             <div class=" col-4">Meilleure offre :</div>
             <div class=" col-8"><% Enchere lastEnchere = (Enchere) article.getLastEncheres();
                 if(lastEnchere == null){ %>
-                Aucune enchere en cours !
+                Aucune enchère en cours !
                 <% }else{ %>
                 <%= lastEnchere.getMontant_enchere() %> pts par
                 <%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo() %><% } %></div>
