@@ -11,25 +11,14 @@ import java.util.List;
 
 public class UtilisateurManager {
 
-
-    //Attributs
     private static UtilisateurDAO utilisateurDAO ;
     private static Utilisateur utilisateur = new Utilisateur();
     private static BusinessException businessException = new BusinessException();
-    private static UtilisateurManager instance = null;
 
-    /**
-     * Lien DAO
-     */
     static {
         UtilisateurManager.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
 
-    public static UtilisateurManager getInstance() {
-        if (instance == null)
-            instance = new UtilisateurManager();
-        return instance;
-    }
     /**
      * Permet à un utilisateur de s'enregistrer si les conditions de validInscription sont bonnes
      * @param utilisateur
@@ -46,6 +35,12 @@ public class UtilisateurManager {
         return utilisateur;
     }
 
+    /**
+     * Vérifie si l'email ou le pseudo appartient bien à un utilisateur
+     * @param utilisateur
+     * @return
+     * @throws BusinessException
+     */
     public static boolean checkIfEmailOrPseudo(Utilisateur utilisateur)throws BusinessException{
         return utilisateurDAO.checkIfEmailOrPseudo(utilisateur);
     }
@@ -53,7 +48,7 @@ public class UtilisateurManager {
 
 
     /**
-     * Conditions pour inscription Fonctionne avec SignInUser
+     * Vérifie les Conditions préalables à l'inscription
      * @param utilisateur
      */
     private static void validInscription(Utilisateur utilisateur){
@@ -67,12 +62,11 @@ public class UtilisateurManager {
                 utilisateur.getMotDePasse().trim().equals("")
         ) {
             businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES);
-            System.out.println("Erreur Valider coordonnees Inscription");
         }
     }
 
     /**
-     * Update les infos User si les conditions sont acceptées cf updateInfo()
+     * Met à jour les informations d'un utilisateur si les conditions sont acceptées (cf updateInfo())
      * @param utilisateur
      * @throws BusinessException
      */
@@ -80,13 +74,11 @@ public class UtilisateurManager {
         updateInfo(utilisateur);
         if(!businessException.hasErreurs()){
             utilisateurDAO.update(utilisateur);
-        }else{
-            System.out.println("Erreur update User");
         }
     }
 
     /**
-     * Conditions pour mise à jour des infos Fonctionne avec updateUser()
+     * Vérifie les Conditions préalables à la mise à jour des infos (cf updateUser())
      * @param utilisateur
      */
     private static void updateInfo(Utilisateur utilisateur){
@@ -100,12 +92,11 @@ public class UtilisateurManager {
                 utilisateur.getMotDePasse().trim().equals("")
         ){
             businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES_RETRAIT);
-
         }
     }
 
     /**
-     * Récupère un user par son pseudo
+     * Retourne un utilisateur pour un pseudo donné
      * @param pseudo
      * @return
      * @throws BusinessException
@@ -116,56 +107,42 @@ public class UtilisateurManager {
 
 
     /**
-     * Select un User en fonction de son mail
-     * @param email
-     * @return
-     * @throws BusinessException
-     */
-    public static Utilisateur selectUserByMail(String email)throws BusinessException{
-        return utilisateurDAO.getByMail(email);
-    }
-
-    /**
-     * Return une liste de tous les utilisateurs
-     * @return
-     * @throws BusinessException
-     */
-    public static List<Utilisateur> selectAllUser() throws BusinessException{
-        return utilisateurDAO.getAllUser();
-    }
-
-    /**
-     * Delete un utilisateur en fonction de son id
+     * Suprimme un utilisateur en fonction de son id
      * @param id
      * @return
      * @throws BusinessException
      */
     public static void deleteUser(int id) throws BusinessException{
         utilisateurDAO.delete(id);
-        System.out.println("Utilisateur numero : "+ id + " Delete");
     }
 
 
     /**
-     * Liste de tous les pseudos ( Utile pour vérifier si un pseudo est déjà utilisé)
+     * Retourne la liste de tous les pseudos
      * @return
      * @throws BusinessException
      */
     public static List<String> AllPseudoList()throws BusinessException{
         return utilisateurDAO.getAllPseudo();
     }
+
+    /**
+     * Retourne une liste de tous les e-mails
+     * @return
+     * @throws BusinessException
+     */
     public static List<String> getAllMail() throws BusinessException{
         return utilisateurDAO.getAllMail();
     }
 
+    /**
+     * Retourne un utilisateur en fonction de son id
+     * @param idUser
+     * @return
+     * @throws BusinessException
+     */
+
     public static Utilisateur selectUserByID(int idUser) throws BusinessException {
         return utilisateurDAO.selectUserByID(idUser);
     }
-
-    public Utilisateur searchById(int id) throws BusinessException{
-        System.out.println(id + "Manager");
-        return utilisateurDAO.searchByID(id);
-    }
-
-
 }

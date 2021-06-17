@@ -60,20 +60,14 @@ public class ArticleManager{
         return articleDAO.find(id);
     }
 
-    public static List<Articles> search() throws SQLException, ParseException {
-        return articleDAO.search();
-    }
+
+    /**
+     *  Retourne tous les articles publiés par un utilisateur
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static List<Articles> findAllByUser(int id) throws SQLException{
         return articleDAO.findAllByUser(id);
-    }
-
-    public static ArrayList<Articles> findByCategorie(int noCat) throws BusinessException{
-        return articleDAO.findByCategorie(noCat);
-    }
-    public static ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException{
-        return articleDAO.findByNomArticle(nomArticle);
-    }
-    public static ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException{
-        return articleDAO.findWithCond(nom, noCategorie, condition);
     }
 }

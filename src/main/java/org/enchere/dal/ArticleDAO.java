@@ -16,10 +16,5 @@ public interface ArticleDAO {
     List<Articles> findAll() throws SQLException, BusinessException, ParseException;
     Articles find(int id) throws SQLException, BusinessException, ParseException;
     List<Articles> findAllByUser(int id) throws SQLException;
-    void deleteAllByID(int id) throws SQLException;
-    List<Articles> search() throws SQLException, ParseException;
 
-    public ArrayList<Articles> findByCategorie(int noCat) throws BusinessException;
-    public ArrayList<Articles> findByNomArticle(String nomArticle) throws BusinessException;
-    public ArrayList<Articles> findWithCond (String nom , int noCategorie, String condition) throws BusinessException;
 }

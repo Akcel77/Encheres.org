@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../../WEB-INF/jsp/fragment/head.jsp">
-    <jsp:param name="title" value="Encheres.org"/>
+    <jsp:param name="title" value="ENI Encheres - Nouvelle vente"/>
 </jsp:include>
 <body>
 <%@include file="../../WEB-INF/jsp/fragment/navbar.jsp"%>
@@ -23,9 +23,7 @@
 </core:if>
 <main class="container">
     <div class="main_vente">
-        <div class="main_vente__pix">
-            <img class="groot" src="${pageContext.request.contextPath}/images/jumpHappy.png" alt="groot" >
-        </div>
+        <img class="groot" src="${pageContext.request.contextPath}/images/vente.png" alt="groot">
         <div class="main_vente__form">
             <h1 class="text-center mt-5">Créer une nouvelle vente</h1>
             <p class="main_vente__subTitle">Vendre n'a jamais été aussi simple !</p>

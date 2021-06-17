@@ -125,20 +125,6 @@ public class ServletHome extends HttpServlet {
                 if (article.getNomArticles().toLowerCase().contains(filter)) {
                     temporaryList.add(article);
                 }
-
-                /*}else if(!article.getNomArticles().toLowerCase().contains(filter)){
-                    try {
-                        articles = ArticleManager.findAll();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    } catch (BusinessException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    request.setAttribute("articlesNull", "Aucun article ne correspond à votre recherche.");
-                    }
-                }*/
             }
             articles = temporaryList;
         }

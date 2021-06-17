@@ -30,7 +30,6 @@ public class ServletProfilModification extends HttpServlet {
 
         int utilisateur = isConnected.getNoUtilisateur();
 
-        System.out.println("test no ut " + utilisateur);
         List<String> listEmail = null;
         List<String> listePseudo = null;
         try {

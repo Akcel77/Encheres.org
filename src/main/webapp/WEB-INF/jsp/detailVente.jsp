@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Detail vente"/>
+    <jsp:param name="title" value="Detail de l'article"/>
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
@@ -37,25 +37,24 @@
         <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
         <% } %>
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
+        <h1 class="m-5 text-center" >Détail de l'article</h1>
 
         <% Articles article = (Articles) request.getAttribute("article"); %>
         <div class="main-image-article col-md-4 col-12 align-self-center mb-5">
             <img class="groot" src="${pageContext.request.contextPath}/images/groot.png" alt="groot" >
         </div>
 
-        <h1 class="m-5 text-center" >Détail d'un article</h1>
         <div class="main-detail-article col-md-7 col-12 row g-3">
-            <div class=" col-4"> Article : </div>
+            <div class=" col-4"> <strong>Article</strong> : </div>
             <div class=" col-8"><%= article.getNomArticles() %></div>
 
-            <div class=" col-4">Description :</div>
+            <div class=" col-4"><strong>Description</strong> :</div>
             <div class=" col-8"><%= article.getDescription() %></div>
 
-            <div class="col-4">Catégorie :</div>
+            <div class="col-4"><strong>Catégorie</strong> :</div>
             <div class=" col-8"><%= article.getCaterogie().getLibelle() %></div>
 
-            <div class=" col-4">Meilleure offre :</div>
+            <div class=" col-4"><strong>Prix actuel</strong> :</div>
             <div class=" col-8"><% Enchere lastEnchere = (Enchere) article.getLastEncheres();
                 if(lastEnchere == null){ %>
                 Aucune enchère en cours !
@@ -63,18 +62,18 @@
                 <%= lastEnchere.getMontant_enchere() %> pts par
                 <%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo() %><% } %></div>
 
-            <div class="col-4">Mise à prix :</div>
+            <div class="col-4"><strong>Mise à prix</strong> :</div>
             <div class=" col-8"><%= article.getMiseAprix() %></div>
 
-            <div class=" col-4">Fin de l'enchère :</div>
+            <div class=" col-4"><strong>Date fin </strong>:</div>
             <div class="col-8"><%= article.getDateFinEncheres() %></div>
 
-            <div class=" col-4">Retrait :</div>
+            <div class=" col-4"><strong>Retrait </strong>:</div>
             <div class=" col-8"><%= article.getRetrait().getRue() %>,
                 <%= article.getRetrait().getCode_postal() %>
                 <%= article.getRetrait().getVille() %></div>
 
-            <div class=" col-4">Vendeur :</div>
+            <div class=" col-4"><strong>Vendeur</strong> :</div>
             <div class=" col-8 mb-4"><%= article.getUtilisateur().getPseudo() %></div>
 
             <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>
@@ -84,15 +83,16 @@
                     <input type="hidden" name="id_article" value="<%= article.getId() %>">
                     <input class="form-control" type="number" min="<%= lastEnchere!=null?lastEnchere.getMontant_enchere()+1:article.getMiseAprix()+1 %>" value="<%= lastEnchere!=null?lastEnchere.getMontant_enchere():article.getMiseAprix() %>" name="nombreEnchere" id="nombreEnchere">
                 </div>
-                <button type="submit" class="btn btn-primary col-12">Encherir !</button>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
-            </form>
-            <% }else{ %>
-            <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger" value="Retour">
-            <% } %>
+                <button type="submit" class="btn btn-primary  btn-detail mt-5">Encherir !</button>
 
+            <!-- ajout bouton "modifier" avec le elseif-->
+                    <% } if ((boolean)request.getAttribute("maVente") && !(boolean)request.getAttribute("encherePasCommencee")){ %>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger btn-detail  mt-5" value="Retour">
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/ModificationVente?id=<%= article.getId() %>';" class="btn btn-primary btn-detail  mt-5" value="Modifier">
+                    <% }else{ %>
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/Encheres';" class="btn btn-danger btn-detail mt-5" value="Retour">
+                    <% } %>
         </div>
-
     </div>
 </main>
 <%@include file="fragment/footer.jsp"%>
