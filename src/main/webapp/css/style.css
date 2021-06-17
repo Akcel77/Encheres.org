@@ -163,6 +163,10 @@
 .card-footer{
     background-color: #583968 ;
 }
+.vendeur-a{
+    text-decoration:none;
+    color : #583968 ;
+}
 
 .enchere_subtitle{
     font-family: 'Caveat', cursive;
