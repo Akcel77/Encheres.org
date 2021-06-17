@@ -9,38 +9,38 @@
 <footer>
     <div class="social-box">
         <div class="social-box_header">
-            Nom prenom
+            Axel Diagne
         </div>
         <div class="social-box_body">
-            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
-            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+            <a href="https://www.linkedin.com/in/diaxel/"><img src="${pageContext.request.contextPath}/images/003-linkedin.png"></a>
+            <a href="https://github.com/Akcel77"><img src="${pageContext.request.contextPath}/images/github-sign.png"></a>
         </div>
     </div>
     <div class="social-box">
         <div class="social-box_header">
-            Nom prenom
+            Floriane Debernardi
         </div>
         <div class="social-box_body">
-            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
-            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+            <a href="https://www.linkedin.com/in/floriane-debernardi-96934418/"><img src="${pageContext.request.contextPath}/images/003-linkedin.png"></a>
+            <a href="https://github.com/floriane73"><img src="${pageContext.request.contextPath}/images/github-sign.png"></a>
         </div>
     </div>
     <div class="social-box">
         <div class="social-box_header">
-            Nom prenom
+            Loane Nguyen
         </div>
         <div class="social-box_body">
-            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
-            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+            <a href="https://www.linkedin.com/in/loane-nguyen/"><img src="${pageContext.request.contextPath}/images/003-linkedin.png"></a>
+            <a href="https://github.com/LoaneNgy"><img src="${pageContext.request.contextPath}/images/github-sign.png"></a>
         </div>
     </div>
     <div class="social-box">
         <div class="social-box_header">
-            Nom prenom
+            Jean-Baptiste Cochinard
         </div>
         <div class="social-box_body">
-            <img src="${pageContext.request.contextPath}/images/003-linkedin.png">
-            <img src="${pageContext.request.contextPath}/images/github-sign.png">
+            <a href="https://www.linkedin.com/in/jbcochinard/"><img src="${pageContext.request.contextPath}/images/003-linkedin.png"></a>
+            <a href="https://github.com/mojinet"><img src="${pageContext.request.contextPath}/images/github-sign.png"></a>
         </div>
     </div>
 
