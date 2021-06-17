@@ -45,6 +45,10 @@
     color: black;
     border-color: #7a5989;
 }
+.btn-detail{
+    width: 50%;
+    margin: 0 auto;
+}
 
 h1,h2,h3,h4,h5{
     font-family: 'Courgette', cursive;
@@ -154,7 +158,7 @@ h1,h2,h3,h4,h5{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 70%;
-    margin: 0 auto;
+    margin: 1rem auto;
 }
 .valider-checkbox{
     width: 50%;
@@ -182,14 +186,12 @@ h1,h2,h3,h4,h5{
     text-align: center;
 }
 
-
 /*Nouvelle vente*/
 .main_vente{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    flex-wrap: wrap;
 }
 .main_vente img{
     width: 100%;
@@ -213,6 +215,9 @@ h1,h2,h3,h4,h5{
 .main-detail-vente img{
     width: 100%;
 }
+.main-detail-vente{
+    margin: 0 auto;
+}
 
 #label-prop{
     font-weight: bold;
@@ -221,7 +226,7 @@ h1,h2,h3,h4,h5{
 /* Vente Reussie */
 
 .vente_title{
-    margin-top: 10rem;
+    margin-top: 3rem;
     font-family: 'Caveat', cursive;
     font-size: 3em;
     text-align: center;
@@ -279,6 +284,10 @@ footer{
 
 /*Tablette VIEW*/
 @media screen and (max-width: 890px){
+    .nav-cont{
+        display: grid!important;
+        grid-template-columns: 6fr 1fr!important;
+    }
     .checkbox-block{
         grid-template-columns: 1fr 1fr;
     }
@@ -330,6 +339,9 @@ footer{
     }
     footer{
         grid-template-columns: 1fr;
+    }
+    .logo{
+        width: 40%;
     }
 
 

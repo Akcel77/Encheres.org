@@ -21,6 +21,13 @@ public class CategorieImpl implements CategorieDAO {
     private final String NUM_CATEGORIE = "SELECT no_categorie FROM categories where libelle=?";
 
 
+    /**
+     * Récupère l'id d'une catégorie selon son libellé
+     * @param libelle
+     * @return
+     * @throws BusinessException
+     */
+
     @Override
     public  Categorie getNumCat (String libelle) throws BusinessException{
         Categorie categorie = new Categorie();
@@ -40,6 +47,12 @@ public class CategorieImpl implements CategorieDAO {
 
         return categorie;
     }
+
+    /**
+     * Insère une catégorie
+     * @param c
+     * @throws BusinessException
+     */
 
     @Override
     public void insert(Categorie c) throws BusinessException {
@@ -71,6 +84,11 @@ public class CategorieImpl implements CategorieDAO {
         }
     }
 
+    /**
+     * Met à jour le nom de la catégorie
+     * @param c
+     * @throws BusinessException
+     */
 
     @Override
     public void update(Categorie c) throws BusinessException {
@@ -102,6 +120,12 @@ public class CategorieImpl implements CategorieDAO {
         }
     }
 
+    /**
+     * Supprime une catégorie selon son id
+     * @param id
+     * @throws BusinessException
+     */
+
     @Override
     public void delete(int id) throws BusinessException {
         Connection cnx = null;
@@ -127,8 +151,13 @@ public class CategorieImpl implements CategorieDAO {
         }
     }
 
+    /**
+     * Renvoie une liste de catégories selon numéro ID
+     * @param noCategorie
+     * @return
+     * @throws BusinessException
+     */
 
-    //Renvoie une liste de categories selon numéro Id
     @Override
     public Categorie selectById(int noCategorie) throws BusinessException {
         Connection cnx = null;
@@ -163,7 +192,12 @@ public class CategorieImpl implements CategorieDAO {
         return categorie;
     }
 
-    //Renvoie une liste de toutes les catégories
+    /**
+     * Renvoie une liste de toutes les catégories
+     * @return
+     * @throws BusinessException
+     */
+
     @Override
     public List<Categorie> selectAll() throws BusinessException {
         Connection cnx = null;
@@ -195,6 +229,12 @@ public class CategorieImpl implements CategorieDAO {
         }
         return categories;
     }
+
+    /**
+     * Retourne la liste des libellés des catégories
+     * @return
+     * @throws BusinessException
+     */
 
     @Override
     public List<Categorie> selectByLibelle() throws BusinessException {

@@ -46,16 +46,16 @@
 
         <h1 class="m-5 text-center" >Détail d'un article</h1>
         <div class="main-detail-article col-md-7 col-12 row g-3">
-            <div class=" col-4"> Article : </div>
+            <div class=" col-4"> <strong>Article</strong> : </div>
             <div class=" col-8"><%= article.getNomArticles() %></div>
 
-            <div class=" col-4">Description :</div>
+            <div class=" col-4"><strong>Description</strong> :</div>
             <div class=" col-8"><%= article.getDescription() %></div>
 
-            <div class="col-4">Catégorie :</div>
+            <div class="col-4"><strong>Catégorie</strong> :</div>
             <div class=" col-8"><%= article.getCaterogie().getLibelle() %></div>
 
-            <div class=" col-4">Meilleure offre :</div>
+            <div class=" col-4"><strong>Prix actuel</strong> :</div>
             <div class=" col-8"><% Enchere lastEnchere = (Enchere) article.getLastEncheres();
                 if(lastEnchere == null){ %>
                 Aucune enchère en cours !
@@ -63,18 +63,18 @@
                 <%= lastEnchere.getMontant_enchere() %> pts par
                 <%= UtilisateurManager.selectUserByID(lastEnchere.getNo_utilisateur()).getPseudo() %><% } %></div>
 
-            <div class="col-4">Mise à prix :</div>
+            <div class="col-4"><strong>Mise à prix</strong> :</div>
             <div class=" col-8"><%= article.getMiseAprix() %></div>
 
-            <div class=" col-4">Fin de l'enchère :</div>
+            <div class=" col-4"><strong>Date fin </strong>:</div>
             <div class="col-8"><%= article.getDateFinEncheres() %></div>
 
-            <div class=" col-4">Retrait :</div>
+            <div class=" col-4"><strong>Retrait </strong>:</div>
             <div class=" col-8"><%= article.getRetrait().getRue() %>,
                 <%= article.getRetrait().getCode_postal() %>
                 <%= article.getRetrait().getVille() %></div>
 
-            <div class=" col-4">Vendeur :</div>
+            <div class=" col-4"><strong>Vendeur</strong> :</div>
             <div class=" col-8 mb-4"><%= article.getUtilisateur().getPseudo() %></div>
 
             <% if(!(boolean)request.getAttribute("maVente") && (boolean)request.getAttribute("enCours")){ %>

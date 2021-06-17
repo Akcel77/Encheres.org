@@ -119,26 +119,6 @@ public class Articles {
         }
     }
 
-    private enum EtatDeVente {
-        CREEE("Créée"),
-        EN_COURS("En cours"),
-        NON_VENDU("Non vendu"),
-        REMPORTEE_PAR_MOI("Remportée par moi"),
-        REMPORTEE_PAR_AUTRE("Remportée par un autre enchérisseur");
-
-        private String etatDeVente;
-
-        //Constructeur
-        EtatDeVente(String etatDeVente) {
-            this.etatDeVente = etatDeVente;
-        }
-
-        public String getEtatDeVente() {
-            return etatDeVente;
-        }
-    }
-
-    // Getter & setter
     public Categorie getCaterogie() {
         return caterogie;
     }

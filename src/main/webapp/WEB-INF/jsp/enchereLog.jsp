@@ -81,7 +81,7 @@
 <core:if test="${aucuneEnchere != null}" var="test">
     <h1 class="text-center my-5">${aucuneEnchere}</h1>
 </core:if>
-<h1 class="text-center">Liste des enchères </h1>
+
 <section class="enchere-section">
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
