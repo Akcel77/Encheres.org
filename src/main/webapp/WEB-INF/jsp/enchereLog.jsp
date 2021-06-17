@@ -45,13 +45,13 @@
 
 
     <div class="checkbox-block">
-        <div class="mb-3">
+        <div id="achat-block" class="mb-3">
             <div>
-                <input type="radio" name="choix" id="achats" checked value="achat">
+                <input type="radio" onchange='witchCheckbox();' name="choix" id="achats" checked value="achat">
                 <label class="mr-2" for="achats">Achats</label>
             </div>
             <div>
-                <input type="checkbox" id="ouverte" name="enchereOuverte" checked>
+                <input type="checkbox" id="ouverte" name="enchereOuverte" >
                 <label class="mr-2" for="ouverte">enchères ouvertes</label>
             </div>
             <div>
@@ -65,8 +65,8 @@
         </div>
 
         <div>
-            <div>
-                <input type="radio" name="choix" id="ventes" value="vente">
+            <div id="vente-block" >
+                <input type="radio" onchange='witchCheckbox();' name="choix" id="ventes" value="vente">
                 <label class="mr-2" for="ventes">Mes ventes</label>
             </div>
             <div>

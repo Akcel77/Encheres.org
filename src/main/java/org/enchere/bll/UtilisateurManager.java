@@ -90,7 +90,7 @@ public class UtilisateurManager {
      * @param utilisateur
      */
     private static void updateInfo(Utilisateur utilisateur){
-        if( utilisateur.getPseudo().trim().equals("") ||
+        if(
                 utilisateur.getNom().trim().equals("") ||
                 utilisateur.getPrenom().trim().equals("") ||
                 utilisateur.getEmail().trim().equals("") ||
@@ -100,7 +100,7 @@ public class UtilisateurManager {
                 utilisateur.getMotDePasse().trim().equals("")
         ){
             businessException.ajouterErreur(CodeErreurBLL.ERREUR_COORDONNEES_RETRAIT);
-            System.out.println("Erreur Modifier coordonees");
+
         }
     }
 

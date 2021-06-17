@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.enchere.bo.Utilisateur" %>
 <%@ page import="org.enchere.bll.UtilisateurManager" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <jsp:include page="fragment/head.jsp">
     <jsp:param name="title" value="Profil - ${isConnected.pseudo}"/>
@@ -19,7 +20,9 @@
 
 
     <% Utilisateur isConnected = (Utilisateur) session.getAttribute("isConnected");%>
-
+<core:if test="${erreurMail != null}" var="test">
+    <div class="alert alert-danger message-alert" role="alert">${erreurMail}</div>
+</core:if>
 <section class="section-inscription-form mx-auto">
     <form class="inscription-form" action="<%=request.getContextPath()%>/ProfilModification?<%isConnected.getPseudo();%>" method="post" >
          <div class="row-form">
