@@ -164,8 +164,8 @@ h1,h2,h3,h4,h5{
 }
 .checkbox-block{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 70%;
+    grid-template-columns: 1fr 1fr;
+    width: 50%;
     margin: 1rem auto;
 }
 .valider-checkbox{

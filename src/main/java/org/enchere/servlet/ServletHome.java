@@ -140,7 +140,7 @@ public class ServletHome extends HttpServlet {
             articles = temporaryList;
         }
 
-        // tri par mes ventes
+        // Tri par mes ventes
         if(choix != null && choix.equals("vente")){
             List<Articles> temporaryList = new ArrayList<>();
             for (Articles article : articles) {
@@ -157,7 +157,7 @@ public class ServletHome extends HttpServlet {
                     try {
                         debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
                         fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
-                        if (fin.compareTo(ojd) >= 0 && debut.compareTo(ojd) <= 0 ){
+                        if (fin.compareTo(ojd) <= 0 && debut.compareTo(ojd) >= 0 ){
                             temporaryList.add(article);
                         }
                     } catch (ParseException e) {
@@ -219,36 +219,40 @@ public class ServletHome extends HttpServlet {
             if(enchereOuverte != null && enchereOuverte.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
-                    if(article.getEncheres().size() == 0){
-                        temporaryList.add(article);
-                    }
-                }
-                articles = temporaryList;
-            }
-
-            // j'ai placé une enchère
-            else if(mesEncheres != null && mesEncheres.equals("on")){
-                List<Articles> temporaryList = new ArrayList<>();
-                for (Articles article : articles) {
-                    boolean placeEnchere = false;
-                    for (Enchere enchere: article.getEncheres()) {
-                        if(enchere.getNo_utilisateur() == utilisateur.getNoUtilisateur()){
-                            placeEnchere = true;
+                    try {
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if (fin.compareTo(ojd) >= 0){
+                            temporaryList.add(article);
                         }
-                    }
-                    if (placeEnchere){
-                        temporaryList.add(article);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }
                 articles = temporaryList;
             }
 
-            // Je suis le meilleur enchérisseur
-            else if(enchereRemportee != null && enchereRemportee.equals("on")){
+            // je suis actuellement le meilleur enchérisseur
+            else if(mesEncheres != null && mesEncheres.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
                     if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur()){
                         temporaryList.add(article);
+                    }
+                }
+                articles = temporaryList;
+            }
+
+            // Je suis le meilleur enchérisseur ET la vente est finis
+            else if(enchereRemportee != null && enchereRemportee.equals("on")){
+                List<Articles> temporaryList = new ArrayList<>();
+                for (Articles article : articles) {
+                    try {
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur() && fin.compareTo(ojd) < 1){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }
                 articles = temporaryList;
