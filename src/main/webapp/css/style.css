@@ -178,8 +178,8 @@ h1,h2,h3,h4,h5{
 }
 .checkbox-block{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 70%;
+    grid-template-columns: 1fr 1fr;
+    width: 50%;
     margin: 1rem auto;
 }
 .valider-checkbox{
@@ -187,9 +187,7 @@ h1,h2,h3,h4,h5{
     margin-left: 1rem;
     height: 2.95rem;
 }
-.image-article{
-    border-bottom : 1px solid black;
-}
+
 .title-card{
     height: 5rem;
     background-color: #212529;

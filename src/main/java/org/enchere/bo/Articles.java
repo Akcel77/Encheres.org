@@ -185,7 +185,6 @@ public class Articles {
 
     public void setRetrait(Retrait retrait) { this.retrait = retrait; }
 
-
     public String getHeureDebut() {
         return heureDebut;
     }

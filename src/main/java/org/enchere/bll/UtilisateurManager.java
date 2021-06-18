@@ -105,7 +105,6 @@ public class UtilisateurManager {
         return utilisateurDAO.getByPseudo(pseudo);
     }
 
-
     /**
      * Suprimme un utilisateur en fonction de son id
      * @param id
@@ -115,7 +114,6 @@ public class UtilisateurManager {
     public static void deleteUser(int id) throws BusinessException{
         utilisateurDAO.delete(id);
     }
-
 
     /**
      * Retourne la liste de tous les pseudos
