@@ -24,6 +24,8 @@ public class ServletInscription extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
         Utilisateur utilisateur = null;
+
+        //Recupere la liste de tout les mail et pseudo
         List<String> listEmail = null;
         List<String> listePseudo = null;
         try {
@@ -33,6 +35,7 @@ public class ServletInscription extends HttpServlet {
             businessException.printStackTrace();
         }
 
+        // Recupere les parametres
         try {
             String pseudo = request.getParameter("pseudo");
             String nom = request.getParameter("nom");
@@ -45,6 +48,7 @@ public class ServletInscription extends HttpServlet {
             String ville = request.getParameter("ville");
             String codePostal = request.getParameter("codePostal");
 
+            // Vérifie les contrainte d'unicité
             if (listEmail.contains(email)){
                 request.setAttribute("erreurMail", "Email déjà utilisé. Veuillez renseigner un autre email.");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);

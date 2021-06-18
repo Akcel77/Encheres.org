@@ -29,6 +29,7 @@ public class ServletProfilModification extends HttpServlet {
 
         int utilisateur = isConnected.getNoUtilisateur();
 
+        //Recupere la liste des pseudo et mail
         List<String> listEmail = null;
         List<String> listePseudo = null;
         try {
@@ -38,6 +39,7 @@ public class ServletProfilModification extends HttpServlet {
             businessException.printStackTrace();
         }
 
+        // Recupere les parametres
         try{
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");
@@ -53,6 +55,8 @@ public class ServletProfilModification extends HttpServlet {
                 request.setAttribute("erreurMail", "Email déjà utilisé. Veuillez renseigner un autre email");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/profilModification.jsp").forward(request, response);
             }
+
+            // Prépare une instance pour la mise à jour
             isConnected.setNom(nom);
             isConnected.setPrenom(prenom);
             isConnected.setEmail(email);
@@ -61,11 +65,14 @@ public class ServletProfilModification extends HttpServlet {
             isConnected.setCodePostal(codePostal);
             isConnected.setVille(ville);
 
+            //Verification des login
             if (password.equals(isConnected.getMotDePasse()) && newPassword.equals(newPassConf)){
                 isConnected.setMotDePasse(newPassword);
             }else{
                 isConnected.setMotDePasse(password);
             }
+
+            // Update & redirection
             UtilisateurManager.updateUser(isConnected);
             httpSession.setAttribute("isConnected", isConnected);
             request.setAttribute("profilOk", "Profil mis à jour");
