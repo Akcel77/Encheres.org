@@ -231,29 +231,28 @@ public class ServletHome extends HttpServlet {
                 articles = temporaryList;
             }
 
-            // j'ai placé une enchère
+            // je suis actuellement le meilleur enchérisseur
             else if(mesEncheres != null && mesEncheres.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
-                    boolean placeEnchere = false;
-                    for (Enchere enchere: article.getEncheres()) {
-                        if(enchere.getNo_utilisateur() == utilisateur.getNoUtilisateur()){
-                            placeEnchere = true;
-                        }
-                    }
-                    if (placeEnchere){
+                    if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur()){
                         temporaryList.add(article);
                     }
                 }
                 articles = temporaryList;
             }
 
-            // Je suis le meilleur enchérisseur
+            // Je suis le meilleur enchérisseur ET la vente est finis
             else if(enchereRemportee != null && enchereRemportee.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
-                    if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur()){
-                        temporaryList.add(article);
+                    try {
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if(article.getLastEncheres() != null && article.getLastEncheres().getNo_utilisateur() == utilisateur.getNoUtilisateur() && fin.compareTo(ojd) < 1){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }
                 articles = temporaryList;
