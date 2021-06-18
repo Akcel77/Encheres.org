@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Open+Sans&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
 
 
 
@@ -56,6 +57,10 @@ h1,h2,h3,h4,h5{
     font-family: 'Courgette', cursive;
 }
 
+h1,h2,h3,h4,h5{
+    font-family: 'Courgette', cursive;
+}
+
 /* CONNECTION */
 .login-form{
     width: 30%;
@@ -101,6 +106,15 @@ h1,h2,h3,h4,h5{
     width: 50%;
     text-align: center;
     margin: 0 auto;
+}
+
+.signup-subtitle{
+    font-family: "Roboto Thin";
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: left;
+    margin-left: 20rem;
+    margin-top: 2rem;
 }
 
 /* PROFIL */
@@ -234,19 +248,31 @@ h1,h2,h3,h4,h5{
     font-weight: bold;
 }
 
+.detail-vente-cadre{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    background-color: rgba(122,89,137,0.55);
+    color: #FFFFFF;
+    width: 40%;
+    border-radius: 20px;
+}
+
+
 /* Vente Reussie */
 
 .vente_title{
-    margin-top: 3rem;
+    margin: 1rem;
     font-family: 'Caveat', cursive;
-    font-size: 3em;
+    font-size: 3rem;
     text-align: center;
 }
 
 .vente_subtitle{
-    margin-top: 3rem;
-    font-size: 1em;
+    font-family: "Roboto Thin";
+    font-size: 1rem;
     text-align: center;
+    margin: 1rem;
 }
 /*Footer */
 footer{

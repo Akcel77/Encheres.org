@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Connexion - Encheres.org"/>
+    <jsp:param name="title" value="ENI Encheres - Connexion"/>
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>

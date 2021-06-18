@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="fragment/head.jsp">
-    <jsp:param name="title" value="Detail de l'article"/>
+    <jsp:param name="title" value="ENI Encheres - Detail de l'article"/>
 </jsp:include>
 <body>
 <%@include file="fragment/navbar.jsp"%>
@@ -22,19 +22,28 @@
     </core:if>
 
     <div class="main-detail-vente row">
+
         <% if(!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("venteRemportee")){ %>
-        <h2 class="vente_title">Bravo ! Vous avez remporté l'article.</h2>
+        <div class="detail-vente-cadre">
+            <h1 class="vente_title">Bravo ! Vous avez remporté l'article.</h1>
+        </div>
 
          <% } else if (!(boolean)request.getAttribute("enCours")&&(boolean)request.getAttribute("maVente")){ %>
-        <h2 class="vente_title">L'enchère est terminée.</h2>
-        <h2 class="vente_subtitle">Vendez de nouveaux articles !</h2>
+        <div class="detail-vente-cadre">
+            <h1 class="vente_title">L'enchère est terminée.</h1>
+            <h2 class="vente_subtitle">Vendez de nouveaux articles !</h2>
+        </div>
 
         <% } else if (!(boolean)request.getAttribute("enCours")&&!(boolean)request.getAttribute("venteRemportee")){ %>
-        <h2 class="vente_title">L'enchère est terminée.</h2>
+        <div class="detail-vente-cadre">
+            <h1 class="vente_title">L'enchère est terminée.</h1>
+        </div>
 
         <% } else if (request.getAttribute("enchereRemportee")!=null){ %>
-        <h2 class="vente_title">L'enchère est terminée.</h2>
-        <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
+            <div class="detail-vente-cadre">
+                <h1 class="vente_title">L'enchère est terminée.</h1>
+                <h2 class="vente_subtitle">L'enchère a été remportée par un autre enchérisseur. Recherchez des articles similaires pour trouver votre bonheur !</h2>
+            </div>
         <% } %>
 
         <h1 class="m-5 text-center" >Détail de l'article</h1>

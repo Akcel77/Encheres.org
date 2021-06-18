@@ -1,5 +1,6 @@
 package org.enchere.servlet.profil;
 
+import org.enchere.bll.ArticleManager;
 import org.enchere.bll.UtilisateurManager;
 import org.enchere.bo.Utilisateur;
 import org.enchere.outils.BusinessException;
@@ -77,6 +78,7 @@ public class ServletProfilModification extends HttpServlet {
             httpSession.setAttribute("isConnected", isConnected);
             request.setAttribute("profilOk", "Profil mis à jour");
             this.getServletContext().getRequestDispatcher("/Profil").forward(request,response);
+
         }catch (Exception e){
             e.printStackTrace();
         }

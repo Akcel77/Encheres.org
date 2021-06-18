@@ -1,18 +1,12 @@
 <%@ page import="org.enchere.bo.Articles" %>
 <%@ page import="org.enchere.bo.Categorie" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: AxelDiagne
-  Date: 17/06/2021
-  Time: 15:22
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../../WEB-INF/jsp/fragment/head.jsp">
-    <jsp:param name="title" value="modificationVente"/>
+    <jsp:param name="title" value="ENI Encheres - Modification Vente"/>
 </jsp:include>
 <body>
 <%@include file="../../WEB-INF/jsp/fragment/navbar.jsp"%>
