@@ -219,8 +219,13 @@ public class ServletHome extends HttpServlet {
             if(enchereOuverte != null && enchereOuverte.equals("on")){
                 List<Articles> temporaryList = new ArrayList<>();
                 for (Articles article : articles) {
-                    if(article.getEncheres().size() == 0){
-                        temporaryList.add(article);
+                    try {
+                        fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
+                        if (fin.compareTo(ojd) >= 0){
+                            temporaryList.add(article);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }
                 articles = temporaryList;
