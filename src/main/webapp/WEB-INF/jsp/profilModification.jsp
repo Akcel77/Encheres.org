@@ -76,11 +76,12 @@
                 <form class="btn-supprimer" action="SupprimerCompte" method="post">
                     <a href="<%= request.getContextPath()%>/SupprimerCompte">
                         <button type="submit" class="btn btn-danger">Confirmer</button>
+                    </a>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <%@include file="fragment/footer.jsp"%>
 </body>

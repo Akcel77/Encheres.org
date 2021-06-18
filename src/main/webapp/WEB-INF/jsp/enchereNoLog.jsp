@@ -26,19 +26,17 @@
                placeholder="Rechercher sur ENI Encheres"
                aria-label="Rechercher l'article">
         <div class="filtre">
-            <select  class="form-select form-select-lg mb-3" name="categories" id="categories">
-                <option selected value="-1">Toutes les catégories</option>
-                <c:forEach var="categories" items="${categories}">
-                    <option name="sCategorie" value="${categories.noCategorie}">${categories.libelle}</option>
+            <select  class="form-select form-select-lg mb-3 ml-1" name="categories" id="categories">
+                <option name="lCategorie" selected value="-1">Toutes les catégories</option>
+                <c:forEach var="categorie" items="${categories}">
+                    <option name="sCategorie" value="${categorie.noCategorie}">${categorie.libelle}</option>
                 </c:forEach>
             </select>
         </div>
-    </div>
-    <div class="checkbox-block"  >
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
     </div>
 </form>
-<h1 class="text-center">Liste des enchères </h1>
+
 <div class="enchere_subtitle">
     <% if(request.getAttribute("articlesNull")!=null) { %>
     <h1>Aucun article ne correspond à votre recherche.</h1>

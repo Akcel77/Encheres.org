@@ -14,7 +14,6 @@
 <%@include file="fragment/navbar.jsp"%>
 <img src="${pageContext.request.contextPath}/images/shop.png" class="groot">
 
-
 <form action="<%=request.getContextPath()%>/Encheres" method="post">
     <div class="saisie search-bar">
         <input class="form-control me-2 input-search" type="search" id="recherche-article" name="recherche"
@@ -29,8 +28,8 @@
             </select>
         </div>
         <button  class="btn btn-outline-success valider-checkbox" type="submit">Valider</button>
-
     </div>
+
     <div class="checkbox-block">
         <div id="achat-block" class="mb-3">
             <div>
