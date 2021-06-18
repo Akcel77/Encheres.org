@@ -76,7 +76,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
-                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/DetailVente';" class="btn btn-danger" value="Annuler">
+                <input type="button" onclick="window.location.href = '<%= request.getContextPath() %>/DetailVente?id=<%=article.getId()%>';" class="btn btn-danger" value="Annuler">
             </form>
         </div>
     </div>
