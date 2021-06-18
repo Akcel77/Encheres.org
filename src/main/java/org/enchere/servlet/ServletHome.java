@@ -157,7 +157,6 @@ public class ServletHome extends HttpServlet {
                     try {
                         debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
                         fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
-                        System.out.println(article.getNomArticles() + " " + debut.compareTo(ojd) + " " + fin.compareTo(ojd));
                         if (fin.compareTo(ojd) >= 0 && debut.compareTo(ojd) <= 0 ){
                             temporaryList.add(article);
                         }
