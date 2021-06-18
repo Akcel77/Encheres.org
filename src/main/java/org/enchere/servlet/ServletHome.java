@@ -140,7 +140,7 @@ public class ServletHome extends HttpServlet {
             articles = temporaryList;
         }
 
-        // tri par mes ventes
+        // Tri par mes ventes
         if(choix != null && choix.equals("vente")){
             List<Articles> temporaryList = new ArrayList<>();
             for (Articles article : articles) {
@@ -157,7 +157,7 @@ public class ServletHome extends HttpServlet {
                     try {
                         debut = sdf.parse(article.getDateDebutEncheres() + " " + article.getHeureDebut() + ":00");
                         fin = sdf.parse(article.getDateFinEncheres() + " " + article.getHeureFin() + ":00");
-                        if (fin.compareTo(ojd) >= 0 && debut.compareTo(ojd) <= 0 ){
+                        if (fin.compareTo(ojd) <= 0 && debut.compareTo(ojd) >= 0 ){
                             temporaryList.add(article);
                         }
                     } catch (ParseException e) {
