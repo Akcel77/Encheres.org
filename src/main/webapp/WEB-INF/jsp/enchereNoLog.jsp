@@ -53,7 +53,7 @@
     <c:forEach var="articles" items="${articles}">
         <div class="card article-box" >
             <h4 class="card-title text-center title-card" > ${articles.getNomArticles()}</h4>
-            <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/groot.png" alt="Card image cap">
+            <img class="card-img-top image-article" src="${pageContext.request.contextPath}/images/${articles.getCaterogie().getLibelle()}.jpg" alt="Card image cap">
             <div class="card-body">
                 <p class="card-text"><strong>Description :</strong> ${articles.getDescription()}</p>
                 <c:choose>
